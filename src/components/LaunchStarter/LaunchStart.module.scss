@@ -1,0 +1,10 @@
+@use '../../styles/variables.scss' as v;
+
+.container {
+    margin: 0 auto;
+    text-align: center;
+
+    p { 
+        margin: 1rem;
+    }
+}
