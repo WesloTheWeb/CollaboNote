@@ -12,7 +12,7 @@ const LaunchStarter = () => {
             or follow, as this evolves. 
         </p>
 
-        <Image src="/buildingAtWork.png" width={200} height={300} alt="temp photo building" />
+        <Image src="/assets/buildingAtWork.png" width={200} height={300} alt="temp photo building" />
         </section>
         
     )
