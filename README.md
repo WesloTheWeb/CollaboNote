@@ -5,15 +5,23 @@ share their goals.
 
 ## Tech Stack (Front-End):
 - NextJS 14 with TypeScript
-- SCSS Modules
+- (S)CSS Modules
 - React Query
 - Redux & Redux Toolkit
-- React Hook Form
+- React Hook Forms
 
 ## Tech Stack (Back-End):
 - PostgresSQL
 - ExpressJS / NodeJS that's built in with NextJS14
 - Web Sockets
+
+## Tech Stack (Utils)
+- React Testing Library
+- Jest
+- Github Actions
+- Swagger
+- Date FNS
+- Vercel for deployment
 
 
 ## Getting Started (Development)
