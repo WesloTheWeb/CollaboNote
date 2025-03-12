@@ -1,5 +1,6 @@
 @use "sass:color";
 @use "sass:map";
+@use './typography.scss' as t;
 
 //##########################
 // ? Media queries
@@ -11,3 +12,25 @@ $mq-largeScreen: "only screen and (max-width:1025px)";
 $mq-speciallargeScreen: "only screen and (min-width:1024px)";
 $mq-xLargeScreen: "only screen and (min-width:1200px)";
 $mq-xxLargeScreen: "only screen and (min-width:1400px)";
+
+//#########################################################
+// ? Primary Colors Palette
+// ? - Access with: map.get($colors, 'primary', 'coral')
+//#########################################################
+$colors: (
+  'primary': (
+    'coral': #FF9A8B,
+    'amber': #FFBD59,
+  ),
+  'secondary': (
+    'terracotta': #E07A5F,
+    'rose': #D67AB1,
+    'sage': #A9C77E,
+  )
+);
+
+@function colors($key) {
+    @return map.get($colors, 'text', $key);
+}
+
+$primaryBackgroundColorWhite: #f8f8f8;

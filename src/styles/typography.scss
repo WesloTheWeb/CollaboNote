@@ -1,0 +1,13 @@
+@use "sass:map";
+
+$fontColors: (
+    'text': (
+        'logo': #2D2D2D,
+        'header': #333333,
+        'body': #404040,
+    ),
+);
+
+@function text-color($key) {
+    @return map.get($fontColors, 'text', $key);
+}
