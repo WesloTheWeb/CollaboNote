@@ -4,7 +4,16 @@
     margin: 0 auto;
     text-align: center;
 
-    p { 
+    p {
         margin: 1rem;
+    }
+
+    img {
+        margin: 2rem 0;
+
+        @media #{v.$mq-smallScreen} {
+            width: 150px;
+            height: 150px;
+        }
     }
 }

@@ -13,6 +13,10 @@
   background: linear-gradient(135deg, #0a2463, #1a56b0, #3a78f2, #1e3799);
   background-size: 300% 300%;
   animation: gradientShift 8s ease infinite;
+
+  @media #{v.$mq-smallScreen} {
+    margin: 1.5rem;
+  }
   
   // Glass effect
   &::before {

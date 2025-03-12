@@ -1,0 +1,10 @@
+@use '../../styles/variables.scss' as v;
+
+.footer {
+    background-color: #000;
+    color: #f8f8f8;
+    padding: 1rem 4rem;
+    margin-top: 3rem;  // This pushes the footer to the bottom
+    width: 100%;
+    box-sizing: border-box;
+}
