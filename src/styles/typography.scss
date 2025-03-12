@@ -1,5 +1,8 @@
 @use "sass:map";
 
+//#################
+// ? Font Colors
+//#################
 $fontColors: (
     'text': (
         'logo': #2D2D2D,
@@ -11,3 +14,10 @@ $fontColors: (
 @function text-color($key) {
     @return map.get($fontColors, 'text', $key);
 }
+
+//###############################
+// ? Button and Links Typography
+//################################
+$LinkTextColor: #E07A5F;
+$ButtonTextColorWhite: #f8f8f8;
+$ButtonTextColorBlack: #404040;
