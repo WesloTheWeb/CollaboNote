@@ -1,0 +1,28 @@
+@use '../../../styles/variables.scss' as v;
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+
+    @media #{v.$mq-smallScreen} {
+        padding: 0.5rem;    
+    }
+
+    &.justify-start {
+        justify-content: flex-start;
+    }
+    &.justify-center {
+        justify-content: center;
+    }
+    &.justify-end {
+        justify-content: flex-end;
+    }
+    &.justify-space-between {
+        justify-content: space-between;
+    }
+    &.justify-space-around {
+        justify-content: space-around;
+    }
+}
