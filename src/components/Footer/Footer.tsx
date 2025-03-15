@@ -18,7 +18,7 @@ const Footer = () => {
     return (
         <footer className={footer}>
             {copyRightAutomateYear()}
-            <p>CollaboNote</p>
+            <p>CollaboNote is a work in progress.</p>
         </footer>
     )
 };
