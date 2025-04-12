@@ -4,6 +4,7 @@ export enum ButtonTypes {
     REGISTER = 'registerButton',
     SUBMIT = 'submitButton',
     RESET = 'resetButton',
+    DEFAULT = 'button' 
 };
 
 export interface ButtonProps {
@@ -14,3 +15,5 @@ export interface ButtonProps {
     'data-disabled'?: boolean;
     children?: React.ReactNode;
 };
+
+export type ButtonPathsKey = ButtonTypes;

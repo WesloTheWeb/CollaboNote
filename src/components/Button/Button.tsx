@@ -1,14 +1,14 @@
-import { ButtonProps, ButtonTypes } from '@/interfaces';
+import { ButtonProps, ButtonTypes, ButtonPathsKey } from '@/interfaces';
 import classes from './Button.module.scss';
 
-const { registerButton, signInButton, submitButton } = classes;
+const { registerButton, signInButton, submitButton, resetButton } = classes;
 
-
-const buttonPaths = {
+const buttonPaths: Record<ButtonPathsKey, string> = {
     [ButtonTypes.SIGNIN]: signInButton,
     [ButtonTypes.REGISTER]: registerButton,
     [ButtonTypes.SUBMIT]: submitButton,
-    [ButtonTypes.RESET]: classes.button
+    [ButtonTypes.RESET]: resetButton,
+    [ButtonTypes.DEFAULT]: classes.button
 };
 
 const Button = ({
@@ -34,14 +34,14 @@ const Button = ({
         };
     };
 
-    const buttonText = children || determineButtonText(buttonType);
-
+    const buttonText = children ?? (buttonType ? determineButtonText(buttonType) : 'Click Me');
+    const buttonClassName = buttonType ? buttonPaths[buttonType] : buttonPaths[ButtonTypes.DEFAULT];
 
     return (
         <button
             onClick={fn}
             type={type}
-            className={buttonPaths[buttonType]}
+            className={buttonClassName}
             disabled={disabled}
             data-disabled={dataDisabled}
         >
