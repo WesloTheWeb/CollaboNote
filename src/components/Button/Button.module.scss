@@ -1,0 +1,72 @@
+@use '../../styles/variables.scss' as v;
+@use 'sass:color';
+
+// ? General button properties
+.button {
+    font-size: v.$button-font-base;
+    font-weight: v.$button-font-weight;
+    border: none;
+    border-radius: v.$button-radius;
+    padding: v.$button-padding-base;
+    cursor: pointer;
+    width: 100%;
+    transition: transform v.$transition-standard;
+
+    &:disabled {
+        opacity: v.$button-disabled-opacity;
+        cursor: not-allowed;
+    }
+
+    &[data-disabled="true"] {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+}
+
+// ? Special Button properties
+
+.signInButton {
+    @extend .button;
+    background-color: v.$button-signin-bg;
+    color: v.$button-text;
+
+    &:hover {
+        background-color: v.$button-signin-hover;
+    }
+}
+
+.registerButton {
+    @extend .button;
+    background-color: v.$button-register-bg;
+    color: v.$button-text;
+
+    &:hover {
+        background-color: v.$button-register-hover;
+    }
+}
+
+.submitButton {
+    @extend .button;
+    background-color: v.$button-register-bg;
+    color: v.$button-text;
+    margin: v.$spacing-base 0;
+
+    &:hover:not(:disabled) {
+        background-color: v.$button-register-hover;
+    }
+
+    &:disabled {
+        background-color: v.$color-grey-medium;
+        cursor: not-allowed;
+    }
+}
+
+.resetButton {
+    @extend .button;
+    background-color: v.$color-grey-medium;
+    color: v.$button-text;
+    
+    &:hover:not(:disabled) {
+        background-color: darken(v.$color-grey-medium, 10%);
+    }
+}
