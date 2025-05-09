@@ -73,6 +73,7 @@
   }
 }
 
+// TODO - Make a button component specific.
 .submitButton {
   width: 100%;
   background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
@@ -89,10 +90,6 @@
   @media #{v.$mq-smallScreen} {
     padding: calc(v.$button-padding-base * 0.9);
     margin-top: v.$spacing-md;
-  }
-
-  &:hover {
-    background-color: darken(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 10%);
   }
 
   &:focus {

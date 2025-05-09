@@ -49,7 +49,7 @@ const Footer = () => {
             <p>A portfolio project by <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">Wesley Webster</a></p>
           </div>
           <div className={social}>
-            <a href={GITHUB_URL}
+            <a href={`${GITHUB_URL}/CollaboNote`}
               aria-label="GitHub"
               target="_blank"
               rel="noopener noreferrer"
