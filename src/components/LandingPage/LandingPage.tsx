@@ -24,7 +24,7 @@ const LandingPage = () => {
                                 to help you reach your goals with the support of others.
                             </p>
                             <p>
-                                Whether you're tracking habits, working on personal growth,
+                                Whether you&apos;re tracking habits, working on personal growth,
                                 or building something big, CollaboNote lets you share your journey
                                 and stay motivated—<strong>together</strong>.
                             </p>
