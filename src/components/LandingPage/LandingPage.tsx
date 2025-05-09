@@ -36,3 +36,5 @@ const LandingPage = ({ }) => {
 };
 
 export default LandingPage;
+
+// TODO: Make a Price Table using html table header row elements for practice.
