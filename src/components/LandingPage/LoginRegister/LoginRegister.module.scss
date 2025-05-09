@@ -2,13 +2,18 @@
 @use '../../../styles/typography.scss' as t;
 
 .loginContainer {
-  border: 1px solid v.$color-grey-light;
-  border-radius: v.$radius-base;
-  padding: v.$spacing-lg;
-  margin: v.$spacing-lg auto;
-  max-width: 450px;
-  background-color: v.$primaryBackgroundColorWhite;
+  border: 1px solid #D9D9D9;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 1.5rem 9.5rem 0;
+  background-color: #f8f8f8;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  @media #{v.$mq-smallScreen} {
+    margin: 1rem 0;
+    padding: 1.25rem;
+    max-width: 100%;
+  }
 
   h6 {
     font-size: v.$font-size-xl;
@@ -16,11 +21,20 @@
     margin-bottom: v.$spacing-lg;
     text-align: center;
     font-weight: 600;
+
+    @media #{v.$mq-smallScreen} {
+      font-size: calc(v.$font-size-xl * 0.9);
+      margin-bottom: v.$spacing-md;
+    }
   }
 }
 
 .formSection {
   margin-bottom: v.$spacing-lg;
+
+  @media #{v.$mq-smallScreen} {
+    margin-bottom: v.$spacing-md;
+  }
 
   label {
     display: block;
@@ -36,6 +50,10 @@
     border-radius: v.$radius-sm;
     font-size: v.$font-size-base;
     transition: border-color v.$transition-standard;
+
+    @media #{v.$mq-smallScreen} {
+      padding: v.$spacing-sm;
+    }
 
     &:focus {
       outline: none;
@@ -68,9 +86,14 @@
   transition: background-color v.$transition-standard;
   margin-top: v.$spacing-lg;
 
-//   &:hover {
-//     background-color: darken(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 10%);
-//   }
+  @media #{v.$mq-smallScreen} {
+    padding: calc(v.$button-padding-base * 0.9);
+    margin-top: v.$spacing-md;
+  }
+
+  &:hover {
+    background-color: darken(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 10%);
+  }
 
   &:focus {
     outline: none;
@@ -84,4 +107,9 @@
   margin-bottom: v.$spacing-lg;
   text-align: center;
   font-weight: 600;
+
+  @media #{v.$mq-smallScreen} {
+    font-size: calc(v.$font-size-xl * 0.9);
+    margin-bottom: v.$spacing-md;
+  }
 }
