@@ -91,10 +91,6 @@
     margin-top: v.$spacing-md;
   }
 
-  &:hover {
-    background-color: darken(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 10%);
-  }
-
   &:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.4);
