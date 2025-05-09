@@ -13,7 +13,8 @@
   }
 }
 
-body, html {
+body,
+html {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -46,6 +47,19 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+button {
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: #a9a9a9;
+  }
+
+  &:disabled &:hover {
+    cursor: not-allowed;
+    background-color: #a9a9a9;
   }
 }
 
