@@ -1,0 +1,157 @@
+@use '../../styles/variables.scss' as v;
+
+.siteHeader {
+    background-color: bisque;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+
+    h1 {
+        font-size: 2.5rem;
+        margin: 0;
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        @media #{v.$mq-smallScreen} {
+            font-size: 1.8rem;
+        }
+    }
+}
+
+.desktopNav {
+    display: flex;
+    align-items: center;
+
+    a {
+        font-weight: bold;
+        margin: 0 1rem;
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        }
+    }
+
+    @media #{v.$mq-smallScreen} {
+        display: none;
+    }
+}
+
+.mobileNavToggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 20;
+
+    @media #{v.$mq-smallScreen} {
+        display: block;
+    }
+}
+
+.hamburger {
+    width: 30px;
+    height: 20px;
+    position: relative;
+    
+    span {
+        display: block;
+        position: absolute;
+        height: 3px;
+        width: 100%;
+        background: #333;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+        
+        &:nth-child(1) {
+            top: 0;
+        }
+        
+        &:nth-child(2) {
+            top: 8px;
+        }
+        
+        &:nth-child(3) {
+            top: 16px;
+        }
+    }
+}
+
+.open span {
+    &:nth-child(1) {
+        transform: rotate(45deg);
+        top: 8px;
+    }
+    
+    &:nth-child(2) {
+        opacity: 0;
+    }
+    
+    &:nth-child(3) {
+        transform: rotate(-45deg);
+        top: 8px;
+    }
+}
+
+.mobileNavMenu {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100vh;
+    background-color: bisque;
+    padding: 5rem 1.5rem 1.5rem;
+    transition: right 0.3s ease;
+    z-index: 10;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    
+    &.active {
+        right: 0;
+    }
+    
+    a {
+        display: block;
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin: 1.5rem 0;
+        text-decoration: none;
+        color: inherit;
+        
+        &:hover {
+            color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        }
+    }
+    
+    @media #{v.$mq-smallScreen} {
+        display: block;
+    }
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    
+    &.active {
+        opacity: 1;
+    }
+    
+    @media #{v.$mq-smallScreen} {
+        display: block;
+    }
+}
