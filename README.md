@@ -11,12 +11,17 @@ share their goals.
 - React Hook Forms
 
 ## Tech Stack (Back-End):
-- PostgresSQL
+### Server
 - ExpressJS / NodeJS that's built in with NextJS14
 - Web Sockets
 
+### Database
+- PostgresSQL
+- Prisma
+- Supabase hosting
+
 ## Tech Stack (Utils)
-- React Testing Library
+- React Testing Library (RTL)
 - Jest
 - Github Actions
 - Swagger
