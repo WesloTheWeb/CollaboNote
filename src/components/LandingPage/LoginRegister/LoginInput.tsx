@@ -2,6 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import FormBuilder from '@/components/FormBuilder/FormBuilder';
+import { loginRegisterConfig } from "@/config";
 import classes from './LoginRegister.module.scss';
 
 type FormValues = {
@@ -17,30 +18,6 @@ const LoginInput = () => {
     const onSubmit = (data: FormValues) => {
         console.log(data);
     };
-
-    // Define form fields
-    const fields = [
-        {
-            name: 'email',
-            label: 'Email',
-            type: 'email' as const,
-            validation: {
-                required: 'Email is required',
-                pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: 'Invalid email address'
-                }
-            }
-        },
-        {
-            name: 'password',
-            label: 'Password',
-            type: 'password' as const,
-            validation: {
-                required: 'Password is required'
-            }
-        }
-    ];
 
     const customLoginButton = (
         <button
@@ -59,7 +36,7 @@ const LoginInput = () => {
 
     return (
         <FormBuilder
-            fields={fields}
+            fields={loginRegisterConfig}
             formMethods={formMethods}
             onSubmit={onSubmit}
             classNames={formClassNames}

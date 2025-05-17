@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { navigationHeader } from '@/config';
+import { navigationHeaderConfig as navigationHeader} from '@/config';
 import MobileNav from './MobileNavHeader/MobileNav';
 import classes from './Header.module.scss';
 

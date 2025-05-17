@@ -1,3 +1,4 @@
 export * from './appConstants';
-export * from './navigationHeader/navigationHeader';
+export * from './loginRegister/loginRegisterConfig';
+export * from './navigationHeader/navigationHeaderConfig';
 export * from './pricingTable/pricingTableConfig';

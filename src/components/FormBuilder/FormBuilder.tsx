@@ -109,13 +109,10 @@ const FormBuilder = <T extends FieldValues>({
                         </div>
                     );
                 })}
-
                 <section className={formActions}>
                     {customButtons ? (
-                        // Render custom buttons if provided
                         customButtons
                     ) : (
-                        // Render default buttons
                         <>
                             <button
                                 type="submit"

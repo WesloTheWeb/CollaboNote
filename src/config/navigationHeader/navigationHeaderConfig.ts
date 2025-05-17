@@ -1,4 +1,4 @@
-export const navigationHeader = [
+export const navigationHeaderConfig = [
     {
         navigation: 'Home',
         path: '/'
