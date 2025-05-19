@@ -1,6 +1,6 @@
 'use client';
 
-import { UseFormRegister, FieldValues, Path } from 'react-hook-form';
+import { UseFormRegister, FieldValues, Path, RegisterOptions } from 'react-hook-form';
 import { FormBuilderProps, FormField } from '@/interfaces';
 import classes from './FormBuilderCore.module.scss';
 

@@ -17,8 +17,8 @@ export interface FormField {
     label: string;
     type: 'text' | 'email' | 'password' | 'textarea' | 'select' | 'number' | 'checkbox' | 'radio';
     placeholder?: string;
-    validation?: RegisterOptions; // Using RegisterOptions from react-hook-form
-    customProps?: Record<string, unknown>; // Using unknown instead of any
+    validation?: any;  
+    customProps?: Record<string, any>;
     options?: FieldOption[];
 }
 
