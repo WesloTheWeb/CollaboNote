@@ -1,0 +1,62 @@
+@use '../../styles/variables.scss' as v;
+
+.registrationContainer {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: v.$spacing-lg;
+}
+
+.formSection {
+  margin-bottom: v.$spacing-lg;
+}
+
+.label {
+  display: block;
+  font-weight: 500;
+  color: v.$color-grey-darkest;
+  margin-bottom: v.$spacing-xs;
+}
+
+.input {
+  width: 100%;
+  padding: v.$spacing-md;
+  border: 1px solid v.$color-grey-light;
+  border-radius: v.$radius-sm;
+  font-size: v.$font-size-base;
+}
+
+.errorMessage {
+  display: block;
+  color: v.$color-danger-base;
+  font-size: v.$font-size-xs;
+  margin-top: v.$spacing-xs;
+}
+
+.checkbox {
+  margin-right: v.$spacing-xs;
+}
+
+.formActions {
+  margin-top: v.$spacing-lg * 1.5;
+}
+
+.submitButton {
+  background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+  color: #fff;
+  border: none;
+  border-radius: v.$button-radius;
+  padding: v.$button-padding-base v.$button-padding-base * 2;
+  font-size: v.$button-font-base;
+  font-weight: v.$button-font-weight;
+  cursor: pointer;
+  transition: background-color v.$transition-standard;
+  
+  &:hover:not(:disabled) {
+    background-color: darken(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 10%);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
