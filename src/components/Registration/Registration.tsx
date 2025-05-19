@@ -14,6 +14,9 @@ type RegistrationFormValues = {
     termsAccepted: boolean;
 };
 
+// More specific error types instead of any
+type ApiError = string | string[];
+
 type ApiResponse = {
     success: boolean;
     user?: {
@@ -24,7 +27,7 @@ type ApiResponse = {
         createdAt: string;
     };
     message?: string;
-    errors?: Record<string, any>;
+    errors?: Record<string, ApiError>;
 };
 
 const Registration = () => {

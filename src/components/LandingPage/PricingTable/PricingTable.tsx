@@ -13,7 +13,11 @@ const PricingTable = ({ }) => {
                 <th>Pro</th>
             </thead>
             <tbody>
-
+                <tr>
+                    {pricingTiers.map((tier) => (
+                        <td key={tier.name}>${tier.price}/month</td>
+                    ))}
+                </tr>
             </tbody>
         </table>
     );

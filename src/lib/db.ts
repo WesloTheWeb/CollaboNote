@@ -32,6 +32,11 @@ pool.on('error', (err) => {
 });
 
 /**
+ * Type for query parameters
+ */
+type QueryParam = string | number | boolean | null | Date | Buffer;
+
+/**
  * Database interface providing methods to interact with PostgreSQL
  */
 const db = {
@@ -42,7 +47,7 @@ const db = {
    * @param params - Array of parameter values to inject into query
    * @returns QueryResult from PostgreSQL
    */
-  query: async (text: string, params?: any[]): Promise<QueryResult> => {
+  query: async (text: string, params?: QueryParam[]): Promise<QueryResult> => {
     const client = await pool.connect();
     try {
       const start = Date.now();

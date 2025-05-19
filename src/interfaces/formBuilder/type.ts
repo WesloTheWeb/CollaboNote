@@ -2,8 +2,8 @@ import { ReactNode } from 'react';
 import {
     UseFormReturn,
     FieldValues,
-    RegisterOptions,
-    SubmitHandler
+    SubmitHandler,
+    RegisterOptions
 } from 'react-hook-form';
 
 export interface FieldOption {
@@ -17,8 +17,8 @@ export interface FormField {
     label: string;
     type: 'text' | 'email' | 'password' | 'textarea' | 'select' | 'number' | 'checkbox' | 'radio';
     placeholder?: string;
-    validation?: any; // Using any for validation to avoid type conflicts
-    customProps?: Record<string, any>;
+    validation?: RegisterOptions; // Using RegisterOptions from react-hook-form
+    customProps?: Record<string, unknown>; // Using unknown instead of any
     options?: FieldOption[];
 }
 
@@ -42,4 +42,4 @@ export interface FormBuilderProps<T extends FieldValues> {
     onReset?: () => void;
     classNames?: FormClassNames;
     customButtons?: ReactNode; // Custom buttons to render instead of default ones
-};
+}
