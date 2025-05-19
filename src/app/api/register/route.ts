@@ -19,7 +19,7 @@ async function ensureUserTableExists() {
     if (!tableExists.rows[0].exists) {
       console.log('User table does not exist, creating it...');
       
-      // Create the User table based on Prisma schema
+      // Create the User table
       await db.query(`
         CREATE TABLE "User" (
           id TEXT PRIMARY KEY,
