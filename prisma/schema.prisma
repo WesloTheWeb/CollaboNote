@@ -15,12 +15,12 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String
-  password  String   // This will store the hashed password
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("users") // This specifies the table name in the database
+  id            String   @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String   @unique
+  password      String
+  termsAccepted Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

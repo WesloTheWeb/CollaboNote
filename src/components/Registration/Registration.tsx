@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import FormBuilder from '../FormBuilder/FormBuilder';
 import classes from './Registration.module.scss';
@@ -13,6 +14,19 @@ type RegistrationFormValues = {
     termsAccepted: boolean;
 };
 
+type ApiResponse = {
+    success: boolean;
+    user?: {
+        id: string;
+        firstName: string;
+        lastName: string;
+        email: string;
+        createdAt: string;
+    };
+    message?: string;
+    errors?: Record<string, any>;
+};
+
 const Registration = () => {
     const {
         registrationContainer,
@@ -22,8 +36,16 @@ const Registration = () => {
         errorMessage,
         checkbox,
         formActions,
-        submitButton
+        submitButton,
+        successMessage,
+        errorAlert
     } = classes;
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [apiResponse, setApiResponse] = useState<{
+        success?: boolean;
+        message?: string;
+    } | null>(null);
 
     const formMethods = useForm<RegistrationFormValues>({
         mode: 'onBlur', // Validate on blur for better UX
@@ -37,11 +59,59 @@ const Registration = () => {
         }
     });
 
-    const { watch } = formMethods;
+    const { watch, setError, reset } = formMethods;
 
-    const onSubmit = (data: RegistrationFormValues) => {
-        console.log('Registration form submitted:', data);
-        // TODO: hit the Register end point.
+    const onSubmit = async (data: RegistrationFormValues) => {
+        try {
+            setIsSubmitting(true);
+            setApiResponse(null);
+            
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result: ApiResponse = await response.json();
+
+            if (result.success) {
+                // Registration succeeded
+                setApiResponse({
+                    success: true,
+                    message: 'Registration successful! You can now log in.'
+                });
+                // Reset the form after successful submission
+                reset();
+            } else {
+                // Registration failed
+                if (result.errors) {
+                    // Set form errors based on API response
+                    Object.entries(result.errors).forEach(([field, error]) => {
+                        if (field !== 'confirmPassword' && field !== 'termsAccepted') {
+                            setError(field as keyof RegistrationFormValues, {
+                                type: 'server',
+                                message: Array.isArray(error) ? error[0] : error.toString()
+                            });
+                        }
+                    });
+                }
+                
+                setApiResponse({
+                    success: false,
+                    message: result.message || 'Registration failed. Please try again.'
+                });
+            }
+        } catch (error) {
+            console.error('Error during registration:', error);
+            setApiResponse({
+                success: false,
+                message: 'An error occurred. Please try again later.'
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const password = watch('password');
@@ -124,8 +194,12 @@ const Registration = () => {
 
     // Custom buttons
     const registerButton = (
-        <button className={submitButton} type="submit">
-            Create Account
+        <button 
+            className={submitButton} 
+            type="submit"
+            disabled={isSubmitting}
+        >
+            {isSubmitting ? 'Creating Account...' : 'Create Account'}
         </button>
     );
 
@@ -142,6 +216,13 @@ const Registration = () => {
         <section className={registrationContainer}>
             <h2>Create an Account</h2>
             <p>Join our community of goal-setters and achievers.</p>
+            
+            {apiResponse && (
+                <div className={apiResponse.success ? successMessage : errorAlert} role="alert">
+                    {apiResponse.message}
+                </div>
+            )}
+            
             <FormBuilder
                 fields={fields}
                 formMethods={formMethods}
