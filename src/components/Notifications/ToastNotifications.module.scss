@@ -1,0 +1,112 @@
+@use '../../styles/variables.scss' as v;
+@use 'sass:color';
+
+@keyframes slideIn {
+   from {
+       transform: translate(-50%, -100%);
+       opacity: 0;
+   }
+   to {
+       transform: translate(-50%, 0);
+       opacity: 1;
+   }
+}
+
+.toastContainer {
+   position: fixed;
+   top: v.$spacing-lg;
+   left: 50%;
+   transform: translateX(-50%);
+   min-width: 300px;
+   max-width: 400px;
+   border-radius: v.$radius-base;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+   z-index: 1000;
+   animation: slideIn v.$transition-standard;
+}
+
+.toastHeader {
+   display: flex;
+   align-items: center;
+   padding: .75rem .5rem;
+   border-radius: v.$radius-base v.$radius-base 0 0;
+
+   h3 {
+       margin: 0;
+       flex-grow: 1;
+       padding: 0 v.$spacing-base;
+   }
+}
+
+.toastBody {
+   padding: v.$spacing-base v.$spacing-lg;
+   
+   p {
+       margin: 0;
+       font-size: v.$font-size-xs;
+   }
+}
+
+.closeButton {
+   background: none;
+   border: none;
+   padding: v.$spacing-xs;
+   cursor: pointer;
+   color: inherit;
+   opacity: 0.7;
+   transition: opacity v.$transition-standard;
+
+   &:hover {
+       opacity: 1;
+   }
+}
+
+// Type-specific styles
+.success {
+   .toastHeader {
+       background-color: v.$color-green-base;
+       color: v.$primaryBackgroundColorWhite;
+   }
+   .toastBody {
+       background-color: lighten(v.$color-green-base, 40%);
+       color: v.$color-green-dark;
+   }
+}
+
+.warning {
+   .toastHeader {
+       background-color: v.$color-danger-base;
+       color: v.$primaryBackgroundColorWhite;
+   }
+   .toastBody {
+       background-color: lighten(v.$color-danger-base, 40%);
+       color: v.$color-danger-dark;
+   }
+}
+
+.notice {
+   .toastHeader {
+       background-color: v.$color-red-base;
+       color: v.$primaryBackgroundColorWhite;
+   }
+   .toastBody {
+       background-color: lighten(v.$color-red-base, 40%);
+       color: darken(v.$color-red-base, 15%);
+   }
+}
+
+.info {
+   .toastHeader {
+       background-color: v.$color-blue-base;
+       color: v.$primaryBackgroundColorWhite;
+   }
+   .toastBody {
+       background-color: lighten(v.$color-blue-base, 40%);
+       color: v.$color-blue-dark;
+   }
+}
+
+.icon {
+   width: 20px;
+   height: 20px;
+}

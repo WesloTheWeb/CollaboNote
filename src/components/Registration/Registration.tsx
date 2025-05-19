@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import FormBuilder from '../FormBuilder/FormBuilder';
+import Toast from '../Notifications/ToastNotifications';
 import classes from './Registration.module.scss';
 
 type RegistrationFormValues = {
@@ -31,6 +33,7 @@ type ApiResponse = {
 };
 
 const Registration = () => {
+    const router = useRouter();
     const {
         registrationContainer,
         formSection,
@@ -49,6 +52,7 @@ const Registration = () => {
         success?: boolean;
         message?: string;
     } | null>(null);
+    const [showToast, setShowToast] = useState(false);
 
     const formMethods = useForm<RegistrationFormValues>({
         mode: 'onBlur', // Validate on blur for better UX
@@ -71,7 +75,6 @@ const Registration = () => {
             
             console.log('Submitting registration data:', data);
             
-            // Use test-mode POST endpoint first to verify basic connectivity
             const response = await fetch('/api/register', {
                 method: 'POST',
                 headers: {
@@ -102,8 +105,12 @@ const Registration = () => {
                     success: true,
                     message: 'Registration successful! You can now log in.'
                 });
-                // Reset the form after successful submission
+                setShowToast(true);
                 reset();
+                // Redirect to homepage after a short delay
+                setTimeout(() => {
+                    router.push('/');
+                }, 2000);
             } else {
                 // Registration failed
                 console.log('Registration failed:', result);
@@ -238,10 +245,20 @@ const Registration = () => {
             <h2>Create an Account</h2>
             <p>Join our community of goal-setters and achievers.</p>
             
-            {apiResponse && (
+            {apiResponse && !showToast && (
                 <div className={apiResponse.success ? successMessage : errorAlert} role="alert">
                     {apiResponse.message}
                 </div>
+            )}
+            
+            {showToast && (
+                <Toast
+                    type="success"
+                    header="Success"
+                    message="Account created successfully! Redirecting to homepage..."
+                    duration={5000}
+                    onClose={() => setShowToast(false)}
+                />
             )}
             
             <FormBuilder
