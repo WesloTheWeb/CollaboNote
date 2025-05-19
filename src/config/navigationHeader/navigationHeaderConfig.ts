@@ -5,6 +5,6 @@ export const navigationHeaderConfig = [
     },
     {
         navigation: 'Register',
-        path: '#register'
+        path: '/registration'
     }
 ];
