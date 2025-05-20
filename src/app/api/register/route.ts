@@ -17,8 +17,6 @@ async function ensureUserTableExists() {
     `);
     
     if (!tableExists.rows[0].exists) {
-      console.log('User table does not exist, creating it...');
-      
       // Create the User table
       await db.query(`
         CREATE TABLE "User" (
@@ -32,10 +30,6 @@ async function ensureUserTableExists() {
           "updatedAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
         );
       `);
-      
-      console.log('User table created successfully');
-    } else {
-      console.log('User table already exists');
     }
     
     return true;
@@ -91,8 +85,6 @@ const registrationSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    console.log("Registration POST request received");
-    
     // Ensure User table exists
     await ensureUserTableExists();
     
@@ -100,7 +92,6 @@ export async function POST(request: NextRequest) {
     let body;
     try {
       body = await request.json();
-      console.log("Request body received:", body);
     } catch (error) {
       console.error("Error parsing JSON request:", error);
       return NextResponse.json(
@@ -112,7 +103,6 @@ export async function POST(request: NextRequest) {
     // Validate input data
     const validationResult = registrationSchema.safeParse(body);
     if (!validationResult.success) {
-      console.log("Validation failed:", validationResult.error.format());
       return NextResponse.json(
         { 
           success: false, 
@@ -126,14 +116,12 @@ export async function POST(request: NextRequest) {
     
     try {
       // Check if user with this email already exists
-      console.log("Checking if email exists:", email);
       const existingUserResult = await db.query(
         'SELECT * FROM "User" WHERE email = $1', 
         [email]
       );
       
       if (existingUserResult.rowCount && existingUserResult.rowCount > 0) {
-        console.log("Email already exists:", email);
         return NextResponse.json(
           { 
             success: false, 
@@ -144,7 +132,6 @@ export async function POST(request: NextRequest) {
       }
       
       // Hash the password
-      console.log("Hashing password");
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
       
@@ -154,8 +141,6 @@ export async function POST(request: NextRequest) {
       // Current timestamp
       const now = new Date().toISOString();
       
-      // Create the user in the database
-      console.log("Creating new user");
       // Sanitize inputs further for extra security
       const sanitizedFirstName = firstName.trim().substring(0, 100);
       const sanitizedLastName = lastName.trim().substring(0, 100);
@@ -167,7 +152,6 @@ export async function POST(request: NextRequest) {
       );
       
       const newUser = insertResult.rows[0];
-      console.log("User created successfully:", newUser.id);
       
       // Return success response
       return NextResponse.json(

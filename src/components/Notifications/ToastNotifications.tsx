@@ -10,10 +10,6 @@ const {
     toastBody,
     closeButton,
     icon,
-    // success,
-    // warning,
-    // notice,
-    // info
 } = classes;
 
 export type ToastType = 'success' | 'warning' | 'notice' | 'info';
@@ -53,13 +49,13 @@ const Toast = ({
     const getIcon = () => {
         switch (type) {
             case 'success':
-                return <CircleCheck className={icon} data-testid="success-icon" />;
+                return <CircleCheck className={icon} size={24} data-testid="success-icon" />;
             case 'warning':
-                return <AlertTriangle className={icon} data-testid="warning-icon" />;
+                return <AlertTriangle className={icon} size={24} data-testid="warning-icon" />;
             case 'notice':
-                return <CircleAlert className={icon} data-testid="notice-icon" />;
+                return <CircleAlert className={icon} size={24} data-testid="notice-icon" />;
             case 'info':
-                return <Info className={icon} data-testid="info-icon" />;
+                return <Info className={icon} size={24} data-testid="info-icon" />;
             default:
                 return null;
         };

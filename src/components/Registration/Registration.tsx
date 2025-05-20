@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import FormBuilder from '../FormBuilder/FormBuilder';
@@ -73,8 +73,6 @@ const Registration = () => {
             setIsSubmitting(true);
             setApiResponse(null);
             
-            console.log('Submitting registration data:', data);
-            
             const response = await fetch('/api/register', {
                 method: 'POST',
                 headers: {
@@ -82,17 +80,13 @@ const Registration = () => {
                 },
                 body: JSON.stringify(data),
             });
-
-            console.log('Response status:', response.status);
             
             // Handle non-JSON responses
             const responseText = await response.text();
-            console.log('Response text:', responseText);
             
             let result: ApiResponse;
             try {
                 result = JSON.parse(responseText);
-                console.log('Parsed result:', result);
             } catch (parseError) {
                 console.error('Error parsing JSON response:', parseError);
                 throw new Error('Invalid response format from server');
@@ -100,7 +94,6 @@ const Registration = () => {
 
             if (result.success) {
                 // Registration succeeded
-                console.log('Registration succeeded:', result);
                 setApiResponse({
                     success: true,
                     message: 'Registration successful! You can now log in.'
@@ -113,7 +106,6 @@ const Registration = () => {
                 }, 2000);
             } else {
                 // Registration failed
-                console.log('Registration failed:', result);
                 if (result.errors) {
                     // Set form errors based on API response
                     Object.entries(result.errors).forEach(([field, error]) => {
@@ -256,7 +248,7 @@ const Registration = () => {
                     type="success"
                     header="Success"
                     message="Account created successfully! Redirecting to homepage..."
-                    duration={5000}
+                    duration={3000}
                     onClose={() => setShowToast(false)}
                 />
             )}

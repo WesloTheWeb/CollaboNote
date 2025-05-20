@@ -18,23 +18,27 @@
    left: 50%;
    transform: translateX(-50%);
    min-width: 300px;
-   max-width: 400px;
+   max-width: 450px;
    border-radius: v.$radius-base;
    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
    z-index: 1000;
    animation: slideIn v.$transition-standard;
+   overflow: hidden;
 }
 
 .toastHeader {
    display: flex;
    align-items: center;
-   padding: .75rem .5rem;
+   padding: .75rem 1rem;
    border-radius: v.$radius-base v.$radius-base 0 0;
+   font-size: 2rem;
+   font-weight: 500;
 
    h3 {
        margin: 0;
        flex-grow: 1;
        padding: 0 v.$spacing-base;
+       font-size: v.$font-size-xl;
    }
 }
 
@@ -63,13 +67,14 @@
 
 // Type-specific styles
 .success {
+   background-color: #4caf50; /* Bright green background */
    .toastHeader {
-       background-color: v.$color-green-base;
-       color: v.$primaryBackgroundColorWhite;
+       background-color: #4caf50; /* Match the success green */
+       color: white;
    }
    .toastBody {
-       background-color: lighten(v.$color-green-base, 40%);
-       color: v.$color-green-dark;
+       background-color: #e8f5e9; /* Light green background */
+       color: #2e7d32; /* Darker green text */
    }
 }
 
@@ -107,6 +112,7 @@
 }
 
 .icon {
-   width: 20px;
-   height: 20px;
+   width: 24px;
+   height: 24px;
+   margin-right: 8px;
 }
