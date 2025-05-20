@@ -1,10 +1,10 @@
-export const navigationHeader = [
+export const navigationHeaderConfig = [
     {
         navigation: 'Home',
         path: '/'
     },
     {
         navigation: 'Register',
-        path: '#register'
+        path: '/registration'
     }
 ];

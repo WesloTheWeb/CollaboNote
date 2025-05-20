@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
-import { navigationHeader } from '@/config';
+import { navigationHeaderConfig as navigationHeader } from '@/config';
 import classes from '../Header.module.scss';
 
 type MobileNavProps = {

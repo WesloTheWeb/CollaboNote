@@ -1,0 +1,49 @@
+@use '../../styles/variables.scss' as v;
+
+.formContainer {
+  width: 100%;
+}
+
+.fieldContainer {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.25rem;
+  
+  :global(.required) {
+    color: red;
+    margin-right: 0.25rem;
+  }
+}
+
+.input, .textarea, .select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  
+  &[aria-invalid="true"] {
+    border-color: red;
+  }
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.errorMessage {
+  display: block;
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.formActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}

@@ -11,16 +11,24 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@types/pg": "^8.15.1",
+    "bcrypt": "^6.0.0",
+    "crypto": "^1.0.1",
+    "lucide-react": "^0.511.0",
     "next": "15.2.1",
+    "pg": "^8.15.6",
     "react": "^19.0.0",
+    "react-datepicker": "^8.3.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.56.3"
+    "react-hook-form": "^7.56.3",
+    "zod": "^3.25.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
+    "@types/bcrypt": "^5.0.2",
     "@types/chance": "^1.1.6",
     "@types/jest": "^29.5.14",
     "@types/node": "^20",
