@@ -35,7 +35,7 @@ const MobileNav = ({ isOpen, toggleMenu }: MobileNavProps) => {
                 {navigationHeader.map((nav) => (
                     <Link
                         key={nav.navigation}
-                        href={nav.navigation}
+                        href={nav.path}
                         onClick={toggleMenu}
                     >
                         {nav.navigation}

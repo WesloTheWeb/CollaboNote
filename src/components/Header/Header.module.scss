@@ -136,7 +136,7 @@
 }
 
 .overlay {
-    display: none;
+    display: none; /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
@@ -146,12 +146,14 @@
     z-index: 5;
     transition: opacity 0.3s ease;
     opacity: 0;
+    pointer-events: none; /* Prevent clicks when not active */
     
     &.active {
         opacity: 1;
+        pointer-events: auto; /* Allow clicks only when active */
     }
     
     @media #{v.$mq-smallScreen} {
-        display: block;
+        display: block; /* Shown on mobile, but still invisible until active */
     }
 }
