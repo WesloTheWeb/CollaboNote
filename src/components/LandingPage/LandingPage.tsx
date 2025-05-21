@@ -1,6 +1,8 @@
 import { Row, Col } from "../Layout";
-import classes from './LandingPage.module.scss';
 import LoginRegister from "./LoginRegister/LoginRegister";
+import PricingTable from "./PricingTable/PricingTable";
+import classes from './LandingPage.module.scss';
+import PricingCard from "./PricingTable/PricingCard/PricingCard";
 
 const {
     welcomeContainer,
@@ -46,6 +48,10 @@ const LandingPage = () => {
                 <Col md={6}>
                     <LoginRegister />
                 </Col>
+            </Row>
+            <Row>
+                <PricingTable />
+                <PricingCard />
             </Row>
         </>
     );

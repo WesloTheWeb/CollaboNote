@@ -1,5 +1,190 @@
 @use '../../../styles/variables.scss' as v;
+@use '../../../styles/typography.scss' as t;
 
 .priceTableContainer {
-    border: 2px solid #000;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 3.5rem;
+  border-radius: v.$radius-base;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: v.$primaryBackgroundColorWhite;
+
+  @media #{v.$mq-smallScreen} {
+    display: none;
+    margin: 3.5rem;
+  }
+}
+
+.tableHeader {
+  th {
+    background-color: v.$color-grey-darkest;
+    color: t.$ButtonTextColorWhite;
+    font-size: v.$font-size-lg;
+    font-weight: 600;
+    text-align: center;
+    padding: v.$spacing-lg;
+
+    &:not(:last-child) {
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    &.popularPlan {
+      background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+      position: relative;
+
+      &::after {
+        content: 'Most Popular';
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background-color: #fff;
+        color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        font-size: v.$font-size-xs;
+        padding: 2px 6px;
+        border-radius: 10px;
+        font-weight: 600;
+      }
+    }
+
+    @media #{v.$mq-smallScreen} {
+      padding: v.$spacing-md;
+      font-size: v.$font-size-base;
+    }
+  }
+}
+
+.priceRow {
+  td {
+    text-align: center;
+    padding: v.$spacing-md;
+    font-size: v.$font-size-xl;
+    font-weight: 700;
+    color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+    background-color: rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.05);
+
+    &:not(:last-child) {
+      border-right: 1px solid v.$color-grey-light;
+    }
+
+    .period {
+      display: block;
+      font-size: v.$font-size-xs;
+      color: t.text-color('body');
+      font-weight: 400;
+      margin-top: 4px;
+    }
+
+    @media #{v.$mq-smallScreen} {
+      padding: v.$spacing-sm;
+      font-size: v.$font-size-lg;
+    }
+  }
+}
+
+.featureRow {
+  td {
+    text-align: center;
+    padding: v.$spacing-md v.$spacing-base;
+    border-top: 1px solid v.$color-grey-light;
+    color: t.text-color('body');
+
+    &:not(:last-child) {
+      border-right: 1px solid v.$color-grey-light;
+    }
+
+    &.included {
+      position: relative;
+      padding-left: v.$spacing-lg;
+
+      &::before {
+        content: "✓";
+        position: absolute;
+        left: v.$spacing-sm;
+        color: v.$color-green-base;
+        font-weight: bold;
+      }
+    }
+
+    &.notIncluded {
+      text-align: center;
+
+      &::before {
+        content: "✕";
+        color: v.$color-danger-base;
+        font-weight: bold;
+      }
+    }
+
+    @media #{v.$mq-smallScreen} {
+      padding: v.$spacing-sm;
+    }
+  }
+}
+
+.actionRow {
+  td {
+    padding: v.$spacing-lg;
+    text-align: center;
+    background-color: v.$primaryBackgroundColorWhite;
+
+    &:not(:last-child) {
+      border-right: 1px solid v.$color-grey-light;
+    }
+
+    @media #{v.$mq-smallScreen} {
+      padding: v.$spacing-md;
+    }
+  }
+}
+
+.ctaButton {
+  width: 90%;
+  background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+  color: t.$ButtonTextColorWhite;
+  border: none;
+  border-radius: v.$button-radius;
+  padding: v.$button-padding-base;
+  font-size: v.$button-font-base;
+  font-weight: v.$button-font-weight;
+  cursor: pointer;
+  transition: background-color v.$transition-standard;
+
+  &:hover {
+    background-color: darken(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 10%);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.4);
+  }
+
+  &.secondary {
+    background-color: transparent;
+    color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+    border: 1px solid map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+
+    &:hover {
+      background-color: rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.1);
+    }
+  }
+}
+
+.featureLabel {
+  font-weight: 500;
+  text-align: left;
+  padding: v.$spacing-md;
+  padding-left: v.$spacing-lg;
+  color: t.text-color('body');
+  background-color: v.$primaryBackgroundColorWhite;
+  width: 150px;
+  /* Constraining width for the first column */
+  max-width: 150px;
+
+  @media #{v.$mq-smallScreen} {
+    padding: v.$spacing-sm;
+    width: 120px;
+    max-width: 120px;
+  }
 }

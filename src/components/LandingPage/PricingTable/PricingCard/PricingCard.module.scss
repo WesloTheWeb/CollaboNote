@@ -1,0 +1,178 @@
+@use '../../../../styles/variables.scss' as v;
+@use '../../../../styles/typography.scss' as t;
+
+.pricingCardContainer {
+  width: 100%;
+  padding: v.$spacing-base 0;
+  
+  // Hide on desktop
+  @media #{v.$mq-mediumScreen} {
+    display: none;
+  }
+}
+
+.cardSlider {
+  width: 100%;
+  height: auto;
+  padding-bottom: v.$spacing-lg;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: v.$primaryBackgroundColorWhite;
+  border-radius: v.$radius-base;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  height: auto;
+  
+  &.popular {
+    border: 2px solid map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+  }
+}
+
+.cardHeader {
+  padding: v.$spacing-lg;
+  text-align: center;
+  background-color: v.$color-grey-darkest;
+  color: t.$ButtonTextColorWhite;
+  position: relative;
+  
+  &.popular {
+    background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+    
+    &::after {
+      content: 'Most Popular';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background-color: #fff;
+      color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+      font-size: v.$font-size-xs;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+  }
+  
+  h3 {
+    font-size: v.$font-size-xl;
+    font-weight: 600;
+    margin-bottom: v.$spacing-xs;
+  }
+}
+
+.price {
+  font-size: v.$font-size-2xl;
+  font-weight: 700;
+  color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+  margin: v.$spacing-sm 0;
+  text-align: center;
+  
+  .period {
+    font-size: v.$font-size-xs;
+    color: t.text-color('body');
+    font-weight: 400;
+    margin-left: 4px;
+  }
+}
+
+.featuresList {
+  list-style-type: none;
+  padding: 0 v.$spacing-lg;
+  margin: v.$spacing-lg 0;
+  
+  li {
+    display: flex;
+    align-items: center;
+    padding: v.$spacing-sm 0;
+    color: t.text-color('body');
+    border-bottom: 1px solid v.$color-grey-light;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &.included {
+      &::before {
+        content: "✓";
+        color: v.$color-green-base;
+        font-weight: bold;
+        margin-right: v.$spacing-sm;
+      }
+    }
+    
+    &.notIncluded {
+      color: v.$color-grey-medium;
+      
+      &::before {
+        content: "✕";
+        color: v.$color-danger-base;
+        font-weight: bold;
+        margin-right: v.$spacing-sm;
+      }
+    }
+    
+    .featureLabel {
+      font-weight: 500;
+      margin-right: v.$spacing-sm;
+    }
+    
+    .featureDetail {
+      margin-left: auto;
+      font-weight: 600;
+    }
+  }
+}
+
+.cardFooter {
+  margin-top: auto;
+  padding: v.$spacing-lg;
+}
+
+.ctaButton {
+  width: 100%;
+  background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+  color: t.$ButtonTextColorWhite;
+  border: none;
+  border-radius: v.$button-radius;
+  padding: v.$button-padding-base;
+  font-size: v.$button-font-base;
+  font-weight: v.$button-font-weight;
+  cursor: pointer;
+  transition: background-color v.$transition-standard;
+  
+  &:hover {
+    background-color: darken(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 10%);
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.4);
+  }
+  
+  &.secondary {
+    background-color: transparent;
+    color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+    border: 1px solid map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+    
+    &:hover {
+      background-color: rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.1);
+    }
+  }
+}
+
+// Swiper pagination customization
+.paginationBullet {
+  :global {
+    .swiper-pagination-bullet {
+      background-color: v.$color-grey-medium;
+      opacity: 0.5;
+    }
+    
+    .swiper-pagination-bullet-active {
+      background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+      opacity: 1;
+    }
+  }
+}
