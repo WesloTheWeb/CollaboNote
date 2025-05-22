@@ -1,9 +1,18 @@
 @use '../../styles/variables.scss' as v;
 
 .registrationContainer {
-  max-width: 500px;
   margin: 0 auto;
   padding: v.$spacing-lg;
+
+  @media #{v.$mq-smallScreen} {
+    max-width: 500px;
+  }
+
+  h2 {
+    @media #{v.$mq-smallScreen} {
+      font-size: 2rem;
+    }
+  }
 }
 
 .formSection {
@@ -50,11 +59,11 @@
   font-weight: v.$button-font-weight;
   cursor: pointer;
   transition: background-color v.$transition-standard;
-  
+
   &:hover:not(:disabled) {
     background-color: darken(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 10%);
   }
-  
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
