@@ -6,9 +6,9 @@
     width: 100%;
     box-sizing: border-box;
 
-    @media #{v.$mq-smallScreen} {
-        padding: 0.5rem;    
-    }
+    // @media #{v.$mq-smallScreen} {
+    //     padding: 0.5rem;    
+    // }
 
     &.justify-start {
         justify-content: flex-start;

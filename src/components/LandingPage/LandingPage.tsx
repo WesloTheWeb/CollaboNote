@@ -5,19 +5,20 @@ import classes from './LandingPage.module.scss';
 import PricingCard from "./PricingTable/PricingCard/PricingCard";
 
 const {
+    leftColumn,
+    rightColumn,
     welcomeContainer,
     welcomeTitle,
     introContent,
     featuresList,
-    ctaButton,
-    backdrop
+    ctaButton
 } = classes;
 
 const LandingPage = () => {
     return (
         <>
-            <Row justify="space-between" className={backdrop}>
-                <Col md={6}>
+            <Row justify="space-between">
+                <Col md={6} className={leftColumn}>
                     <section className={welcomeContainer}>
                         <h2 className={welcomeTitle}>Welcome to CollaboNote</h2>
                         <div className={introContent}>
@@ -45,7 +46,7 @@ const LandingPage = () => {
                         <button className={ctaButton}>Learn More</button>
                     </section>
                 </Col>
-                <Col md={6}>
+                <Col md={6} className={rightColumn}>
                     <LoginRegister />
                 </Col>
             </Row>
@@ -58,5 +59,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-
-// TODO: Make a Price Table using html table header row elements for practice.

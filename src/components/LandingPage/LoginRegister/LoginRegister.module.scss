@@ -10,7 +10,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
   @media #{v.$mq-smallScreen} {
-    margin: 1rem 0;
+    margin: 1.25rem 1rem;
     padding: 1.25rem;
     max-width: 100%;
   }
