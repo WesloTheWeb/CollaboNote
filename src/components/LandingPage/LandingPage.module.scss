@@ -16,11 +16,11 @@
 // Right column sage background with pattern
 .rightColumn {
     background:
-        radial-gradient(circle at 25% 25%, rgba(169, 199, 126, 0.3) 3px, transparent 3px),
-        radial-gradient(circle at 75% 75%, rgba(169, 199, 126, 0.2) 2px, transparent 2px),
-        radial-gradient(circle at 50% 10%, rgba(169, 199, 126, 0.15) 1px, transparent 1px),
+        url('/assets/backdrop-landing.jpg'),
         map-get(map-get(v.$colors, 'secondary'), 'sage');
-    background-size: 60px 60px, 40px 40px, 20px 20px, 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     min-height: 100vh;
 }
 
