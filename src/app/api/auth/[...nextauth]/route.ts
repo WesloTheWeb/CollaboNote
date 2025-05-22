@@ -1,9 +1,23 @@
 import NextAuth from "next-auth"
 import { AuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import PostgresAdapter from "@auth/pg-adapter"
 import { Pool } from "pg"
 import bcrypt from "bcrypt"
+
+// Extend NextAuth types to include id
+declare module "next-auth" {
+  interface User {
+    id: string
+  }
+  interface Session {
+    user: {
+      id: string
+      name?: string | null
+      email?: string | null
+      image?: string | null
+    }
+  }
+}
 
 // Create connection pool for NextAuth
 const pool = new Pool({
@@ -11,7 +25,6 @@ const pool = new Pool({
 })
 
 const authOptions: AuthOptions = {
-  adapter: PostgresAdapter(pool),
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -49,7 +62,6 @@ const authOptions: AuthOptions = {
             id: user.id,
             email: user.email,
             name: `${user.firstName} ${user.lastName}`,
-            // Add any additional fields you want in the session
           }
         } catch (error) {
           console.error("Authentication error:", error)
@@ -59,28 +71,27 @@ const authOptions: AuthOptions = {
     })
   ],
   session: {
-    strategy: "database",
+    strategy: "jwt",
   },
   pages: {
-    signIn: "/login", // Your custom login page
+    signIn: "/login",
   },
   callbacks: {
-    async session({ session, user }) {
-      // Add user ID and other custom fields to session
-      if (session?.user && user) {
-        session.user.id = user.id
-      }
-      return session
-    },
     async jwt({ user, token }) {
       if (user) {
         token.uid = user.id
       }
       return token
     },
+    async session({ session, token }) {
+      if (session?.user && token) {
+        session.user.id = token.uid as string
+      }
+      return session
+    },
   },
-};
+}
 
-const handler = NextAuth(authOptions);
+const handler = NextAuth(authOptions)
 
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST }
