@@ -158,3 +158,28 @@
         display: block; /* Shown on mobile, but still invisible until active */
     }
 }
+
+.logoutButton {
+  background-color: #E07A5F;  
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.875rem;
+  
+  &:hover {
+    background-color: #c66a4f; 
+  }
+  
+  &:focus {
+    outline: 2px solid #FF9A8B;  
+    outline-offset: 2px;
+  }
+  
+  &:active {
+    background-color: #b5594a; // Even darker for active state
+  }
+}

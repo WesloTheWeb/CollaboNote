@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import countReducer from './slices/counterSlice';
+import authReducer from './slices/authSlice';
 
 const debugMiddleware = (store: any) => (next: any) => (action: any) => {
     const result = next(action);
@@ -9,7 +10,8 @@ const debugMiddleware = (store: any) => (next: any) => (action: any) => {
 export const makeStore = () => {
     return configureStore({
         reducer: {
-            count: countReducer
+            count: countReducer,
+            auth: authReducer
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware().concat(debugMiddleware),

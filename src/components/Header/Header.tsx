@@ -2,17 +2,23 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { navigationHeaderConfig as navigationHeader} from '@/config';
+import { useSession, signOut, SessionProvider } from 'next-auth/react';
+import { navigationHeaderConfig as navigationHeader } from '@/config';
 import MobileNav from './MobileNavHeader/MobileNav';
 import classes from './Header.module.scss';
 
-const { siteHeader, desktopNav, mobileNavToggle, hamburger, open } = classes;
+const { siteHeader, desktopNav, mobileNavToggle, hamburger, open, logoutButton } = classes;
 
-const Header = () => {
+const HeaderComponent = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { data: session, status } = useSession();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const handleLogout = async () => {
+        await signOut({ callbackUrl: '/' });
     };
 
     return (
@@ -22,7 +28,7 @@ const Header = () => {
                     CollaboNote
                 </Link>
             </h1>
-            
+
             <nav className={desktopNav}>
                 {navigationHeader.map((nav) => (
                     <Link
@@ -31,8 +37,19 @@ const Header = () => {
                         {nav.navigation}
                     </Link>
                 ))}
+
+                {status === 'authenticated' && session && (
+                    <button
+                        onClick={handleLogout}
+                        type="button"
+                        aria-label="Logout"
+                        className={logoutButton}
+                    >
+                        Logout
+                    </button>
+                )}
             </nav>
-            
+
             <button
                 className={mobileNavToggle}
                 onClick={toggleMenu}
@@ -45,9 +62,20 @@ const Header = () => {
                     <span></span>
                 </div>
             </button>
-            
-            <MobileNav isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+
+            <MobileNav
+                isOpen={isMenuOpen}
+                toggleMenu={toggleMenu}
+            />
         </header>
+    );
+};
+
+const Header = () => {
+    return (
+        <SessionProvider>
+            <HeaderComponent />
+        </SessionProvider>
     );
 };
 
