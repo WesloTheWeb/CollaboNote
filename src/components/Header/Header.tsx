@@ -80,3 +80,6 @@ const Header = () => {
 };
 
 export default Header;
+
+// TODO: Header is going to need to split into logged in Header and logged out Header
+// TODO: Might can just use different config based off the authSlice or session state?
