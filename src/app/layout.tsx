@@ -2,7 +2,7 @@ import { cherryBomb, roboto, dynapuff, notoSansTagalog, outfit } from "./fonts/f
 import type { Metadata } from "next";
 import "./globals.scss";
 import Header from "@/components/Header/Header";
-import { SessionStoreProvider, ReduxStoreProvider } from "@/components/Providers";
+import { SessionStoreProvider, ReduxStoreProvider, ReactQueryProvider } from "@/components/Providers";
 import Footer from "@/components/Footer/Footer";
 
 export const metadata: Metadata = {
@@ -18,13 +18,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${cherryBomb.variable} ${roboto.variable} ${dynapuff.variable} ${notoSansTagalog.variable} ${outfit.variable}`}>
-        <SessionStoreProvider>
-          <ReduxStoreProvider>
-            <Header />
-            {children}
-            <Footer />
-          </ReduxStoreProvider>
-        </SessionStoreProvider>
+        <ReactQueryProvider>
+          <SessionStoreProvider>
+            <ReduxStoreProvider>
+              <Header />
+              {children}
+              <Footer />
+            </ReduxStoreProvider>
+          </SessionStoreProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

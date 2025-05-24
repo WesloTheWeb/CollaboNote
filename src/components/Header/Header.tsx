@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useSession, signOut } from 'next-auth/react';
+import { useAuth } from '@/hooks/useAuth';
 import { navigationHeaderConfig as navigationHeader } from '@/config';
 import MobileNav from './MobileNavHeader/MobileNav';
 import classes from './Header.module.scss';
@@ -12,18 +11,14 @@ const { siteHeader, desktopNav, mobileNavToggle, hamburger, open, logoutButton }
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { data: session, status } = useSession();
-
-    const router = useRouter();
+    const { isAuthenticated, session, logout, isLoggingOut } = useAuth();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const handleLogout = async () => {
-        await signOut({ redirect: false });
-        router.push('/');
-        router.refresh();
+    const handleLogout = () => {
+        logout();
     };
 
     return (
@@ -43,12 +38,13 @@ const Header = () => {
                     </Link>
                 ))}
 
-                {status === 'authenticated' && session && (
+                {isAuthenticated && session && (
                     <button
                         onClick={handleLogout}
                         type="button"
                         aria-label="Logout"
                         className={logoutButton}
+                        disabled={isLoggingOut}
                     >
                         Logout
                     </button>
@@ -77,6 +73,3 @@ const Header = () => {
 };
 
 export default Header;
-
-// TODO: Header is going to need to split into logged in Header and logged out Header
-// TODO: Might can just use different config based off the authSlice or session state?
