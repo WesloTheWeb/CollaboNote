@@ -1,8 +1,9 @@
 'use client';
 
-import { useForm } from "react-hook-form";
-import { signIn, SessionProvider } from 'next-auth/react';
 import { useState } from 'react';
+import { useForm } from "react-hook-form";
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import FormBuilder from '@/components/FormBuilder/FormBuilder';
 import { loginRegisterConfig } from "@/config";
 import classes from './LoginRegister.module.scss';
@@ -14,10 +15,12 @@ type FormValues = {
 
 const { formSection, errorMessage, submitButton } = classes;
 
-const LoginInputComponent = () => {
+const LoginInput = () => {
     const formMethods = useForm<FormValues>();
     const [isLoading, setIsLoading] = useState(false);
     const [loginError, setLoginError] = useState('');
+
+    const router = useRouter();
 
     const onSubmit = async (data: FormValues) => {
         setIsLoading(true);
@@ -33,8 +36,8 @@ const LoginInputComponent = () => {
             if (result?.error) {
                 setLoginError('Invalid email or password');
             } else {
-                // TODO Login successful - redirect here
-                // TODO window.location.href = '/dashboard'; // or use router.push
+                router.push('/');
+                router.refresh();
                 console.log('Login successful!');
             }
         } catch (error) {
@@ -74,14 +77,6 @@ const LoginInputComponent = () => {
                 customButtons={customLoginButton}
             />
         </div>
-    );
-};
-
-const LoginInput = () => {
-    return (
-        <SessionProvider>
-            <LoginInputComponent />
-        </SessionProvider>
     );
 };
 

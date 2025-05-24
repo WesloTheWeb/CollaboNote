@@ -1,20 +1,20 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import LandingPage from "@/components/LandingPage/LandingPage";
+import Dashboard from "@/components/Dashboard/Dashboard";
 
 export default async function Home() {
   try {
     const session = await getServerSession(authOptions);
+    console.log('session:', session);
 
     if (session) {
       // User is logged in - show dashboard
       return (
-        <div>
-          <h1>Dashboard will go here</h1>
-          <p>Welcome back, {session.user.name}!</p>
-        </div>
+        <Dashboard loggedUser={session.user?.name} />
+
       );
-    }
+    };
 
     // User is not logged in - show landing page
     return (
@@ -24,7 +24,7 @@ export default async function Home() {
     );
   } catch (err) {
     console.error(err);
-  }
+  };
 
 };
 

@@ -2,23 +2,28 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useSession, signOut, SessionProvider } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useSession, signOut } from 'next-auth/react';
 import { navigationHeaderConfig as navigationHeader } from '@/config';
 import MobileNav from './MobileNavHeader/MobileNav';
 import classes from './Header.module.scss';
 
 const { siteHeader, desktopNav, mobileNavToggle, hamburger, open, logoutButton } = classes;
 
-const HeaderComponent = () => {
+const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { data: session, status } = useSession();
+
+    const router = useRouter();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
     const handleLogout = async () => {
-        await signOut({ callbackUrl: '/' });
+        await signOut({ redirect: false });
+        router.push('/');
+        router.refresh();
     };
 
     return (
@@ -68,14 +73,6 @@ const HeaderComponent = () => {
                 toggleMenu={toggleMenu}
             />
         </header>
-    );
-};
-
-const Header = () => {
-    return (
-        <SessionProvider>
-            <HeaderComponent />
-        </SessionProvider>
     );
 };
 
