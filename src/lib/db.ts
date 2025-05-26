@@ -16,10 +16,14 @@ if (!connectionString) {
 // Create connection pool with reasonable limits for security
 const pool = new Pool({
   connectionString,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  ssl: process.env.NODE_ENV === 'production' 
+    ? { 
+        rejectUnauthorized: false 
+      } 
+    : false,
   max: 20, // Maximum number of clients in the pool
   idleTimeoutMillis: 30000, // Close idle clients after 30 seconds
-  connectionTimeoutMillis: 2000, // Return an error after 2 seconds if connection not established
+  connectionTimeoutMillis: 10000, // Increased timeout for Supabase
 });
 
 // Test the connection
