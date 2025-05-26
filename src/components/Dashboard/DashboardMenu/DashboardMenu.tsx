@@ -11,5 +11,3 @@ const DashboardMenu = ({ }) => {
 };
 
 export default DashboardMenu;
-
-//TODO Flesh out Dashboard menu
