@@ -1,21 +1,19 @@
 
+import DashboardMenu from './DashboardMenu/DashboardMenu';
+import MainContent from './MainContent/MainContent';
+import { DashboardProps } from '@/interfaces';
 import classes from './Dashboard.module.scss';
 
-const { } = classes;
-
-interface DashboardProps {
-    loggedUser: string | undefined | null;
-};
+const { dashboardParentContainer } = classes;
 
 const Dashboard = ({ loggedUser }: DashboardProps) => {
     return (
-        <div>
-            <section></section>
-            <section>
-                <p>
-                    Welcome, <b>{loggedUser || 'User'}</b>
-                </p>
-            </section>
+        <div className={dashboardParentContainer}>
+            <DashboardMenu />
+            <MainContent
+                loggedUser={loggedUser}
+            />
+
         </div>
     );
 };
