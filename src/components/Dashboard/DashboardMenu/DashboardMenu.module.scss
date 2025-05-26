@@ -1,0 +1,9 @@
+@use '../../../styles/variables.scss' as v;
+
+.DashboardMenuContainer {
+    background-color: #a9a9a9;
+
+    @media #{v.$mq-smallScreen} {
+        display: none;
+    }
+}

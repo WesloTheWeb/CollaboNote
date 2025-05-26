@@ -2,17 +2,23 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { navigationHeaderConfig as navigationHeader} from '@/config';
+import { useAuth } from '@/hooks/useAuth';
+import { navigationHeaderConfig as navigationHeader } from '@/config';
 import MobileNav from './MobileNavHeader/MobileNav';
 import classes from './Header.module.scss';
 
-const { siteHeader, desktopNav, mobileNavToggle, hamburger, open } = classes;
+const { siteHeader, desktopNav, mobileNavToggle, hamburger, open, logoutButton } = classes;
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { isAuthenticated, session, logout, isLoggingOut } = useAuth();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const handleLogout = () => {
+        logout();
     };
 
     return (
@@ -22,7 +28,7 @@ const Header = () => {
                     CollaboNote
                 </Link>
             </h1>
-            
+
             <nav className={desktopNav}>
                 {navigationHeader.map((nav) => (
                     <Link
@@ -31,8 +37,20 @@ const Header = () => {
                         {nav.navigation}
                     </Link>
                 ))}
+
+                {isAuthenticated && session && (
+                    <button
+                        onClick={handleLogout}
+                        type="button"
+                        aria-label="Logout"
+                        className={logoutButton}
+                        disabled={isLoggingOut}
+                    >
+                        Logout
+                    </button>
+                )}
             </nav>
-            
+
             <button
                 className={mobileNavToggle}
                 onClick={toggleMenu}
@@ -45,8 +63,11 @@ const Header = () => {
                     <span></span>
                 </div>
             </button>
-            
-            <MobileNav isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+
+            <MobileNav
+                isOpen={isMenuOpen}
+                toggleMenu={toggleMenu}
+            />
         </header>
     );
 };

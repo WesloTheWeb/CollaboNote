@@ -1,0 +1,7 @@
+@use '../../styles/variables.scss' as v;
+
+.dashboardParentContainer {
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr;
+    border: red dashed 1px;
+}
