@@ -1,11 +1,23 @@
-import classes from './DashboardMenu.module.scss'; 
+import Link from 'next/link';
+import { dashboardMenuConfig } from '@/config';
+import classes from './DashboardMenu.module.scss';
 
 const { DashboardMenuContainer } = classes;
 
 const DashboardMenu = ({ }) => {
     return (
         <section className={DashboardMenuContainer}>
-            <li>Menu</li>
+            {
+                dashboardMenuConfig.map(({ dashboardMenuLinkName, dashboardPath }) => {
+                    return (
+                        <li key={dashboardMenuLinkName}>
+                            <Link href={dashboardPath}>
+                                {dashboardMenuLinkName}
+                            </Link>
+                        </li>
+                    )
+                })
+            }
         </section>
     );
 };

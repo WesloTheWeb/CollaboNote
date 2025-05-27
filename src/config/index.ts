@@ -4,3 +4,4 @@ export * from './formsConfig/registerFormConfig';
 export * from './appConstants';
 export * from './navigationHeader/navigationHeaderConfig';
 export * from './pricingTable/pricingTableConfig';
+export * from './dashboard/dashboardMenuConfig';
