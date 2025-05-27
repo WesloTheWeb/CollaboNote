@@ -87,6 +87,20 @@ const db = {
   },
   
   /**
+   * Test database connection
+   */
+  testConnection: async (): Promise<boolean> => {
+    try {
+      const result = await db.query('SELECT NOW() as server_time');
+      console.log('Database connection test successful:', result.rows[0]);
+      return true;
+    } catch (error) {
+      console.error('Database connection test failed:', error);
+      return false;
+    }
+  },
+  
+  /**
    * Ensure a specific table exists in the database
    * 
    * @param tableName - Name of the table to check/create

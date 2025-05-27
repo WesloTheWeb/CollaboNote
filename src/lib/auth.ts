@@ -18,10 +18,25 @@ declare module "next-auth" {
   }
 }
 
-// Create connection pool for NextAuth
+// Create connection pool for NextAuth with improved configuration
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { 
+    rejectUnauthorized: false 
+  } : false,
+  max: process.env.NODE_ENV === 'production' ? 5 : 10, // Reduced for serverless
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 10000,
 })
+
+// Test the connection on startup
+pool.on('connect', () => {
+  console.log('NextAuth database pool connected successfully');
+});
+
+pool.on('error', (err) => {
+  console.error('NextAuth database pool error:', err);
+});
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -33,10 +48,14 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
+          console.log('Missing credentials');
           return null
         }
 
         try {
+          // Test connection first
+          await pool.query('SELECT 1');
+          
           // Query your existing User table
           const result = await pool.query(
             'SELECT * FROM "User" WHERE email = $1',
@@ -44,6 +63,7 @@ export const authOptions: AuthOptions = {
           )
 
           if (result.rows.length === 0) {
+            console.log('User not found for email:', credentials.email);
             return null
           }
 
@@ -53,8 +73,11 @@ export const authOptions: AuthOptions = {
           const passwordMatch = await bcrypt.compare(credentials.password, user.password)
 
           if (!passwordMatch) {
+            console.log('Password mismatch for user:', credentials.email);
             return null
           }
+
+          console.log('Authentication successful for user:', credentials.email);
 
           // Return user object that matches NextAuth User type
           return {
@@ -64,6 +87,18 @@ export const authOptions: AuthOptions = {
           }
         } catch (error) {
           console.error("Authentication error:", error)
+          
+          // Log more specific error information
+          if (error instanceof Error) {
+            if (error.message.includes('ENOTFOUND')) {
+              console.error('Database host not found - check DATABASE_URL');
+            } else if (error.message.includes('ECONNREFUSED')) {
+              console.error('Database connection refused');
+            } else if (error.message.includes('timeout')) {
+              console.error('Database connection timeout');
+            }
+          }
+          
           return null
         }
       }
@@ -71,9 +106,10 @@ export const authOptions: AuthOptions = {
   ],
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   pages: {
-    signIn: "/login",
+    signIn: "/",
   },
   callbacks: {
     async jwt({ user, token }) {
@@ -89,4 +125,5 @@ export const authOptions: AuthOptions = {
       return session
     },
   },
-}
+  debug: process.env.NODE_ENV === 'development',
+};
