@@ -5,48 +5,25 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import FormBuilder from '../FormBuilder/FormBuilder';
 import Toast from '../Notifications/ToastNotifications';
+import { RegistrationApiResponse, RegistrationFormValues } from '@/interfaces';
+import { getRegistrationFormFields } from '@/config';
 import classes from './Registration.module.scss';
 
-type RegistrationFormValues = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    termsAccepted: boolean;
-};
-
-// More specific error types instead of any
-type ApiError = string | string[];
-
-type ApiResponse = {
-    success: boolean;
-    user?: {
-        id: string;
-        firstName: string;
-        lastName: string;
-        email: string;
-        createdAt: string;
-    };
-    message?: string;
-    errors?: Record<string, ApiError>;
-};
+const {
+    registrationContainer,
+    formSection,
+    label,
+    input,
+    errorMessage,
+    checkbox,
+    formActions,
+    submitButton,
+    successMessage,
+    errorAlert
+} = classes;
 
 const Registration = () => {
     const router = useRouter();
-    const {
-        registrationContainer,
-        formSection,
-        label,
-        input,
-        errorMessage,
-        checkbox,
-        formActions,
-        submitButton,
-        successMessage,
-        errorAlert
-    } = classes;
-
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [apiResponse, setApiResponse] = useState<{
         success?: boolean;
@@ -54,8 +31,17 @@ const Registration = () => {
     } | null>(null);
     const [showToast, setShowToast] = useState(false);
 
+    const formClassNames = {
+        formContainer: registrationContainer,
+        fieldContainer: formSection,
+        label: label,
+        input: input,
+        errorMessage: errorMessage,
+        formActions: formActions
+    };
+
     const formMethods = useForm<RegistrationFormValues>({
-        mode: 'onBlur', // Validate on blur for better UX
+        mode: 'onBlur',
         defaultValues: {
             firstName: '',
             lastName: '',
@@ -67,12 +53,16 @@ const Registration = () => {
     });
 
     const { watch, setError, reset } = formMethods;
+    const password = watch('password');
+
+    // Get form fields using config function
+    const fields = getRegistrationFormFields(password, checkbox);
 
     const onSubmit = async (data: RegistrationFormValues) => {
         try {
             setIsSubmitting(true);
             setApiResponse(null);
-            
+
             const response = await fetch('/api/register', {
                 method: 'POST',
                 headers: {
@@ -80,11 +70,10 @@ const Registration = () => {
                 },
                 body: JSON.stringify(data),
             });
-            
-            // Handle non-JSON responses
+
             const responseText = await response.text();
-            
-            let result: ApiResponse;
+
+            let result: RegistrationApiResponse;
             try {
                 result = JSON.parse(responseText);
             } catch (parseError) {
@@ -93,21 +82,17 @@ const Registration = () => {
             }
 
             if (result.success) {
-                // Registration succeeded
                 setApiResponse({
                     success: true,
                     message: 'Registration successful! You can now log in.'
                 });
                 setShowToast(true);
                 reset();
-                // Redirect to homepage after a short delay
                 setTimeout(() => {
                     router.push('/');
                 }, 2000);
             } else {
-                // Registration failed
                 if (result.errors) {
-                    // Set form errors based on API response
                     Object.entries(result.errors).forEach(([field, error]) => {
                         if (field !== 'confirmPassword' && field !== 'termsAccepted') {
                             setError(field as keyof RegistrationFormValues, {
@@ -117,7 +102,7 @@ const Registration = () => {
                         }
                     });
                 }
-                
+
                 setApiResponse({
                     success: false,
                     message: result.message || 'Registration failed. Please try again.'
@@ -134,88 +119,9 @@ const Registration = () => {
         }
     };
 
-    const password = watch('password');
-
-    const fields = [
-        {
-            name: 'firstName',
-            label: 'First Name',
-            type: 'text' as const,
-            validation: {
-                required: 'First name is required',
-                minLength: {
-                    value: 2,
-                    message: 'First name must be at least 2 characters'
-                }
-            }
-        },
-        {
-            name: 'lastName',
-            label: 'Last Name',
-            type: 'text' as const,
-            validation: {
-                required: 'Last name is required',
-                minLength: {
-                    value: 2,
-                    message: 'Last name must be at least 2 characters'
-                }
-            }
-        },
-        {
-            name: 'email',
-            label: 'Email Address',
-            type: 'email' as const,
-            validation: {
-                required: 'Email is required',
-                pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: 'Invalid email address'
-                }
-            }
-        },
-        {
-            name: 'password',
-            label: 'Password',
-            type: 'password' as const,
-            validation: {
-                required: 'Password is required',
-                minLength: {
-                    value: 8,
-                    message: 'Password must be at least 8 characters'
-                },
-                pattern: {
-                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-                    message: 'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character'
-                }
-            }
-        },
-        {
-            name: 'confirmPassword',
-            label: 'Confirm Password',
-            type: 'password' as const,
-            validation: {
-                required: 'Please confirm your password',
-                validate: (value: string) =>
-                    value === password || 'Passwords do not match'
-            }
-        },
-        {
-            name: 'termsAccepted',
-            label: 'I agree to the Terms and Conditions',
-            type: 'checkbox' as const,
-            validation: {
-                required: 'You must accept the terms and conditions'
-            },
-            customProps: {
-                className: checkbox
-            }
-        }
-    ];
-
-    // Custom buttons
     const registerButton = (
-        <button 
-            className={submitButton} 
+        <button
+            className={submitButton}
             type="submit"
             disabled={isSubmitting}
         >
@@ -223,26 +129,17 @@ const Registration = () => {
         </button>
     );
 
-    const formClassNames = {
-        formContainer: registrationContainer,
-        fieldContainer: formSection,
-        label: label,
-        input: input,
-        errorMessage: errorMessage,
-        formActions: formActions
-    };
-
     return (
         <section className={registrationContainer}>
             <h2>Create an Account</h2>
             <p>Join our community of goal-setters and achievers.</p>
-            
+
             {apiResponse && !showToast && (
                 <div className={apiResponse.success ? successMessage : errorAlert} role="alert">
                     {apiResponse.message}
                 </div>
             )}
-            
+
             {showToast && (
                 <Toast
                     type="success"
@@ -252,7 +149,7 @@ const Registration = () => {
                     onClose={() => setShowToast(false)}
                 />
             )}
-            
+
             <FormBuilder
                 fields={fields}
                 formMethods={formMethods}

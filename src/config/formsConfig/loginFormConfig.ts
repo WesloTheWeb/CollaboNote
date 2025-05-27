@@ -1,4 +1,4 @@
-export const loginRegisterConfig = [
+export const loginFormConfig = [
     {
         name: 'email',
         label: 'Email',

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import FormBuilder from '@/components/FormBuilder/FormBuilder';
-import { loginRegisterConfig } from "@/config";
+import { loginFormConfig } from "@/config";
 import classes from './LoginRegister.module.scss';
 
 type FormValues = {
@@ -70,7 +70,7 @@ const LoginInput = () => {
                 </div>
             )}
             <FormBuilder
-                fields={loginRegisterConfig}
+                fields={loginFormConfig}
                 formMethods={formMethods}
                 onSubmit={onSubmit}
                 classNames={formClassNames}
