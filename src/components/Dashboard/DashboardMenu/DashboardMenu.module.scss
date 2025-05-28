@@ -1,9 +1,143 @@
 @use '../../../styles/variables.scss' as v;
 
 .DashboardMenuContainer {
-    background-color: #a9a9a9;
+    width: 280px;
+    min-height: calc(100vh - 80px); // Adjust based on your header height
+    background: linear-gradient(180deg, #f8f6f3 0%, #f0ede8 100%);
+    border-right: 1px solid #e6dcc6;
+    padding: v.$spacing-lg 0;
+    position: sticky;
+    top: 0;
 
     @media #{v.$mq-smallScreen} {
         display: none;
     }
+}
+
+.menuList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menuItem {
+    margin-bottom: v.$spacing-xs;
+}
+
+.menuLink {
+    display: flex;
+    align-items: center;
+    padding: v.$spacing-md v.$spacing-lg;
+    color: #6b5b47;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: v.$font-size-base;
+    transition: all v.$transition-standard;
+    border-radius: 0 v.$radius-base v.$radius-base 0;
+    margin-right: v.$spacing-base;
+    position: relative;
+
+    &:hover {
+        background-color: rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.1);
+        color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        transform: translateX(4px);
+    }
+
+    &.active {
+        background-color: rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.15);
+        color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        border-right: 3px solid map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        font-weight: 600;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        }
+    }
+}
+
+.menuIcon {
+    margin-right: v.$spacing-md;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.menuText {
+    flex: 1;
+}
+
+.menuSection {
+    margin-bottom: v.$spacing-lg * 1.5;
+
+    &:not(:first-child) {
+        border-top: 1px solid #e6dcc6;
+        padding-top: v.$spacing-lg;
+    }
+}
+
+.sectionTitle {
+    padding: 0 v.$spacing-lg v.$spacing-md;
+    font-size: v.$font-size-xs;
+    font-weight: 600;
+    color: #8b7355;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.userProfile {
+    padding: v.$spacing-lg;
+    border-top: 1px solid #e6dcc6;
+    margin-top: auto;
+}
+
+.profileInfo {
+    display: flex;
+    align-items: center;
+    padding: v.$spacing-md;
+    background-color: rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.1);
+    border-radius: v.$radius-base;
+    border: 1px solid rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.2);
+}
+
+.profileAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, map-get(map-get(v.$colors, 'primary'), 'coral'), map-get(map-get(v.$colors, 'secondary'), 'rose'));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    margin-right: v.$spacing-md;
+    flex-shrink: 0;
+}
+
+.profileDetails {
+    flex: 1;
+    min-width: 0;
+}
+
+.profileName {
+    font-weight: 600;
+    color: #6b5b47;
+    font-size: v.$font-size-base;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profileRole {
+    font-size: v.$font-size-xs;
+    color: #8b7355;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
