@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Lock } from 'lucide-react';
 import { dashboardMenuConfig } from '@/config';
 import { getUserInitials } from '@/utils/getUserInitials';
 import classes from './DashboardMenu.module.scss';
@@ -13,6 +14,7 @@ const {
     menuLink,
     menuIcon,
     menuText,
+    lockIcon,
     menuSection,
     sectionTitle,
     userProfile,
@@ -20,7 +22,8 @@ const {
     profileAvatar,
     profileDetails,
     profileName,
-    profileRole
+    profileRole,
+    locked
 } = classes;
 
 type DashboardMenuProps = {
@@ -49,17 +52,38 @@ const DashboardMenu = ({ loggedUser }: DashboardMenuProps) => {
                     <section key={section.sectionName} className={menuSection}>
                         <h3 className={sectionTitle}>{section.sectionName}</h3>
                         <ul className={menuList}>
-                            {section.items.map(({ dashboardMenuLinkName, dashboardPath, icon: IconComponent }) => {
+                            {section.items.map(({ dashboardMenuLinkName, dashboardPath, icon: IconComponent, implemented }) => {
                                 const isActive = pathname === dashboardPath;
+                                const linkClasses = [
+                                    menuLink,
+                                    isActive && 'active',
+                                    !implemented && locked
+                                ].filter(Boolean).join(' ');
+
+                                const linkContent = (
+                                    <>
+                                        <IconComponent className={menuIcon} />
+                                        <span className={menuText}>{dashboardMenuLinkName}</span>
+                                        {!implemented && (
+                                            <Lock className={lockIcon} />
+                                        )}
+                                    </>
+                                );
+
                                 return (
                                     <li key={dashboardMenuLinkName} className={menuItem}>
-                                        <Link
-                                            href={dashboardPath}
-                                            className={`${menuLink} ${isActive ? 'active' : ''}`}
-                                        >
-                                            <IconComponent className={menuIcon} />
-                                            <span className={menuText}>{dashboardMenuLinkName}</span>
-                                        </Link>
+                                        {implemented ? (
+                                            <Link
+                                                href={dashboardPath}
+                                                className={linkClasses}
+                                            >
+                                                {linkContent}
+                                            </Link>
+                                        ) : (
+                                            <div className={linkClasses}>
+                                                {linkContent}
+                                            </div>
+                                        )}
                                     </li>
                                 );
                             })}

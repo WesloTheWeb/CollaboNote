@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
+import { Lock } from 'lucide-react';
 import { navigationHeaderConfig as navigationHeader, dashboardMenuConfig } from '@/config';
 import { getUserInitials } from '@/utils/getUserInitials';
 import classes from './MobileNav.module.scss';
@@ -47,20 +48,40 @@ const MobileNav = ({ isOpen, toggleMenu }: MobileNavProps) => {
     const renderDashboardSection = (section: typeof dashboardMenuConfig[0]) => (
         <div key={section.sectionName} className={classes.mobileMenuSection}>
             <h3 className={classes.mobileSectionTitle}>{section.sectionName}</h3>
-            {section.items.map(({ dashboardMenuLinkName, dashboardPath, icon: IconComponent }) => {
+            {section.items.map(({ dashboardMenuLinkName, dashboardPath, icon: IconComponent, implemented }) => {
                 const isActive = pathname === dashboardPath;
-                const linkClassName = `${classes.mobileDashboardLink} ${isActive ? classes.active : ''}`;
-                
-                return (
+                const linkClassName = [
+                    classes.mobileDashboardLink,
+                    isActive && classes.active,
+                    !implemented && classes.locked
+                ].filter(Boolean).join(' ');
+
+                const linkContent = (
+                    <>
+                        <IconComponent className={classes.mobileMenuIcon} />
+                        <span>{dashboardMenuLinkName}</span>
+                        {!implemented && (
+                            <Lock className={classes.mobileLockIcon} />
+                        )}
+                    </>
+                );
+
+                return implemented ? (
                     <Link
                         key={dashboardMenuLinkName}
                         href={dashboardPath}
                         onClick={toggleMenu}
                         className={linkClassName}
                     >
-                        <IconComponent className={classes.mobileMenuIcon} />
-                        <span>{dashboardMenuLinkName}</span>
+                        {linkContent}
                     </Link>
+                ) : (
+                    <div
+                        key={dashboardMenuLinkName}
+                        className={linkClassName}
+                    >
+                        {linkContent}
+                    </div>
                 );
             })}
         </div>
