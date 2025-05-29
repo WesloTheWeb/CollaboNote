@@ -101,85 +101,72 @@
     }
 }
 
-.mobileNavMenu {
-    display: none;
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 250px;
-    height: 100vh;
-    background-color: #f5f2ed;
-    padding: 5rem 1.5rem 1.5rem;
-    transition: right 0.3s ease;
-    z-index: 10;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+.logoutButton {
+    background-color: #E07A5F;  
+    color: white;
+    border: none;
+    padding: v.$spacing-sm v.$spacing-base;
+    border-radius: v.$radius-sm;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: v.$font-size-xs;
+    margin-left: 1rem;
     
-    &.active {
-        right: 0;
+    &:hover:not(:disabled) {
+        background-color: #c66a4f; 
     }
     
-    a {
-        display: block;
-        font-weight: bold;
-        font-size: 1.2rem;
-        margin: 1.5rem 0;
-        text-decoration: none;
-        color: #8b7355;
-        
-        &:hover {
-            color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
-        }
+    &:focus {
+        outline: 2px solid #FF9A8B;  
+        outline-offset: 2px;
     }
     
-    @media #{v.$mq-smallScreen} {
-        display: block;
+    &:active {
+        background-color: #b5594a;
     }
-}
 
-.overlay {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 5;
-    transition: opacity 0.3s ease;
-    opacity: 0;
-    pointer-events: none; /* Prevent clicks when not active */
-    
-    &.active {
-        opacity: 1;
-        pointer-events: auto; /* Allow clicks only when active */
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
     }
-    
+
     @media #{v.$mq-smallScreen} {
-        display: block; /* Shown on mobile, but still invisible until active */
+        display: none;
     }
 }
 
 .logoutButton {
-  background-color: #E07A5F;  
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  font-size: 0.875rem;
-  
-  &:hover {
-    background-color: #c66a4f; 
-  }
-  
-  &:focus {
-    outline: 2px solid #FF9A8B;  
-    outline-offset: 2px;
-  }
-  
-  &:active {
-    background-color: #b5594a; // Even darker for active state
-  }
+    background-color: #E07A5F;  
+    color: white;
+    border: none;
+    padding: v.$spacing-sm v.$spacing-base;
+    border-radius: v.$radius-sm;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: v.$font-size-xs;
+    margin-left: 1rem;
+    
+    &:hover:not(:disabled) {
+        background-color: #c66a4f; 
+    }
+    
+    &:focus {
+        outline: 2px solid #FF9A8B;  
+        outline-offset: 2px;
+    }
+    
+    &:active {
+        background-color: #b5594a;
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    @media #{v.$mq-smallScreen} {
+        display: none;
+    }
 }

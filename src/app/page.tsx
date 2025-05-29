@@ -12,7 +12,6 @@ export default async function Home() {
       // User is logged in - show dashboard
       return (
         <Dashboard loggedUser={session.user?.name} />
-
       );
     };
 

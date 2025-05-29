@@ -7,9 +7,9 @@ import classes from './Dashboard.module.scss';
 const { dashboardParentContainer } = classes;
 
 const Dashboard = ({ loggedUser }: DashboardProps) => {
+    console.log('loggedUser', loggedUser)
     return (
         <div className={dashboardParentContainer}>
-            <DashboardMenu />
             <MainContent
                 loggedUser={loggedUser}
             />

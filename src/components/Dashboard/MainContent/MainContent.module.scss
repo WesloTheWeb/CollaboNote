@@ -1,5 +1,9 @@
 @use '../../../styles/variables.scss' as v;
 
 .mainContentContainer {
-    padding: 2rem;
+
+    h2 {
+        font-size: 2rem;
+    }
+
 }
