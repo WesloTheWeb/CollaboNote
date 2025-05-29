@@ -24,7 +24,7 @@ export default async function SettingsPage() {
 
     return (
         <>
-            <h2>Settings page</h2>
+            <h4>Settings page</h4>
             <p>
                 Here is where you can edit your account information.
             </p>

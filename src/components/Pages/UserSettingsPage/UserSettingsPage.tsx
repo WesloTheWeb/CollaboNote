@@ -122,13 +122,11 @@ const UserSettingsPage = ({ initialUserSettings }: UserSettingsPageProps) => {
                     Settings updated successfully!
                 </div>
             )}
-
             {updateUserMutation.error && (
                 <div className={classes.errorMessage} role="alert">
                     {updateUserMutation.error.message}
                 </div>
             )}
-
             <FormBuilder
                 fields={settingsFormConfig}
                 formMethods={formMethods}
