@@ -1,0 +1,14 @@
+@use '../../../styles/variables.scss' as v;
+
+.dashboardLayout {
+  display: flex;
+}
+
+.mainContent {
+  flex: 1;
+  padding: v.$spacing-lg;
+  
+  @media #{v.$mq-smallScreen} {
+    padding: v.$spacing-md;
+  }
+}

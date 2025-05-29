@@ -88,7 +88,7 @@ export const dashboardMenuConfig = [
                 dashboardMenuLinkName: 'Settings',
                 dashboardPath: '/settings',
                 icon: Settings,
-                implemented: false
+                implemented: true
             }
         ]
     }

@@ -28,6 +28,7 @@ const {
 
 type DashboardMenuProps = {
     loggedUser?: string | null | undefined;
+    children?: React.ReactNode;
 };
 
 const DashboardMenu = ({ loggedUser }: DashboardMenuProps) => {

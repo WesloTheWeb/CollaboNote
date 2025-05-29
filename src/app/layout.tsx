@@ -4,6 +4,7 @@ import "./globals.scss";
 import Header from "@/components/Header/Header";
 import { SessionStoreProvider, ReduxStoreProvider, ReactQueryProvider } from "@/components/Providers";
 import Footer from "@/components/Footer/Footer";
+import DashboardWrapper from "@/components/Dashboard/DashboardWrapper/DashboardWrapper";
 
 export const metadata: Metadata = {
   title: "CollaboNote",
@@ -22,7 +23,9 @@ export default function RootLayout({
           <SessionStoreProvider>
             <ReduxStoreProvider>
               <Header />
-              {children}
+              <DashboardWrapper>
+                {children}
+              </DashboardWrapper>
               <Footer />
             </ReduxStoreProvider>
           </SessionStoreProvider>
