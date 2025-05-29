@@ -53,19 +53,19 @@ const DashboardMenu = ({ loggedUser }: DashboardMenuProps) => {
                     <section key={section.sectionName} className={menuSection}>
                         <h3 className={sectionTitle}>{section.sectionName}</h3>
                         <ul className={menuList}>
-                            {section.items.map(({ dashboardMenuLinkName, dashboardPath, icon: IconComponent, implemented }) => {
+                            {section.items.map(({ dashboardMenuLinkName, dashboardPath, icon: IconComponent, featureImplemented }) => {
                                 const isActive = pathname === dashboardPath;
                                 const linkClasses = [
                                     menuLink,
                                     isActive && 'active',
-                                    !implemented && locked
+                                    !featureImplemented && locked
                                 ].filter(Boolean).join(' ');
 
                                 const linkContent = (
                                     <>
                                         <IconComponent className={menuIcon} />
                                         <span className={menuText}>{dashboardMenuLinkName}</span>
-                                        {!implemented && (
+                                        {!featureImplemented && (
                                             <Lock className={lockIcon} />
                                         )}
                                     </>
@@ -73,7 +73,7 @@ const DashboardMenu = ({ loggedUser }: DashboardMenuProps) => {
 
                                 return (
                                     <li key={dashboardMenuLinkName} className={menuItem}>
-                                        {implemented ? (
+                                        {featureImplemented ? (
                                             <Link
                                                 href={dashboardPath}
                                                 className={linkClasses}

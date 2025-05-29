@@ -48,25 +48,25 @@ const MobileNav = ({ isOpen, toggleMenu }: MobileNavProps) => {
     const renderDashboardSection = (section: typeof dashboardMenuConfig[0]) => (
         <div key={section.sectionName} className={classes.mobileMenuSection}>
             <h3 className={classes.mobileSectionTitle}>{section.sectionName}</h3>
-            {section.items.map(({ dashboardMenuLinkName, dashboardPath, icon: IconComponent, implemented }) => {
+            {section.items.map(({ dashboardMenuLinkName, dashboardPath, icon: IconComponent, featureImplemented }) => {
                 const isActive = pathname === dashboardPath;
                 const linkClassName = [
                     classes.mobileDashboardLink,
                     isActive && classes.active,
-                    !implemented && classes.locked
+                    !featureImplemented && classes.locked
                 ].filter(Boolean).join(' ');
 
                 const linkContent = (
                     <>
                         <IconComponent className={classes.mobileMenuIcon} />
                         <span>{dashboardMenuLinkName}</span>
-                        {!implemented && (
+                        {!featureImplemented && (
                             <Lock className={classes.mobileLockIcon} />
                         )}
                     </>
                 );
 
-                return implemented ? (
+                return featureImplemented ? (
                     <Link
                         key={dashboardMenuLinkName}
                         href={dashboardPath}
