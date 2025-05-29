@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface UserSettings {
+export interface UserSettingsInterface {
     id: string;
     firstName: string;
     lastName: string;
@@ -11,7 +11,7 @@ export interface UserSettings {
 }
 
 interface UserSettingsState {
-    userSettings: UserSettings | null;
+    userSettings: UserSettingsInterface | null;
     isLoading: boolean;
     isUpdating: boolean;
     error: string | null;
@@ -35,7 +35,7 @@ const userSettingsSlice = createSlice({
             state.isLoading = true;
             state.error = null;
         },
-        loadUserSettingsSuccess: (state, action: PayloadAction<UserSettings>) => {
+        loadUserSettingsSuccess: (state, action: PayloadAction<UserSettingsInterface>) => {
             state.isLoading = false;
             state.userSettings = action.payload;
             state.error = null;
@@ -51,7 +51,7 @@ const userSettingsSlice = createSlice({
             state.error = null;
             state.updateSuccess = false;
         },
-        updateUserSettingsSuccess: (state, action: PayloadAction<UserSettings>) => {
+        updateUserSettingsSuccess: (state, action: PayloadAction<UserSettingsInterface>) => {
             state.isUpdating = false;
             state.userSettings = action.payload;
             state.error = null;

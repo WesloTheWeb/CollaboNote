@@ -1,91 +1,114 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 import FormBuilder from "@/components/FormBuilder/FormBuilder";
 import { settingsFormConfig } from "@/config/formsConfig/settingsFormConfig";
+import { UserSettingsFormValues, UserSettingsPageProps } from '@/interfaces';
 import classes from './UserSettingsPage.module.scss';
 
-type UserSettingsFormValues = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    currentPassword: string;
-    newPassword?: string;
-    confirmNewPassword?: string;
-    bio?: string;
-};
-
-const UserSettingsPage = () => {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [updateMessage, setUpdateMessage] = useState<{
-        type: 'success' | 'error';
-        message: string;
-    } | null>(null);
+const UserSettingsPage = ({ initialUserSettings }: UserSettingsPageProps) => {
+    const queryClient = useQueryClient();
+    const { update: updateSession } = useSession();
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     const formMethods = useForm<UserSettingsFormValues>({
         mode: 'onBlur',
         defaultValues: {
-            firstName: '',
-            lastName: '',
-            email: '',
-            currentPassword: '',
-            newPassword: '',
-            confirmNewPassword: '',
-            bio: ''
+            firstName: initialUserSettings.firstName,
+            lastName: initialUserSettings.lastName,
+            email: initialUserSettings.email,
+            bio: initialUserSettings.bio || ''
         }
     });
 
-    // const { watch } = formMethods;
-    // const newPassword = watch('newPassword');
-
-    const onSubmit = async (data: UserSettingsFormValues) => {
-        setIsSubmitting(true);
-        setUpdateMessage(null);
-
-        try {
-            // TODO: Replace with actual API call to update user settings
-            console.log('Updating user settings:', data);
-            
-            // Simulate API call
-            // TODO: Change this later
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            setUpdateMessage({
-                type: 'success',
-                message: 'Settings updated successfully!'
+    const updateUserMutation = useMutation({
+        mutationFn: async (data: UserSettingsFormValues) => {
+            const response = await fetch('/api/user-settings', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    bio: data.bio
+                }),
             });
-            
-            // Clear password fields after successful update
-            formMethods.setValue('currentPassword', '');
-            formMethods.setValue('newPassword', '');
-            formMethods.setValue('confirmNewPassword', '');
-            
-        } catch (error) {
+
+            const result = await response.json();
+
+            if (!result.success) {
+                throw new Error(result.message || 'Failed to update settings');
+            }
+
+            return result.userSettings;
+        },
+        onSuccess: async (updatedUserSettings) => {
+            // Update the form with the new data
+            formMethods.reset({
+                firstName: updatedUserSettings.firstName,
+                lastName: updatedUserSettings.lastName,
+                email: updatedUserSettings.email,
+                bio: updatedUserSettings.bio || ''
+            });
+
+            // Show success message
+            setShowSuccessMessage(true);
+
+            // Trigger NextAuth to refetch user data from database
+            await updateSession();
+
+            // Invalidate queries that might depend on user settings
+            queryClient.invalidateQueries({ queryKey: ['userSettings'] });
+
+            // Invalidate session to update the user name across the app
+            queryClient.invalidateQueries({ queryKey: ['session'] });
+        },
+        onError: (error) => {
             console.error('Error updating settings:', error);
-            setUpdateMessage({
-                type: 'error',
-                message: 'Failed to update settings. Please try again.'
-            });
-        } finally {
-            setIsSubmitting(false);
         }
+    });
+
+    // Clear success message after 3 seconds
+    useEffect(() => {
+        if (showSuccessMessage) {
+            const timer = setTimeout(() => {
+                setShowSuccessMessage(false);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [showSuccessMessage]);
+
+    const onSubmit = (data: UserSettingsFormValues) => {
+        updateUserMutation.mutate(data);
+    };
+
+    const handleReset = () => {
+        formMethods.reset({
+            firstName: initialUserSettings.firstName,
+            lastName: initialUserSettings.lastName,
+            email: initialUserSettings.email,
+            bio: initialUserSettings.bio || ''
+        });
     };
 
     const customButtons = (
         <div className={classes.buttonGroup}>
-            <button 
+            <button
                 type="submit"
                 className={classes.updateButton}
-                disabled={isSubmitting}
+                disabled={updateUserMutation.isPending}
             >
-                {isSubmitting ? 'Updating...' : 'Update Settings'}
+                {updateUserMutation.isPending ? 'Updating...' : 'Update Settings'}
             </button>
-            <button 
+            <button
                 type="button"
                 className={classes.cancelButton}
-                onClick={() => formMethods.reset()}
-                disabled={isSubmitting}
+                onClick={handleReset}
+                disabled={updateUserMutation.isPending}
             >
                 Reset
             </button>
@@ -94,15 +117,18 @@ const UserSettingsPage = () => {
 
     return (
         <section className={classes.settingsContainer}>
-            {updateMessage && (
-                <div 
-                    className={updateMessage.type === 'success' ? classes.successMessage : classes.errorMessage}
-                    role="alert"
-                >
-                    {updateMessage.message}
+            {showSuccessMessage && (
+                <div className={classes.successMessage} role="alert">
+                    Settings updated successfully!
                 </div>
             )}
-            
+
+            {updateUserMutation.error && (
+                <div className={classes.errorMessage} role="alert">
+                    {updateUserMutation.error.message}
+                </div>
+            )}
+
             <FormBuilder
                 fields={settingsFormConfig}
                 formMethods={formMethods}
@@ -114,7 +140,7 @@ const UserSettingsPage = () => {
                     label: classes.label,
                     input: classes.input,
                     textarea: classes.textarea,
-                    errorMessage: classes.errorMessage
+                    errorMessage: classes.fieldErrorMessage
                 }}
             />
         </section>
