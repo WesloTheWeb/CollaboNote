@@ -8,9 +8,10 @@ const MainContent = ({ loggedUser }: DashboardProps) => {
     return (
         <section className={mainContentContainer}>
             <div>
-                <p>
+                <h2>Dashboard Feed</h2>
+                <h5>
                 Welcome, <b>{loggedUser || 'User'}</b>
-                </p>
+                </h5>
                 <p>
                     I am still working on the design. But logging in and out, and making an account is secure and implemented.
                 </p>
