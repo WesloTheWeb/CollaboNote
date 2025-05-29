@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/useAuth';
+import { useSession, signOut } from 'next-auth/react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { navigationHeaderConfig as navigationHeader } from '@/config';
 import MobileNav from './MobileNavHeader/MobileNav';
 import classes from './Header.module.scss';
@@ -11,15 +13,37 @@ const { siteHeader, desktopNav, mobileNavToggle, hamburger, open, logoutButton }
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { isAuthenticated, session, logout, isLoggingOut } = useAuth();
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const { data: session } = useSession();
+    const queryClient = useQueryClient();
+    const router = useRouter();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const handleLogout = () => {
-        logout();
+    const handleLogout = async () => {
+        try {
+            setIsLoggingOut(true);
+            
+            // Sign out with NextAuth
+            await signOut({ redirect: false });
+            
+            // Clear React Query cache
+            queryClient.clear();
+            
+            // Navigate to home page
+            router.push('/');
+            router.refresh();
+            
+        } catch (error) {
+            console.error('Logout error:', error);
+        } finally {
+            setIsLoggingOut(false);
+        }
     };
+
+    const isAuthenticated = !!session?.user;
 
     return (
         <header className={siteHeader}>
@@ -38,7 +62,7 @@ const Header = () => {
                     </Link>
                 ))}
 
-                {isAuthenticated && session && (
+                {isAuthenticated && (
                     <button
                         onClick={handleLogout}
                         type="button"
@@ -46,7 +70,7 @@ const Header = () => {
                         className={logoutButton}
                         disabled={isLoggingOut}
                     >
-                        Logout
+                        {isLoggingOut ? 'Logging out...' : 'Logout'}
                     </button>
                 )}
             </nav>

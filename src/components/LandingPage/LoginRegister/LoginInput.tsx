@@ -19,7 +19,6 @@ const LoginInput = () => {
     const formMethods = useForm<FormValues>();
     const [isLoading, setIsLoading] = useState(false);
     const [loginError, setLoginError] = useState('');
-
     const router = useRouter();
 
     const onSubmit = async (data: FormValues) => {
@@ -30,12 +29,13 @@ const LoginInput = () => {
             const result = await signIn('credentials', {
                 email: data.email,
                 password: data.password,
-                redirect: false, // Don't redirect automatically
+                redirect: false,
             });
 
             if (result?.error) {
                 setLoginError('Invalid email or password');
             } else {
+                // Redirect and force server refresh to get updated session
                 router.push('/');
                 router.refresh();
                 console.log('Login successful!');
