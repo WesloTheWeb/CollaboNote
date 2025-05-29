@@ -1,5 +1,3 @@
-'use client';
-
 import { DashboardProps } from "@/interfaces";
 import classes from './MainContent.module.scss';
 

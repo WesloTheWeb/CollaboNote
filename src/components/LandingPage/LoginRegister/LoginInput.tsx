@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useForm } from "react-hook-form";
-import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import FormBuilder from '@/components/FormBuilder/FormBuilder';
 import { loginFormConfig } from "@/config";
@@ -19,30 +18,27 @@ const LoginInput = () => {
     const formMethods = useForm<FormValues>();
     const [isLoading, setIsLoading] = useState(false);
     const [loginError, setLoginError] = useState('');
-    const router = useRouter();
 
     const onSubmit = async (data: FormValues) => {
         setIsLoading(true);
         setLoginError('');
 
         try {
+            // Let NextAuth handle the redirect - this eliminates flicker
             const result = await signIn('credentials', {
                 email: data.email,
                 password: data.password,
-                redirect: false,
+                callbackUrl: '/', // Redirect here after successful login
+                redirect: true,   // Let NextAuth handle the redirect
             });
 
+            // This code won't run if redirect: true, but keep for error handling
             if (result?.error) {
                 setLoginError('Invalid email or password');
-            } else {
-                // Redirect and force server refresh to get updated session
-                router.push('/');
-                router.refresh();
-                console.log('Login successful!');
+                setIsLoading(false);
             }
         } catch (error) {
             setLoginError('An unexpected error occurred');
-        } finally {
             setIsLoading(false);
         }
     };
