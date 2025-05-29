@@ -1,35 +1,31 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import DashboardMenu from '../DashboardMenu/DashboardMenu';
 import classes from './DashboardWrapper.module.scss';
 
 type DashboardWrapperProps = {
   children: React.ReactNode;
+  serverSession: any;
 };
 
-const {dashboardLayout, mainContent} = classes;
-
-const DashboardWrapper = ({ children }: DashboardWrapperProps) => {
-  const pathname = usePathname();
-  const { data: session } = useSession();
-
-  // Show dashboard sidebar ONLY on non-root pages when authenticated
-  const shouldShowDashboardSidebar = session && pathname !== '/';
-
-  if (shouldShowDashboardSidebar) {
+const DashboardWrapper = ({ children, serverSession }: DashboardWrapperProps) => {
+  const { data: clientSession } = useSession();
+  
+  const session = clientSession || serverSession;
+  
+  if (session) {
     return (
-      <div className={dashboardLayout}>
-        <DashboardMenu loggedUser={session.user?.name} />
-        <main className={mainContent}>
+      <div className={classes.dashboardLayout}>
+        <DashboardMenu loggedUser={session?.user?.name} />
+        <main className={classes.mainContent}>
           {children}
         </main>
       </div>
     );
   }
-
-  // For root page or unauthenticated users, just show children
+  
+  // For unauthenticated users, just show children
   return <>{children}</>;
 };
 

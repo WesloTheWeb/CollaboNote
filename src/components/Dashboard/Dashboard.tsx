@@ -10,9 +10,6 @@ const Dashboard = ({ loggedUser }: DashboardProps) => {
     console.log('loggedUser', loggedUser)
     return (
         <div className={dashboardParentContainer}>
-            <DashboardMenu
-                loggedUser={loggedUser}
-            />
             <MainContent
                 loggedUser={loggedUser}
             />
