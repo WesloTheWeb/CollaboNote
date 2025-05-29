@@ -4,21 +4,22 @@ The concept is a mix of early day tumblr and pinterests light social media feel 
 share their goals. 
 
 ## Tech Stack (Front-End):
-- NextJS 14 with TypeScript
+- NextJS 15 with TypeScript
 - (S)CSS Modules
-- React Query
-- Redux & Redux Toolkit
+- React Query (Tan Query)
+- Redux & Redux Toolkit (RTK)
 - React Hook Forms
+- Lucide Icons
 
 ## Tech Stack (Back-End):
 ### Server
-- ExpressJS / NodeJS that's built in with NextJS14
+- ExpressJS / NodeJS that's built in with NextJS
+- Next-Auth
 - Web Sockets
 
 ### Database
 - PostgresSQL
-- Prisma
-- Supabase hosting
+- Supabase (SQL) hosting
 
 ## Tech Stack (Utils)
 - React Testing Library (RTL)
