@@ -1,5 +1,3 @@
-
-import DashboardMenu from './DashboardMenu/DashboardMenu';
 import MainContent from './MainContent/MainContent';
 import { DashboardProps } from '@/interfaces';
 import classes from './Dashboard.module.scss';
@@ -13,7 +11,6 @@ const Dashboard = ({ loggedUser }: DashboardProps) => {
             <MainContent
                 loggedUser={loggedUser}
             />
-
         </div>
     );
 };

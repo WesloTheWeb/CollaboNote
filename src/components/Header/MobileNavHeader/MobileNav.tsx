@@ -98,19 +98,25 @@ const MobileNav = ({ isOpen, toggleMenu }: MobileNavProps) => {
         </button>
     );
 
-    const renderRegularNavigation = () => (
-        <>
-            {navigationHeader.map((nav) => (
-                <Link
-                    key={nav.navigation}
-                    href={nav.path}
-                    onClick={toggleMenu}
-                >
-                    {nav.navigation}
-                </Link>
-            ))}
-        </>
-    );
+    const renderRegularNavigation = () => {
+        const filteredNavigation = navigationHeader.filter(nav =>
+            !(isAuthenticated && nav.path === '/registration')
+        );
+
+        return (
+            <>
+                {filteredNavigation.map((nav) => (
+                    <Link
+                        key={nav.navigation}
+                        href={nav.path}
+                        onClick={toggleMenu}
+                    >
+                        {nav.navigation}
+                    </Link>
+                ))}
+            </>
+        )
+    };
 
     const renderDashboardNavigation = () => (
         <>

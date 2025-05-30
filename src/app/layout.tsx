@@ -19,12 +19,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession(authOptions);
-  
+
   return (
     <html lang="en">
       <body className={`${cherryBomb.variable} ${roboto.variable} ${dynapuff.variable} ${notoSansTagalog.variable} ${outfit.variable}`}>
         <ReactQueryProvider>
-          <SessionStoreProvider>
+          <SessionStoreProvider session={session}>
             <ReduxStoreProvider>
               <Header />
               <DashboardWrapper serverSession={session}>

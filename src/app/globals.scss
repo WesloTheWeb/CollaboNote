@@ -41,7 +41,6 @@ a {
   text-decoration: none;
 }
 
-
 button {
 
   &:disabled {
@@ -119,3 +118,13 @@ h6 {
 // .swiper-slide {
 //   touch-action: pan-y;
 // }
+
+.backdrop {
+      background:
+        url('/assets/backdrop-landing.jpg'),
+        map-get(map-get(v.$colors, 'secondary'), 'sage');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    // min-height: 100vh;
+}
