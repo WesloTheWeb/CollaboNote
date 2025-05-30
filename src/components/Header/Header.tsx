@@ -25,17 +25,15 @@ const Header = () => {
     const handleLogout = async () => {
         try {
             setIsLoggingOut(true);
-            
             // Sign out with NextAuth
             await signOut({ redirect: false });
-            
+
             // Clear React Query cache
             queryClient.clear();
-            
-            // Navigate to home page
+
             router.push('/');
             router.refresh();
-            
+
         } catch (error) {
             console.error('Logout error:', error);
         } finally {
@@ -44,6 +42,9 @@ const Header = () => {
     };
 
     const isAuthenticated = !!session?.user;
+    const filteredNavigation = navigationHeader.filter(nav =>
+        !(isAuthenticated && nav.path === '/registration')
+    );
 
     return (
         <header className={siteHeader}>
@@ -54,7 +55,7 @@ const Header = () => {
             </h1>
 
             <nav className={desktopNav}>
-                {navigationHeader.map((nav) => (
+                {filteredNavigation.map((nav) => (
                     <Link
                         key={nav.navigation}
                         href={nav.path}>

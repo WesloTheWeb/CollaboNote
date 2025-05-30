@@ -1,11 +1,16 @@
 @use '../../styles/variables.scss' as v;
 
 .registrationContainer {
-  margin: 0 auto;
+  background-color: #fff;
+  width: 50%;
   padding: v.$spacing-lg;
+  margin: 3rem auto;
+  border-radius: 10px;
 
   @media #{v.$mq-smallScreen} {
+    width: 100%;
     max-width: 500px;
+    padding: 1rem;
   }
 
   h2 {
