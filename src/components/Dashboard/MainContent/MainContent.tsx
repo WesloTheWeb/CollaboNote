@@ -18,7 +18,7 @@ const MainContent = async ({ loggedUser }: DashboardProps) => {
                 </h5>
                 {isGuest ? (
                     <p className={guestMessageText}>
-                        You're viewing as a guest! This is a demo of the dashboard.
+                        You&apos;re viewing as a guest! This is a demo of the dashboard.
                         <strong> Sign up to create your own goals and track your progress.</strong>
                     </p>
                 ) : (
