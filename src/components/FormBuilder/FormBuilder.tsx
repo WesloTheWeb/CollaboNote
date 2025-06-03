@@ -1,13 +1,13 @@
 'use client';
 
 import { UseFormRegister, FieldValues, Path, RegisterOptions } from 'react-hook-form';
-import { FormBuilderProps, FormField } from '@/interfaces';
+import { ButtonTypes, FormBuilderProps, FormField } from '@/interfaces';
 import classes from './FormBuilderCore.module.scss';
+import Button from '../Button/Button';
 
 const FormBuilder = <T extends FieldValues>({
     fields,
     onSubmit,
-    submitButtonText = 'Submit',
     formMethods,
     onReset,
     classNames = {},
@@ -31,9 +31,9 @@ const FormBuilder = <T extends FieldValues>({
     const renderField = (field: FormField, register: UseFormRegister<T>) => {
         const { name, type, placeholder, validation = {}, customProps = {}, options = [] } = field;
         const fieldName = name as Path<T>;
-        
+
         const registration = register(fieldName, validation as any);
-        
+
         const commonProps = {
             ...registration,
             placeholder,
@@ -114,20 +114,17 @@ const FormBuilder = <T extends FieldValues>({
                         customButtons
                     ) : (
                         <>
-                            <button
-                                type="submit"
-                                disabled={isSubmitting}
-                            >
-                                {isSubmitting ? 'Submitting...' : submitButtonText}
-                            </button>
-
+                            <Button
+                                type='submit'
+                                fn={() => { }}
+                                buttonType={ButtonTypes.SUBMIT}
+                            />
                             {onReset && (
-                                <button
-                                    type="button"
-                                    onClick={onReset}
-                                >
-                                    Reset
-                                </button>
+                                <Button
+                                    type='button'
+                                    fn={onReset}
+                                    buttonType={ButtonTypes.RESET}
+                                />
                             )}
                         </>
                     )}
