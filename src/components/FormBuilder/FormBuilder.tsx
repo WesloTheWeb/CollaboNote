@@ -14,7 +14,7 @@ const FormBuilder = <T extends FieldValues>({
     customButtons, // Custom button elements
 }: FormBuilderProps<T>) => {
     const { register, handleSubmit } = formMethods;
-    const { errors, isSubmitting } = formMethods.formState;
+    const { errors } = formMethods.formState;
 
     // Merge default classes with custom classNames
     const {
