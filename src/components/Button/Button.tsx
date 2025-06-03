@@ -1,10 +1,12 @@
 import { ButtonProps, ButtonTypes, ButtonPathsKey } from '@/interfaces';
 import classes from './Button.module.scss';
 
-const { registerButton, signInButton, submitButton, resetButton } = classes;
+const { registerButton, signInButton, guestSignInButton, submitButton, logoutButton, resetButton } = classes;
 
 const buttonPaths: Record<ButtonPathsKey, string> = {
     [ButtonTypes.SIGNIN]: signInButton,
+    [ButtonTypes.GUESTSIGNIN]: guestSignInButton,
+    [ButtonTypes.LOGOUT]: logoutButton,
     [ButtonTypes.REGISTER]: registerButton,
     [ButtonTypes.SUBMIT]: submitButton,
     [ButtonTypes.RESET]: resetButton,
@@ -23,6 +25,10 @@ const Button = ({
         switch (type) {
             case ButtonTypes.SIGNIN:
                 return 'Sign in';
+            case ButtonTypes.GUESTSIGNIN:
+                return 'View as Guest';
+            case ButtonTypes.LOGOUT:
+                return 'Log out';
             case ButtonTypes.REGISTER:
                 return 'Register';
             case ButtonTypes.SUBMIT:

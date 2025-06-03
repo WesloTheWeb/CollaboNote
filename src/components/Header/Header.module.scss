@@ -135,38 +135,3 @@
         display: none;
     }
 }
-
-.logoutButton {
-    background-color: #E07A5F;  
-    color: white;
-    border: none;
-    padding: v.$spacing-sm v.$spacing-base;
-    border-radius: v.$radius-sm;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    font-size: v.$font-size-xs;
-    margin-left: 1rem;
-    
-    &:hover:not(:disabled) {
-        background-color: #c66a4f; 
-    }
-    
-    &:focus {
-        outline: 2px solid #FF9A8B;  
-        outline-offset: 2px;
-    }
-    
-    &:active {
-        background-color: #b5594a;
-    }
-
-    &:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
-
-    @media #{v.$mq-smallScreen} {
-        display: none;
-    }
-}

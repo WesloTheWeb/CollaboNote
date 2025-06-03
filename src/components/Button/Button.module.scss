@@ -1,4 +1,5 @@
 @use '../../styles/variables.scss' as v;
+@use '../../styles/typography.scss' as t;
 @use 'sass:color';
 
 // ? General button properties
@@ -24,7 +25,7 @@
 }
 
 // ? Special Button properties
-
+// ! Not used yet
 .signInButton {
     @extend .button;
     background-color: v.$button-signin-bg;
@@ -33,6 +34,25 @@
     &:hover {
         background-color: v.$button-signin-hover;
     }
+}
+
+.guestSignInButton {
+    @extend .button;
+    background-color: #508950;
+    color: t.$ButtonTextColorWhite;
+
+
+    &:hover {
+        background-color: #295029;
+    }
+}
+
+.logoutButton {
+    @extend .button;
+    background-color: #E07A5F;
+    color: white;
+    margin-left: 1rem;
+    padding: v.$spacing-sm v.$spacing-base;
 }
 
 .registerButton {
@@ -65,7 +85,7 @@
     @extend .button;
     background-color: v.$color-grey-medium;
     color: v.$button-text;
-    
+
     &:hover:not(:disabled) {
         background-color: darken(v.$color-grey-medium, 10%);
     }

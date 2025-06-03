@@ -3,8 +3,10 @@
 import { signIn } from 'next-auth/react';
 import LoginInput from './LoginInput';
 import classes from './LoginRegister.module.scss';
+import Button from '@/components/Button/Button';
+import { ButtonTypes } from '@/interfaces';
 
-const { loginContainer, submitButton, guestButton } = classes;
+const { loginContainer } = classes;
 
 const LoginRegister = () => {
 
@@ -39,16 +41,13 @@ const LoginRegister = () => {
         <section className={loginContainer}>
             <h6>Login or Register</h6>
             <LoginInput />
-            
             <div style={{ margin: '1rem 0', textAlign: 'center' }}>
                 <span>or</span>
             </div>
-            <button 
-                className={guestButton}
-                onClick={handleGuestLogin}
-            >
-                View as Guest
-            </button>
+            <Button 
+                buttonType={ButtonTypes.GUESTSIGNIN}
+                fn={handleGuestLogin}
+            />
         </section>
     );
 };

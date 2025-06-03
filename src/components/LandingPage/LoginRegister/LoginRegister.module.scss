@@ -103,29 +103,6 @@
   }
 }
 
-.guestButton {
-  width: 100%;
-  background-color: #508950;
-  color: t.$ButtonTextColorWhite;
-  border: none;
-  border-radius: v.$button-radius;
-  padding: v.$button-padding-base;
-  font-size: v.$button-font-base;
-  font-weight: v.$button-font-weight;
-  cursor: pointer;
-  transition: background-color v.$transition-standard;
-  margin: 0;
-
-  @media #{v.$mq-smallScreen} {
-    padding: calc(v.$button-padding-base * 0.9);
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.4);
-  }
-}
-
 .formTitle {
   font-size: v.$font-size-xl;
   color: t.text-color('header');

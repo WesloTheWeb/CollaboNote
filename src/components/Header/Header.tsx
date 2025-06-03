@@ -8,12 +8,13 @@ import { useRouter } from 'next/navigation';
 import { navigationHeaderConfig as navigationHeader } from '@/config';
 import MobileNav from './MobileNavHeader/MobileNav';
 import classes from './Header.module.scss';
+import Button from '../Button/Button';
+import { ButtonTypes } from '@/interfaces';
 
-const { siteHeader, desktopNav, mobileNavToggle, hamburger, open, logoutButton } = classes;
+const { siteHeader, desktopNav, mobileNavToggle, hamburger, open } = classes;
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isLoggingOut, setIsLoggingOut] = useState(false);
     const { data: session } = useSession();
     const queryClient = useQueryClient();
     const router = useRouter();
@@ -24,7 +25,6 @@ const Header = () => {
 
     const handleLogout = async () => {
         try {
-            setIsLoggingOut(true);
             // Sign out with NextAuth
             await signOut({ redirect: false });
 
@@ -36,9 +36,7 @@ const Header = () => {
 
         } catch (error) {
             console.error('Logout error:', error);
-        } finally {
-            setIsLoggingOut(false);
-        }
+        } 
     };
 
     const isAuthenticated = !!session?.user;
@@ -53,7 +51,6 @@ const Header = () => {
                     CollaboNote
                 </Link>
             </h1>
-
             <nav className={desktopNav}>
                 {filteredNavigation.map((nav) => (
                     <Link
@@ -62,17 +59,11 @@ const Header = () => {
                         {nav.navigation}
                     </Link>
                 ))}
-
                 {isAuthenticated && (
-                    <button
-                        onClick={handleLogout}
-                        type="button"
-                        aria-label="Logout"
-                        className={logoutButton}
-                        disabled={isLoggingOut}
-                    >
-                        {isLoggingOut ? 'Logging out...' : 'Logout'}
-                    </button>
+                    <Button 
+                        fn={handleLogout}
+                        buttonType={ButtonTypes.LOGOUT}
+                    />
                 )}
             </nav>
 

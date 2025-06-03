@@ -1,6 +1,8 @@
 // Make sure these match the exact CSS class name
 export enum ButtonTypes {
     SIGNIN = 'signInButton',
+    GUESTSIGNIN = 'guestSignInButton',
+    LOGOUT = 'logoutButton',
     REGISTER = 'registerButton',
     SUBMIT = 'submitButton',
     RESET = 'resetButton',
