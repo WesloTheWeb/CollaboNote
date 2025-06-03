@@ -9,6 +9,21 @@ import { settingsFormConfig } from "@/config/formsConfig/settingsFormConfig";
 import { UserSettingsFormValues, UserSettingsPageProps } from '@/interfaces';
 import classes from './UserSettingsPage.module.scss';
 
+const {
+    settingsContainer,
+    formContainer,
+    fieldContainer,
+    label,
+    input,
+    textarea,
+    errorMessage,
+    fieldErrorMessage,
+    buttonGroup,
+    updateButton,
+    cancelButton,
+    successMessage
+} = classes;
+
 const UserSettingsPage = ({ initialUserSettings }: UserSettingsPageProps) => {
     const queryClient = useQueryClient();
     const { update: updateSession } = useSession();
@@ -96,17 +111,17 @@ const UserSettingsPage = ({ initialUserSettings }: UserSettingsPageProps) => {
     };
 
     const customButtons = (
-        <div className={classes.buttonGroup}>
+        <div className={buttonGroup}>
             <button
                 type="submit"
-                className={classes.updateButton}
+                className={updateButton}
                 disabled={updateUserMutation.isPending}
             >
                 {updateUserMutation.isPending ? 'Updating...' : 'Update Settings'}
             </button>
             <button
                 type="button"
-                className={classes.cancelButton}
+                className={cancelButton}
                 onClick={handleReset}
                 disabled={updateUserMutation.isPending}
             >
@@ -116,14 +131,14 @@ const UserSettingsPage = ({ initialUserSettings }: UserSettingsPageProps) => {
     );
 
     return (
-        <section className={classes.settingsContainer}>
+        <section className={settingsContainer}>
             {showSuccessMessage && (
-                <div className={classes.successMessage} role="alert">
+                <div className={successMessage} role="alert">
                     Settings updated successfully!
                 </div>
             )}
             {updateUserMutation.error && (
-                <div className={classes.errorMessage} role="alert">
+                <div className={errorMessage} role="alert">
                     {updateUserMutation.error.message}
                 </div>
             )}
@@ -133,12 +148,12 @@ const UserSettingsPage = ({ initialUserSettings }: UserSettingsPageProps) => {
                 onSubmit={onSubmit}
                 customButtons={customButtons}
                 classNames={{
-                    formContainer: classes.formContainer,
-                    fieldContainer: classes.fieldContainer,
-                    label: classes.label,
-                    input: classes.input,
-                    textarea: classes.textarea,
-                    errorMessage: classes.fieldErrorMessage
+                    formContainer: formContainer,
+                    fieldContainer: fieldContainer,
+                    label: label,
+                    input: input,
+                    textarea: textarea,
+                    errorMessage: fieldErrorMessage
                 }}
             />
         </section>
