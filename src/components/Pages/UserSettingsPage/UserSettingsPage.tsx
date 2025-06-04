@@ -6,7 +6,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 import FormBuilder from "@/components/FormBuilder/FormBuilder";
 import { settingsFormConfig } from "@/config/formsConfig/settingsFormConfig";
-import { UserSettingsFormValues, UserSettingsPageProps } from '@/interfaces';
+import { ButtonTypes, UserSettingsFormValues, UserSettingsPageProps } from '@/interfaces';
+import Button from '@/components/Button/Button';
 import classes from './UserSettingsPage.module.scss';
 
 const {
@@ -20,7 +21,6 @@ const {
     fieldErrorMessage,
     buttonGroup,
     updateButton,
-    cancelButton,
     successMessage
 } = classes;
 
@@ -119,14 +119,11 @@ const UserSettingsPage = ({ initialUserSettings }: UserSettingsPageProps) => {
             >
                 {updateUserMutation.isPending ? 'Updating...' : 'Update Settings'}
             </button>
-            <button
+            <Button 
+                fn={handleReset}
                 type="button"
-                className={cancelButton}
-                onClick={handleReset}
-                disabled={updateUserMutation.isPending}
-            >
-                Reset
-            </button>
+                buttonType={ButtonTypes.RESET}
+            />
         </div>
     );
 

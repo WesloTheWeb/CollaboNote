@@ -97,27 +97,6 @@
   }
 }
 
-.cancelButton {
-  background-color: v.$color-grey-medium;
-  color: v.$color-grey-darkest;
-  border: none;
-  border-radius: v.$button-radius;
-  padding: v.$button-padding-base v.$button-padding-base * 2;
-  font-size: v.$button-font-base;
-  font-weight: v.$button-font-weight;
-  cursor: pointer;
-  transition: background-color v.$transition-standard;
-
-  &:disabled {
-    opacity: v.$button-disabled-opacity;
-    cursor: not-allowed;
-  }
-
-  @media #{v.$mq-smallScreen} {
-    width: 100%;
-  }
-}
-
 .successMessage {
   background-color: #d4edda;
   color: #155724;

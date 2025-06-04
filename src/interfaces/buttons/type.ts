@@ -5,7 +5,7 @@ export enum ButtonTypes {
     LOGOUT = 'logoutButton',
     REGISTER = 'registerButton',
     SUBMIT = 'submitButton',
-    RESET = 'resetButton',
+    RESET = 'resetActionButton',
     DEFAULT = 'button' 
 };
 

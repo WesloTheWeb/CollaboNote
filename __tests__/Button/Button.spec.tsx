@@ -28,7 +28,7 @@ describe('Button Component', () => {
             [ButtonTypes.SIGNIN]: 'signInButton',
             [ButtonTypes.REGISTER]: 'registerButton',
             [ButtonTypes.SUBMIT]: 'submitButton',
-            [ButtonTypes.RESET]: 'resetButton',
+            [ButtonTypes.RESET]: 'resetActionButton',
             [ButtonTypes.DEFAULT]: 'button'
         };
 
