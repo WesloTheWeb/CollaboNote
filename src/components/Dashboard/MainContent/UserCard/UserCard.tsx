@@ -1,20 +1,43 @@
+import Image from 'next/image';
 import classes from './UserCard.module.scss';
 
-const {} = classes;
+interface UserCardProps {
+    uuid: number,
+    username: string,
+    firstName: string,
+    lastName: string,
+    achievement?: string | null,
+    avatar: string, // image
+    postDate: Date | string,
+    membershipType: string,
+    messagePostBody: string,
+}
 
-const UserCard = () => {
+const { userCardContainer, userCardHeaderDisplay, userCardDetailsContainer, userCardDetails } = classes;
+
+const UserCard = ({ uuid, username, avatar, postDate, achievement, membershipType, messagePostBody }: UserCardProps) => {
     return (
-        <div>
-            <section>
-                profile pic, username, time posted, rank
+        <div className={userCardContainer}>
+            <section className={userCardHeaderDisplay}>
+                <div className={userCardDetailsContainer}>
+                    <figure>
+                        <img src={avatar} alt={avatar} width={50} height={50} />
+                    </figure>
+                    <div className={userCardDetails}>
+                        <strong>{username}</strong>
+                        {achievement}
+                        {membershipType}
+                    </div>
+                </div>
+                <div>
+                    Achivement
+                </div>
             </section>
             <section>
-                body text
+                {messagePostBody}
             </section>
         </div>
     );
 };
 
 export default UserCard;
-
-// TODO - This is iterated. Make a dummy component that takes in information from postgreSQL database.

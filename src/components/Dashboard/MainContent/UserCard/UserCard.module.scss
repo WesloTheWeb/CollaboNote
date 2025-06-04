@@ -1,1 +1,22 @@
 @use '../../../../styles/variables.scss' as v;
+
+.userCardContainer {
+    background-color: #f8f8f8;
+    border: rgb(116, 99, 77) dashed;
+    padding: 0.5rem;
+}
+
+.userCardHeaderDisplay {
+    display: flex;
+    justify-content: space-between;
+}
+
+.userCardDetailsContainer {
+    display: flex;
+    gap: .5rem;
+}
+
+.userCardDetails {
+    display: flex;
+    flex-direction: column;
+}

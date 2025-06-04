@@ -2,8 +2,10 @@
 
 import Button from '@/components/Button/Button';
 import classes from './Newsfeed.module.scss';
+import UserCard from '../UserCard/UserCard';
+import { sampleUsers } from '@/config/dashboard/sampleUserPostsConfig';
 
-const {newsFeedTabContainer, newsFeedBody } = classes;
+const { newsFeedTabContainer, newsFeedBody } = classes;
 
 const NewsFeed = ({ }) => {
 
@@ -33,6 +35,33 @@ const NewsFeed = ({ }) => {
                 </Button>
             </section>
             <section>
+                {
+                    sampleUsers.map(({
+                        uuid,
+                        username,
+                        firstName,
+                        lastname,
+                        achievement,
+                        avatar,
+                        postDate,
+                        membership,
+                        messagePostBody }) => {
+                        return (
+                            <UserCard
+                                key={uuid}
+                                uuid={uuid}
+                                username={username}
+                                firstName={firstName}
+                                lastName={lastname}
+                                achievement={achievement}
+                                avatar={avatar}
+                                postDate={postDate}
+                                membershipType={membership}
+                                messagePostBody={messagePostBody}
+                            />
+                        )
+                    })
+                }
                 {/*todo Profile Cards component */}
             </section>
         </div>
