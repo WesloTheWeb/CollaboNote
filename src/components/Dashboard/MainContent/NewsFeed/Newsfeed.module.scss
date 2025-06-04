@@ -1,8 +1,6 @@
 @use '../../../../styles/variables.scss' as v;
 
 .newsFeedBody {
-    padding: 0 2.5rem 2.5rem 2.5rem;
-    border: red dashed 1px;
 
     @media #{v.$mq-smallScreen} {
         display: block;

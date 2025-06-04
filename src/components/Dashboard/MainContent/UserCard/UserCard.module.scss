@@ -1,9 +1,12 @@
 @use '../../../../styles/variables.scss' as v;
 
 .userCardContainer {
-    background-color: #f8f8f8;
-    border: rgb(116, 99, 77) dashed;
-    padding: 0.5rem;
+    background-color: #faf8f5;
+    border: 1px solid #e8dcc6;
+    margin: 2rem 0;
+    padding: 1rem;
+    position: relative;
+    border-radius: 8px;
 }
 
 .userCardHeaderDisplay {

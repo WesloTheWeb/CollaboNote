@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Banner from '@/components/Banners/Banners';
 import classes from './UserCard.module.scss';
 
 interface UserCardProps {
@@ -25,16 +26,24 @@ const UserCard = ({ uuid, username, avatar, postDate, achievement, membershipTyp
                     </figure>
                     <div className={userCardDetails}>
                         <strong>{username}</strong>
-                        {achievement}
                         {membershipType}
                     </div>
                 </div>
                 <div>
-                    Achivement
+                    {
+                        achievement ? (
+                            <Banner type="success" variant="usercard" message="Achievement!" />
+                        ) : null
+                    }
+                    <span>1hr ago</span>
                 </div>
             </section>
             <section>
-                {messagePostBody}
+                {achievement ? (
+                    achievement
+                ) :
+                    messagePostBody
+                }
             </section>
         </div>
     );

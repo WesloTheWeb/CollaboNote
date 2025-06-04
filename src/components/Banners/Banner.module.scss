@@ -1,0 +1,52 @@
+@use '../../styles/variables.scss' as v;
+
+.bannerContainer {
+    padding: v.$spacing-sm v.$spacing-md;
+    border-radius: v.$radius-sm;
+    font-size: v.$font-size-xs;
+    font-weight: 500;
+    border: 1px solid;
+}
+
+.bannerStatic {
+    width: 100%;
+    margin-bottom: v.$spacing-md;
+}
+
+.bannerUsercard {
+    position: absolute;
+    top: -15px;
+    right: 0;
+    z-index: 10;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.bannerSuccess {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.bannerError {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.bannerWarning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-color: #ffeaa7;
+}
+
+.bannerInfo {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-color: #bee5eb;
+}
