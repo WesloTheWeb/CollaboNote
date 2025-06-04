@@ -1,0 +1,25 @@
+@use '../../../../styles/variables.scss' as v;
+
+.userCardContainer {
+    background-color: #faf8f5;
+    border: 1px solid #e8dcc6;
+    margin: 2rem 0;
+    padding: 1rem;
+    position: relative;
+    border-radius: 8px;
+}
+
+.userCardHeaderDisplay {
+    display: flex;
+    justify-content: space-between;
+}
+
+.userCardDetailsContainer {
+    display: flex;
+    gap: .5rem;
+}
+
+.userCardDetails {
+    display: flex;
+    flex-direction: column;
+}

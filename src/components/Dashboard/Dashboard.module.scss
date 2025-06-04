@@ -2,8 +2,9 @@
 
 .dashboardParentContainer {
     display: grid;
-    grid-template-columns: 3fr 2fr;
-
+    grid-template-columns: 7fr 2fr;
+    gap: 2rem;
+    
     @media #{v.$mq-smallScreen} {
         display: block;
     }

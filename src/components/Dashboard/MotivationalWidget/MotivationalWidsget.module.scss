@@ -1,0 +1,143 @@
+@use '../../../styles/variables.scss' as v;
+
+.motivationalWidgetContainer {
+  width: 100%;
+  max-width: 300px;
+  margin: 2rem 1rem;
+  margin: v.$spacing-lg 0;
+  
+  h6 {
+    text-align: center;
+    margin-bottom: v.$spacing-base;
+    color: #5d4037;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  }
+}
+
+.scrollBackground {
+  background: linear-gradient(145deg, #f4f1e8, #ede5d3);
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, rgba(139, 69, 19, 0.03) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(139, 69, 19, 0.02) 0%, transparent 100%);
+  border: 3px solid #8b4513;
+  border-radius: 15px;
+  padding: v.$spacing-lg;
+  position: relative;
+  box-shadow: 
+    inset 0 0 20px rgba(139, 69, 19, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.15),
+    0 4px 8px rgba(139, 69, 19, 0.2);
+  
+  // Parchment texture effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(139, 69, 19, 0.01) 2px,
+        rgba(139, 69, 19, 0.01) 4px
+      );
+    border-radius: 12px;
+    pointer-events: none;
+  }
+  
+  // Aged paper edges
+  &::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: #8b4513;
+    border-radius: 17px;
+    z-index: -1;
+    opacity: 0.3;
+  }
+}
+
+.quoteSection {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.quoteText {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #3e2723;
+  font-style: italic;
+  margin: 0 0 v.$spacing-base 0;
+  text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.1);
+  
+  &::before,
+  &::after {
+    content: '✨';
+    color: #8b4513;
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+  
+  @media #{v.$mq-smallScreen} {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
+.authorText {
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  color: #5d4037;
+  font-weight: 600;
+  font-style: normal;
+  display: block;
+  margin-top: v.$spacing-sm;
+  letter-spacing: 0.5px;
+  
+  @media #{v.$mq-smallScreen} {
+    font-size: 0.85rem;
+  }
+}
+
+.errorState {
+  p {
+    font-family: 'Cinzel', serif;
+    color: #5d4037;
+    font-style: italic;
+    margin: v.$spacing-xs 0;
+    
+    &:first-child {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    
+    &:last-child {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  }
+}
+
+// Responsive adjustments
+@media #{v.$mq-smallScreen} {
+  .motivationalWidgetContainer {
+    max-width: 100%;
+    margin: v.$spacing-base 0;
+  }
+  
+  .scrollBackground {
+    padding: v.$spacing-base;
+    border-width: 2px;
+  }
+}
