@@ -1,22 +1,11 @@
 import Image from 'next/image';
 import Banner from '@/components/Banners/Banners';
+import { UserType } from '@/interfaces';
 import classes from './UserCard.module.scss';
-
-interface UserCardProps {
-    uuid: number,
-    username: string,
-    firstName: string,
-    lastName: string,
-    achievement?: string | null,
-    avatar: string, // image
-    postDate: Date | string,
-    membershipType: string,
-    messagePostBody: string,
-}
 
 const { userCardContainer, userCardHeaderDisplay, userCardDetailsContainer, userCardDetails } = classes;
 
-const UserCard = ({ uuid, username, avatar, postDate, achievement, membershipType, messagePostBody }: UserCardProps) => {
+const UserCard = ({ uuid, username, avatar, postDate, achievement, membership, timeOfPost, messagePostBody }: UserType) => {
     return (
         <div className={userCardContainer}>
             <section className={userCardHeaderDisplay}>
@@ -26,7 +15,7 @@ const UserCard = ({ uuid, username, avatar, postDate, achievement, membershipTyp
                     </figure>
                     <div className={userCardDetails}>
                         <strong>{username}</strong>
-                        {membershipType}
+                        {membership}
                     </div>
                 </div>
                 <div>
@@ -35,7 +24,7 @@ const UserCard = ({ uuid, username, avatar, postDate, achievement, membershipTyp
                             <Banner type="success" variant="usercard" message="Achievement!" />
                         ) : null
                     }
-                    <span>1hr ago</span>
+                    <span>{timeOfPost}</span>
                 </div>
             </section>
             <section>

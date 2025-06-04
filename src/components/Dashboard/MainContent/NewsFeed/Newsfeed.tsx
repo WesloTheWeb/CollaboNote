@@ -5,33 +5,9 @@ import classes from './Newsfeed.module.scss';
 import UserCard from '../UserCard/UserCard';
 import { sampleUsers, filterTabs } from '@/config/dashboard/sampleUserPostsConfig';
 import { PersonalIcon, LocalIcon, TrendingIcon } from './NewsFeedFilterTab/TabIcons';
+import { NewsFeedState, NewsFeedAction, NewsfeedProps } from '@/interfaces';
 
 const { newsFeedTabContainer, newsFeedBody, tab, active, disabled, tabIcon } = classes;
-
-type NewsFeedState = {
-    activeTab: string,
-    filteredUsers: UserType[]
-};
-
-type NewsFeedAction =
-    | { type: 'SET_ACTIVE_TAB'; payload: string }
-    | { type: 'FILTER_USERS'; payload: string };
-
-type UserType = {
-    uuid: number,
-    username: string,
-    firstName: string,
-    lastName: string,
-    achievement: null | string,
-    avatar: string,
-    postDate: string | Date,
-    membership: string,
-    messagePostBody: string
-};
-
-type NewsfeedProps = {
-    users: UserType[]
-};
 
 // Reducer function
 const newsFeedReducer = (state: NewsFeedState, action: NewsFeedAction): NewsFeedState => {
@@ -109,6 +85,7 @@ const NewsFeed = ({ users }: NewsfeedProps) => {
                     avatar,
                     postDate,
                     membership,
+                    timeOfPost,
                     messagePostBody
                 }) => (
                     <UserCard
@@ -120,7 +97,8 @@ const NewsFeed = ({ users }: NewsfeedProps) => {
                         achievement={achievement}
                         avatar={avatar}
                         postDate={postDate}
-                        membershipType={membership}
+                        membership={membership}
+                        timeOfPost={timeOfPost}
                         messagePostBody={messagePostBody}
                     />
                 ))}
