@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { DashboardProps } from "@/interfaces";
+import NewsFeed from "./NewsFeed/Newsfeed";
 import classes from './MainContent.module.scss';
 
 const { mainContentContainer, guestMessageText } = classes;
@@ -22,9 +23,7 @@ const MainContent = async ({ loggedUser }: DashboardProps) => {
                         <strong> Sign up to create your own goals and track your progress.</strong>
                     </p>
                 ) : (
-                    <p>
-                        I am still working on the design. But logging in and out, and making an account is secure and implemented.
-                    </p>
+                    <NewsFeed />
                 )}
             </div>
         </section>

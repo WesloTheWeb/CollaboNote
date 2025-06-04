@@ -1,0 +1,20 @@
+@use '../../../../styles/variables.scss' as v;
+
+.newsFeedBody {
+    padding: 0 2.5rem 2.5rem 2.5rem;
+    border: red dashed 1px;
+
+    @media #{v.$mq-smallScreen} {
+        display: block;
+        padding: 0;
+    }
+}
+
+.newsFeedTabContainer {
+    display: flex;
+    margin: 1.75rem 0;
+
+    button {
+        background-color: rgba(65, 70, 110, 0.614);
+    }
+}
