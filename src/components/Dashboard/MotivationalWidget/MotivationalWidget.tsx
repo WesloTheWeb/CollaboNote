@@ -67,7 +67,7 @@ const MotivationalWidget = () => {
                 <h6>Daily Motivation Quote</h6>
                 <section className={quoteSection}>
                     <blockquote className={quoteText}>
-                        "{quote?.content}"
+                        &quote;{quote?.content}&quote;
                     </blockquote>
                     <cite className={authorText}>
                         — {quote?.author}
