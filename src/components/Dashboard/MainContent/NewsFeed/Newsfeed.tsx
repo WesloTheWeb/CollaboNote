@@ -1,68 +1,116 @@
 'use client';
 
-import Button from '@/components/Button/Button';
+import { useReducer } from 'react';
 import classes from './Newsfeed.module.scss';
 import UserCard from '../UserCard/UserCard';
-import { sampleUsers } from '@/config/dashboard/sampleUserPostsConfig';
+import { sampleUsers, filterTabs } from '@/config/dashboard/sampleUserPostsConfig';
+import { PersonalIcon, LocalIcon, TrendingIcon } from './NewsFeedFilterTab/TabIcons';
 
-const { newsFeedTabContainer, newsFeedBody } = classes;
+const { newsFeedTabContainer, newsFeedBody, tab, active, disabled, tabIcon } = classes;
 
-const NewsFeed = ({ }) => {
+// State type
+type NewsFeedState = {
+    activeTab: string;
+    filteredUsers: typeof sampleUsers;
+};
 
-    //TODO - Fetch from here, think about folder structure order.
+// Action types
+type NewsFeedAction = 
+    | { type: 'SET_ACTIVE_TAB'; payload: string }
+    | { type: 'FILTER_USERS'; payload: string };
+
+// Reducer function
+const newsFeedReducer = (state: NewsFeedState, action: NewsFeedAction): NewsFeedState => {
+    switch (action.type) {
+        case 'SET_ACTIVE_TAB':
+            return {
+                ...state,
+                activeTab: action.payload
+            };
+        case 'FILTER_USERS':
+            // TODO: Add filtering logic based on tab
+            // For now, return all users regardless of filter
+            return {
+                ...state,
+                filteredUsers: sampleUsers
+            };
+        default:
+            return state;
+    }
+};
+
+// Initial state
+const initialState: NewsFeedState = {
+    activeTab: 'Personal',
+    filteredUsers: sampleUsers
+};
+
+const NewsFeed = () => {
+    const [state, dispatch] = useReducer(newsFeedReducer, initialState);
+
+    const getTabIcon = (tabName: string) => {
+        switch (tabName) {
+            case 'Personal':
+                return <PersonalIcon />;
+            case 'Local':
+                return <LocalIcon />;
+            case 'Trending':
+                return <TrendingIcon />;
+            default:
+                return <PersonalIcon />;
+        }
+    };
+
+    const handleTabClick = (tabName: string, implemented: boolean) => {
+        if (implemented) {
+            dispatch({ type: 'SET_ACTIVE_TAB', payload: tabName });
+            dispatch({ type: 'FILTER_USERS', payload: tabName });
+        }
+    };
 
     return (
         <div className={newsFeedBody}>
             <section className={newsFeedTabContainer}>
-                {/* These can be its own component */}
-                <Button
-                    fn={() => { }}
-                    type='button'
-                >
-                    Personal
-                </Button>
-                <Button
-                    fn={() => { }}
-                    type='button'
-                >
-                    Local
-                </Button>
-                <Button
-                    fn={() => { }}
-                    type='button'
-                >
-                    Trending
-                </Button>
+                {filterTabs.map(({ filterTabName, implemented }) => (
+                    <button
+                        key={filterTabName}
+                        onClick={() => handleTabClick(filterTabName, implemented)}
+                        disabled={!implemented}
+                        type="button"
+                        className={`${tab} ${state.activeTab === filterTabName ? active : ''} ${!implemented ? disabled : ''}`}
+                    >
+                        <span className={tabIcon}>
+                            {getTabIcon(filterTabName)}
+                        </span>
+                        {filterTabName}
+                    </button>
+                ))}
             </section>
             <section>
-                {
-                    sampleUsers.map(({
-                        uuid,
-                        username,
-                        firstName,
-                        lastname,
-                        achievement,
-                        avatar,
-                        postDate,
-                        membership,
-                        messagePostBody }) => {
-                        return (
-                            <UserCard
-                                key={uuid}
-                                uuid={uuid}
-                                username={username}
-                                firstName={firstName}
-                                lastName={lastname}
-                                achievement={achievement}
-                                avatar={avatar}
-                                postDate={postDate}
-                                membershipType={membership}
-                                messagePostBody={messagePostBody}
-                            />
-                        )
-                    })
-                }
-                {/*todo Profile Cards component */}
+                {state.filteredUsers.map(({
+                    uuid,
+                    username,
+                    firstName,
+                    lastname,
+                    achievement,
+                    avatar,
+                    postDate,
+                    membership,
+                    messagePostBody 
+                }) => (
+                    <UserCard
+                        key={uuid}
+                        uuid={uuid}
+                        username={username}
+                        firstName={firstName}
+                        lastName={lastname}
+                        achievement={achievement}
+                        avatar={avatar}
+                        postDate={postDate}
+                        membershipType={membership}
+                        messagePostBody={messagePostBody}
+                    />
+                ))}
             </section>
         </div>
     );

@@ -1,0 +1,75 @@
+@use '../../styles/variables.scss' as v;
+
+.tabContainer {
+  display: flex;
+  border-bottom: 2px solid #f0f0f0;
+  margin-bottom: v.$spacing-lg;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all v.$transition-standard;
+  position: relative;
+
+  &:hover:not(.disabled) {
+    color: map-get(map-get(v.$colors, 'secondary'), 'sage');
+    background: rgba(169, 199, 126, 0.1);
+  }
+
+  &.active {
+    color: map-get(map-get(v.$colors, 'secondary'), 'sage');
+    border-bottom-color: map-get(map-get(v.$colors, 'secondary'), 'sage');
+    background: rgba(169, 199, 126, 0.12);
+  }
+
+  &.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+
+    &::after {
+      content: "Coming Soon";
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity v.$transition-standard;
+      white-space: nowrap;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+}
+
+.tabIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+}

@@ -1,3 +1,17 @@
+export const filterTabs = [
+  {
+    filterTabName: 'Personal',
+    implemented: true,
+  },
+  {
+    filterTabName: 'Local',
+    implemented: false,
+  }, {
+    filterTabName: 'Trending',
+    implemented: false,
+  },
+];
+
 export const sampleUsers = [
   {
     uuid: 1,
