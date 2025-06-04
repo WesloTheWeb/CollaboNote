@@ -8,16 +8,30 @@ import { PersonalIcon, LocalIcon, TrendingIcon } from './NewsFeedFilterTab/TabIc
 
 const { newsFeedTabContainer, newsFeedBody, tab, active, disabled, tabIcon } = classes;
 
-// State type
 type NewsFeedState = {
-    activeTab: string;
-    filteredUsers: typeof sampleUsers;
+    activeTab: string,
+    filteredUsers: UserType[]
 };
 
-// Action types
-type NewsFeedAction = 
+type NewsFeedAction =
     | { type: 'SET_ACTIVE_TAB'; payload: string }
     | { type: 'FILTER_USERS'; payload: string };
+
+type UserType = {
+    uuid: number,
+    username: string,
+    firstName: string,
+    lastName: string,
+    achievement: null | string,
+    avatar: string,
+    postDate: string | Date,
+    membership: string,
+    messagePostBody: string
+};
+
+type NewsfeedProps = {
+    users: UserType[]
+};
 
 // Reducer function
 const newsFeedReducer = (state: NewsFeedState, action: NewsFeedAction): NewsFeedState => {
@@ -32,20 +46,19 @@ const newsFeedReducer = (state: NewsFeedState, action: NewsFeedAction): NewsFeed
             // For now, return all users regardless of filter
             return {
                 ...state,
-                filteredUsers: sampleUsers
+                filteredUsers: state.filteredUsers
             };
         default:
             return state;
     }
 };
 
-// Initial state
-const initialState: NewsFeedState = {
-    activeTab: 'Personal',
-    filteredUsers: sampleUsers
-};
+const NewsFeed = ({ users }: NewsfeedProps) => {
+    const initialState: NewsFeedState = {
+        activeTab: 'Personal',
+        filteredUsers: users || sampleUsers
+    };
 
-const NewsFeed = () => {
     const [state, dispatch] = useReducer(newsFeedReducer, initialState);
 
     const getTabIcon = (tabName: string) => {
@@ -91,19 +104,19 @@ const NewsFeed = () => {
                     uuid,
                     username,
                     firstName,
-                    lastname,
+                    lastName,
                     achievement,
                     avatar,
                     postDate,
                     membership,
-                    messagePostBody 
+                    messagePostBody
                 }) => (
                     <UserCard
                         key={uuid}
                         uuid={uuid}
                         username={username}
                         firstName={firstName}
-                        lastName={lastname}
+                        lastName={lastName}
                         achievement={achievement}
                         avatar={avatar}
                         postDate={postDate}
