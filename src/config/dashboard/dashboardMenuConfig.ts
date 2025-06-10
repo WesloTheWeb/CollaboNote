@@ -51,7 +51,7 @@ export const dashboardMenuConfig: MenuSection[] = [
                 dashboardMenuLinkName: 'My Goals',
                 dashboardPath: '/goals',
                 icon: Target,
-                featureImplemented: false,
+                featureImplemented: true,
                 access: {
                     guestAccess: 'read-only', // Guests can view but not create/edit
                     requiresUpgrade: true // Show upgrade prompt for free tier limits
