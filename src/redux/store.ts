@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import countReducer from './slices/counterSlice';
 import authReducer from './slices/authSlice';
+import myGoalsReducer from './slices/myGoalsSlice';
 import userSettingsReducer from './slices/userSettingsSlice';
 
 const debugMiddleware = (store: any) => (next: any) => (action: any) => {
@@ -13,7 +14,8 @@ export const makeStore = () => {
         reducer: {
             count: countReducer,
             auth: authReducer,
-            user: userSettingsReducer
+            user: userSettingsReducer,
+            goals: myGoalsReducer
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware().concat(debugMiddleware),
