@@ -116,27 +116,6 @@ export const dashboardMenuConfig: MenuSection[] = [
                     guestAccess: 'hidden'
                 }
             },
-            {
-                dashboardMenuLinkName: 'Analytics',
-                dashboardPath: '/analytics',
-                icon: BarChart3,
-                featureImplemented: false,
-                access: {
-                    tiers: ['basic', 'pro'], // Premium analytics
-                    guestAccess: 'read-only', // Limited demo analytics
-                    requiresUpgrade: true
-                }
-            },
-            {
-                dashboardMenuLinkName: 'Notifications',
-                dashboardPath: '/notifications',
-                icon: Bell,
-                featureImplemented: false,
-                access: {
-                    roles: ['user'], // Personal notifications
-                    guestAccess: 'hidden'
-                }
-            }
         ]
     },
     {
