@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
@@ -19,10 +18,10 @@ const MobileNav = ({ isOpen, toggleMenu }: MobileNavProps) => {
     const pathname = usePathname();
 
     // Prevent scrolling when menu is open
-    useEffect(() => {
-        document.body.style.overflow = isOpen ? 'hidden' : 'auto';
-        return () => { document.body.style.overflow = 'auto'; };
-    }, [isOpen]);
+    // useEffect(() => {
+    //     document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+    //     return () => { document.body.style.overflow = 'auto'; };
+    // }, [isOpen]);
 
     const handleLogout = async () => {
         toggleMenu();
