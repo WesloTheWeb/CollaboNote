@@ -13,13 +13,13 @@
     z-index: 100;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
-
+    
     &.active {
         right: 0;
     }
-
+    
     // Regular navigation links (when not logged in)
-    >a {
+    > a {
         display: block;
         font-weight: bold;
         font-size: 1.2rem;
@@ -27,15 +27,14 @@
         padding: 0 1.5rem;
         text-decoration: none;
         color: #8b7355;
-
+        
         &:hover {
             color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
         }
     }
-
+    
     @media #{v.$mq-smallScreen} {
         display: block;
-        padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
     }
 }
 
@@ -46,6 +45,20 @@
     margin-bottom: v.$spacing-lg;
 }
 
+.mobileProfileButton {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    
+    &:focus {
+        outline: 2px solid map-get(map-get(v.$colors, 'primary'), 'coral');
+        outline-offset: 2px;
+        border-radius: v.$radius-base;
+    }
+}
+
 .mobileProfileInfo {
     display: flex;
     align-items: center;
@@ -53,6 +66,11 @@
     background-color: rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.1);
     border-radius: v.$radius-base;
     border: 1px solid rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.2);
+    transition: background-color v.$transition-standard;
+    
+    .mobileProfileButton:hover & {
+        background-color: rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.15);
+    }
 }
 
 .mobileProfileAvatar {
@@ -72,6 +90,7 @@
 .mobileProfileDetails {
     flex: 1;
     min-width: 0;
+    text-align: left;
 }
 
 .mobileProfileName {
@@ -92,10 +111,58 @@
     text-overflow: ellipsis;
 }
 
+// Mobile dropdown new position
+
+.mobileProfileChevron {
+    color: #8b7355;
+    margin-left: v.$spacing-sm;
+    flex-shrink: 0;
+    transition: transform v.$transition-standard;
+}
+
+.mobileProfileDropdown {
+    margin-top: v.$spacing-md;
+    border-top: 1px solid rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.2);
+    padding-top: v.$spacing-md;
+}
+
+.mobileLogoutOption {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: v.$spacing-md;
+    background-color: #E07A5F;
+    color: white;
+    border: none;
+    border-radius: v.$radius-sm;
+    font-size: v.$font-size-base;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color v.$transition-standard;
+    
+    &:hover {
+        background-color: #c66a4f;
+    }
+    
+    &:focus {
+        outline: 2px solid #FF9A8B;
+        outline-offset: 2px;
+    }
+    
+    &:active {
+        background-color: #b5594a;
+    }
+}
+
+.mobileLogoutIcon {
+    margin-right: v.$spacing-sm;
+    flex-shrink: 0;
+}
+
 // Mobile Menu Sections
 .mobileMenuSection {
     margin-bottom: v.$spacing-lg;
-
+    
     &:not(:first-child) {
         border-top: 1px solid #e6dcc6;
         padding-top: v.$spacing-lg;
@@ -170,8 +237,7 @@
 }
 
 .overlay {
-    display: none;
-    /* Hidden by default */
+    display: none; /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
@@ -181,49 +247,14 @@
     z-index: 5;
     transition: opacity 0.3s ease;
     opacity: 0;
-    pointer-events: none;
-    /* Prevent clicks when not active */
-
+    pointer-events: none; /* Prevent clicks when not active */
+    
     &.active {
         opacity: 1;
-        pointer-events: auto;
-        /* Allow clicks only when active */
+        pointer-events: auto; /* Allow clicks only when active */
     }
-
+    
     @media #{v.$mq-smallScreen} {
-        display: block;
-        /* Shown on mobile, but still invisible until active */
-    }
-}
-
-.logoutButton {
-    background-color: #E07A5F;
-    color: white;
-    border: none;
-    padding: v.$spacing-md v.$spacing-lg;
-    border-radius: v.$radius-sm;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    font-size: v.$font-size-base;
-    margin: v.$spacing-lg v.$spacing-lg 0;
-    width: calc(100% - 3rem);
-
-    &:hover {
-        background-color: #c66a4f;
-    }
-
-    &:focus {
-        outline: 2px solid #FF9A8B;
-        outline-offset: 2px;
-    }
-
-    &:active {
-        background-color: #b5594a;
-    }
-
-    @media #{v.$mq-smallScreen} {
-        // Add bottom margin for iPhone Safari safe area
-        margin-bottom: env(safe-area-inset-bottom, 1rem);
+        display: block; /* Shown on mobile, but still invisible until active */
     }
 }

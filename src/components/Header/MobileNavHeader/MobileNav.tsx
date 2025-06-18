@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
-import { Lock } from 'lucide-react';
+import { Lock, ChevronDown, ChevronUp, LogOut } from 'lucide-react';
 import { navigationHeaderConfig as navigationHeader, dashboardMenuConfig } from '@/config';
 import { getUserInitials } from '@/utils/getUserInitials';
 import classes from './MobileNav.module.scss';
@@ -17,31 +17,58 @@ type MobileNavProps = {
 const MobileNav = ({ isOpen, toggleMenu }: MobileNavProps) => {
     const { data: session, status } = useSession();
     const pathname = usePathname();
-
-    // Prevent scrolling when menu is open
-    useEffect(() => {
-        document.body.style.overflow = isOpen ? 'hidden' : 'auto';
-        return () => { document.body.style.overflow = 'auto'; };
-    }, [isOpen]);
+    const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
     const handleLogout = async () => {
         toggleMenu();
         await signOut({ callbackUrl: '/' });
     };
 
+    const toggleProfileDropdown = () => {
+        setIsProfileDropdownOpen(!isProfileDropdownOpen);
+    };
+
     const renderUserProfile = () => (
         <div className={classes.mobileUserProfile}>
-            <div className={classes.mobileProfileInfo}>
-                <div className={classes.mobileProfileAvatar}>
-                    {getUserInitials(session?.user?.name)}
-                </div>
-                <div className={classes.mobileProfileDetails}>
-                    <div className={classes.mobileProfileName}>
-                        {session?.user?.name || 'Guest User'}
+            <button
+                onClick={toggleProfileDropdown}
+                className={classes.mobileProfileButton}
+                type="button"
+                aria-expanded={isProfileDropdownOpen}
+                aria-label="Toggle user menu"
+            >
+                <div className={classes.mobileProfileInfo}>
+                    <div className={classes.mobileProfileAvatar}>
+                        {getUserInitials(session?.user?.name)}
                     </div>
-                    <div className={classes.mobileProfileRole}>Goal Achiever</div>
+                    <div className={classes.mobileProfileDetails}>
+                        <div className={classes.mobileProfileName}>
+                            {session?.user?.name || 'Guest User'}
+                        </div>
+                        <div className={classes.mobileProfileRole}>Goal Achiever</div>
+                    </div>
+                    <div className={classes.mobileProfileChevron}>
+                        {isProfileDropdownOpen ? (
+                            <ChevronUp size={16} />
+                        ) : (
+                            <ChevronDown size={16} />
+                        )}
+                    </div>
                 </div>
-            </div>
+            </button>
+            
+            {isProfileDropdownOpen && (
+                <div className={classes.mobileProfileDropdown}>
+                    <button
+                        onClick={handleLogout}
+                        type="button"
+                        className={classes.mobileLogoutOption}
+                    >
+                        <LogOut size={16} className={classes.mobileLogoutIcon} />
+                        <span>Logout</span>
+                    </button>
+                </div>
+            )}
         </div>
     );
 
@@ -87,17 +114,6 @@ const MobileNav = ({ isOpen, toggleMenu }: MobileNavProps) => {
         </div>
     );
 
-    const renderLogoutButton = () => (
-        <button
-            onClick={handleLogout}
-            type="button"
-            aria-label="Logout"
-            className={classes.logoutButton}
-        >
-            Logout
-        </button>
-    );
-
     const renderRegularNavigation = () => {
         const filteredNavigation = navigationHeader.filter(nav =>
             !(isAuthenticated && nav.path === '/registration')
@@ -122,7 +138,6 @@ const MobileNav = ({ isOpen, toggleMenu }: MobileNavProps) => {
         <>
             {renderUserProfile()}
             {dashboardMenuConfig.map(renderDashboardSection)}
-            {renderLogoutButton()}
         </>
     );
 
