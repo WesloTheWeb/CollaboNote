@@ -57,6 +57,16 @@ export const dashboardMenuConfig: MenuSection[] = [
                     requiresUpgrade: true // Show upgrade prompt for free tier limits
                 }
             },
+                 {
+                dashboardMenuLinkName: 'Calendar',
+                dashboardPath: '/calendar',
+                icon: Calendar,
+                featureImplemented: false,
+                access: {
+                    roles: ['user'], // Personal calendar requires account
+                    guestAccess: 'hidden'
+                }
+            },
             {
                 dashboardMenuLinkName: 'Journal',
                 dashboardPath: '/journal',
@@ -101,21 +111,6 @@ export const dashboardMenuConfig: MenuSection[] = [
                     guestAccess: 'read-only' // Show public achievements
                 }
             }
-        ]
-    },
-    {
-        sectionName: 'Tools',
-        items: [
-            {
-                dashboardMenuLinkName: 'Calendar',
-                dashboardPath: '/calendar',
-                icon: Calendar,
-                featureImplemented: false,
-                access: {
-                    roles: ['user'], // Personal calendar requires account
-                    guestAccess: 'hidden'
-                }
-            },
         ]
     },
     {
