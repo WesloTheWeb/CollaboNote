@@ -4,7 +4,7 @@ import { useAppSelector } from '@/redux/hooks';
 import MyGoalsHeader from './MyGoalsHeader';
 import { goalDummyData } from '@/config';
 import classes from './MyGoalsPage.module.scss';
-import GoalCard from '@/components/GoalCard/GoalCard';
+import GoalCard from '@/components/Cards/GoalCard/GoalCard';
 
 const { } = classes;
 
@@ -18,12 +18,11 @@ const MyGoalsPage = ({ }) => {
             <section>
                 {goalDummyData.map((goal) => {
                     return (
-                    <GoalCard 
-                        key={goal.goalName}
-                        goal={goal}
-                    />
-                )
-
+                        <GoalCard
+                            key={goal.goalName}
+                            goal={goal}
+                        />
+                    )
                 })}
             </section>
         </>

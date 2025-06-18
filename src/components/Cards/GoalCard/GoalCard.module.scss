@@ -1,0 +1,41 @@
+@use '../../../styles/variables.scss' as v;
+
+.goalCardContainer {
+    display: flex;
+    flex-direction: column;
+    border: 2.5px solid rgba(66, 113, 193, 0.616);
+    border-radius: 15px;
+    padding: 1.25rem;
+    margin: 1rem 0;
+
+    h4 {
+        font-size: 1.5rem;
+        text-transform: capitalize;
+    }
+
+}
+
+.goalCardHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.goalCard_Status {
+    flex-shrink: 0;
+    align-self: flex-start;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 5px;
+    padding: .5rem;
+}
+
+.goalCard_completed_marker {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.goalCard_in_progress_marker {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
