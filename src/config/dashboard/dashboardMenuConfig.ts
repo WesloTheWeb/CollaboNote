@@ -57,6 +57,16 @@ export const dashboardMenuConfig: MenuSection[] = [
                     requiresUpgrade: true // Show upgrade prompt for free tier limits
                 }
             },
+                 {
+                dashboardMenuLinkName: 'Calendar',
+                dashboardPath: '/calendar',
+                icon: Calendar,
+                featureImplemented: false,
+                access: {
+                    roles: ['user'], // Personal calendar requires account
+                    guestAccess: 'hidden'
+                }
+            },
             {
                 dashboardMenuLinkName: 'Journal',
                 dashboardPath: '/journal',
@@ -99,42 +109,6 @@ export const dashboardMenuConfig: MenuSection[] = [
                 featureImplemented: false,
                 access: {
                     guestAccess: 'read-only' // Show public achievements
-                }
-            }
-        ]
-    },
-    {
-        sectionName: 'Tools',
-        items: [
-            {
-                dashboardMenuLinkName: 'Calendar',
-                dashboardPath: '/calendar',
-                icon: Calendar,
-                featureImplemented: false,
-                access: {
-                    roles: ['user'], // Personal calendar requires account
-                    guestAccess: 'hidden'
-                }
-            },
-            {
-                dashboardMenuLinkName: 'Analytics',
-                dashboardPath: '/analytics',
-                icon: BarChart3,
-                featureImplemented: false,
-                access: {
-                    tiers: ['basic', 'pro'], // Premium analytics
-                    guestAccess: 'read-only', // Limited demo analytics
-                    requiresUpgrade: true
-                }
-            },
-            {
-                dashboardMenuLinkName: 'Notifications',
-                dashboardPath: '/notifications',
-                icon: Bell,
-                featureImplemented: false,
-                access: {
-                    roles: ['user'], // Personal notifications
-                    guestAccess: 'hidden'
                 }
             }
         ]
