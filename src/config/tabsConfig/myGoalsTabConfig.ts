@@ -2,7 +2,7 @@ import { setShowAllGoals, setCompletedGoals, setOngoingGoals } from "@/redux/sli
 
 export const myGoalsTabConfig = [
     {
-        tabName: 'My Goals',
+        tabName: 'All Goals',
         action: setShowAllGoals
     },
     {

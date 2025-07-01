@@ -4,10 +4,8 @@ import { useState } from 'react';
 import { useAppSelector } from '@/redux/hooks';
 import MyGoalsHeader from './MyGoalsHeader';
 import { goalDummyData } from '@/config';
-import classes from './MyGoalsPage.module.scss';
 import GoalCard from '@/components/Cards/GoalCard/GoalCard';
 
-const { } = classes;
 
 const MyGoalsPage = ({ }) => {
     const [goals, setGoals] = useState(goalDummyData);
