@@ -1,4 +1,5 @@
 export * from './buttons/type';
+export * from './cards/type';
 export * from './formBuilder/type';
 export * from './dashboard/type';
 export * from './registration/type';

@@ -1,0 +1,180 @@
+@use '../../../styles/variables.scss' as v;
+
+// TODO: Add variable colors that are also linked to banners!
+
+.goalCardContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: url('/assets/parchment-2.jpg') center/cover;
+    border: 2px solid #e8dcc6;
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+    // Semi-transparent overlay for better text readability
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(250, 248, 243, 0.3);
+        border-radius: 15px;
+        pointer-events: none;
+    }
+
+    h4 {
+        font-size: 1.75rem;
+        font-weight: bold;
+        color: #4a3d2a;
+        text-transform: capitalize;
+        margin: 0 0 8px 0;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    sub {
+        font-size: 0.9rem;
+        color: #6b5b47;
+        font-style: italic;
+    }
+}
+
+.goalCardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.goalCardLeft {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.goalCardInfo {
+    flex: 1;
+}
+
+.actionsButton {
+    background: rgba(139, 115, 85, 0.12);
+    border: 2px solid rgba(139, 115, 85, 0.25);
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5d4e37;
+    position: relative;
+}
+
+.dropdown {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: #faf8f3;
+    border: 2px solid #e8dcc6;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    min-width: 160px;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.dropdownOpen {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdownItem {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    background: none;
+    color: #4a3d2a;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+    
+    &:first-child {
+        border-radius: 8px 8px 0 0;
+    }
+    
+    &:last-child {
+        border-radius: 0 0 8px 8px;
+    }
+}
+
+.goalCard_Status {
+    flex-shrink: 0;
+    align-self: flex-start;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.85rem;
+    border-radius: 25px;
+    padding: 10px 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 2px solid;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.goalCard_completed_marker {
+    background: linear-gradient(135deg, #e8f5e8, #d4edda);
+    color: #2d5a2d;
+    border-color: #c3e6cb;
+}
+
+.goalCard_in_progress_marker {
+    background: linear-gradient(135deg, #e3f2fd, #d1ecf1);
+    color: #1e4a54;
+    border-color: #bee5eb;
+}
+
+.goalCardDescription {
+    position: relative;
+    z-index: 1;
+    
+    p {
+        color: #4a3d2a;
+        line-height: 1.7;
+        font-size: 1.05rem;
+        margin: 0;
+    }
+}
+
+// Responsive adjustments
+@media #{v.$mq-smallScreen} {
+    .goalCardContainer {
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+    
+    .goalCardLeft {
+        gap: 12px;
+    }
+    
+    .goalCard_Status {
+        padding: 8px 14px;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 325px) {
+    .goalCardContainer {
+        padding: 0.25rem;
+    }
+}

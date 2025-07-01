@@ -24,10 +24,4 @@ export default async function Home() {
   } catch (err) {
     console.error(err);
   };
-
 };
-
-// TODO: This becomes the root page. Not logged in users see LandingPage. Logged in see Dashboard component. 
-// TODO: it checks on the authSlice.
-
-// ! Note it does not fix or re-route yet after logging in but if reload it persists. Handle the TODOs
