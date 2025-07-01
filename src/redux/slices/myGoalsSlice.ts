@@ -29,6 +29,5 @@ const myGoalsSlice = createSlice({
 export const { setShowAllGoals, setCompletedGoals, setOngoingGoals } = myGoalsSlice.actions;
 export default myGoalsSlice.reducer;
 
-// ! Review redux it is also 7am I am tired
 
 // 1. If we are changing the state.showing would we need to have it on the PayloadAction?

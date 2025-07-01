@@ -8,8 +8,7 @@ import classes from './GoalCard.module.scss';
 
 interface goalCardProps {
     goal: goalCard;
-    // TODO: Add onStatusChange prop when Redux actions are implemented
-    // onStatusChange?: (goalId: string, isCompleted: boolean) => void;
+    onStatusChange: (goalId: string, isCompleted: boolean) => void;
 };
 
 const {
@@ -27,35 +26,34 @@ const {
     goalCardDescription
 } = classes;
 
-
-// TODO: Add in dropdown to go with background
-const GoalCard = ({ goal }: goalCardProps) => {
+const GoalCard = ({ goal, onStatusChange }: goalCardProps) => {
     const { goalName, goalDescription, goalStatus, isGoalCompleted, goalCreatedOn } = goal;
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const formattedDate = formatDate(goalCreatedOn);
 
-    // TODO: Implement these functions when Redux actions are ready
-    //TODO: Add hover off effect of dropdown.
-    // const handleMarkComplete = () => {
-    //     onStatusChange?.(goal.goalId || '', true);
-    //     setIsDropdownOpen(false);
-    // };
+    const handleMarkComplete = () => {
+        onStatusChange?.(goal.goalName || '', true);
+        setIsDropdownOpen(false);
+    };
 
-    // const handleMarkIncomplete = () => {
-    //     onStatusChange?.(goal.goalId || '', false);
-    //     setIsDropdownOpen(false);
-    // };
+    const handleMarkIncomplete = () => {
+        onStatusChange?.(goal.goalName || '', false);
+        setIsDropdownOpen(false);
+    };
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
+    const closeDropdown = () => {
+        setIsDropdownOpen(false);
+    };
+
     return (
-        <div className={goalCardContainer}>
+        <div className={goalCardContainer} onMouseLeave={closeDropdown}>
             <section className={goalCardHeader}>
                 <div className={goalCardLeft}>
-                    {/* TODO: Add onClick={toggleDropdown} when functionality is implemented */}
                     <button
                         className={actionsButton}
                         onClick={toggleDropdown}
@@ -63,13 +61,12 @@ const GoalCard = ({ goal }: goalCardProps) => {
                     >
                         <MoreVertical size={16} />
                     </button>
-                    {/* TODO: Show dropdown when isDropdownOpen state is implemented */}
                     {isDropdownOpen && (
-                        <div className={`${dropdown} ${dropdownOpen}`}>
+                        <div className={`${dropdown} ${dropdownOpen}`} onMouseLeave={closeDropdown}>
                             {!isGoalCompleted ? (
                                 <button
                                     className={dropdownItem}
-                                // TODO: Add onClick={handleMarkComplete} when function is implemented
+                                    onClick={handleMarkComplete}
                                 >
                                     <Check size={14} />
                                     Mark Complete
@@ -77,7 +74,7 @@ const GoalCard = ({ goal }: goalCardProps) => {
                             ) : (
                                 <button
                                     className={dropdownItem}
-                                // TODO: Add onClick={handleMarkIncomplete} when function is implemented
+                                    onClick={handleMarkIncomplete}
                                 >
                                     <Undo size={14} />
                                     Mark Incomplete
