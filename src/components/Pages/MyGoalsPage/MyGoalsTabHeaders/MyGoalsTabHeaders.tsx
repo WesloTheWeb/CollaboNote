@@ -11,8 +11,6 @@ interface MyGoalsTabProps {
     isActive: boolean
 };
 
-
-console.log('myGoalsTabConfig', myGoalsTabConfig)
 const { tabContainer, tabButton, active } = classes;
 
 const MyGoalsTab = ({tabName, action, isActive}: MyGoalsTabProps) => {

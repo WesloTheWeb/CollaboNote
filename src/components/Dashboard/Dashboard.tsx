@@ -6,7 +6,6 @@ import MotivationalWidget from './MotivationalWidget/MotivationalWidget';
 const { dashboardParentContainer } = classes;
 
 const Dashboard = ({ loggedUser }: DashboardProps) => {
-    console.log('loggedUser', loggedUser)
     return (
         <div className={dashboardParentContainer}>
             <MainContent

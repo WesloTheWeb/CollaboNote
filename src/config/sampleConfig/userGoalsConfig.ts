@@ -6,7 +6,7 @@ export const goalDummyData: goalCard[] = [
         goalDescription: "Master TypeScript fundamentals and advanced concepts to improve my development skills and build more robust applications.",
         goalStatus: "Completed",
         isGoalCompleted: true,
-        goalCreatedOn: new Date('2024-01-15')
+        goalCreatedOn: "2024-01-15"
     },
     {
         goalName: "Run a Marathon",
@@ -20,7 +20,7 @@ export const goalDummyData: goalCard[] = [
         goalDescription: "Challenge myself to read 2 books per month covering various genres including fiction, self-help, and technical books.",
         goalStatus: "On-going",
         isGoalCompleted: false,
-        goalCreatedOn: new Date('2024-01-01')
+        goalCreatedOn: "2024-01-01"
     },
     {
         goalName: "Build a Side Project",
@@ -34,7 +34,7 @@ export const goalDummyData: goalCard[] = [
         goalDescription: "Achieve conversational fluency in Spanish through daily practice, online courses, and speaking with native speakers.",
         goalStatus: "On-going",
         isGoalCompleted: false,
-        goalCreatedOn: new Date('2024-02-14')
+        goalCreatedOn: "2024-02-14"
     },
     {
         goalName: "Save $10,000",
@@ -48,7 +48,7 @@ export const goalDummyData: goalCard[] = [
         goalDescription: "Establish a consistent morning routine including meditation, exercise, and journaling to improve productivity and mental health.",
         goalStatus: "On-going",
         isGoalCompleted: false,
-        goalCreatedOn: new Date('2024-04-05')
+        goalCreatedOn: "2024-04-05"
     },
     {
         goalName: "Get AWS Certification",
