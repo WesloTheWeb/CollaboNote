@@ -1,7 +1,7 @@
 type goalStatuses = 'Completed' | 'On-going';
 
 export interface goalCard {
-    goalId: string;
+    goalId?: string;
     goalName: string,
     goalDescription: string,
     goalStatus: goalStatuses,
