@@ -1,6 +1,6 @@
 'use client';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { myGoalsTabConfig } from "@/config"
 import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 import classes from './MyGoalsTabHeaders.module.scss';
@@ -11,10 +11,12 @@ interface MyGoalsTabProps {
     isActive: boolean
 };
 
+
+console.log('myGoalsTabConfig', myGoalsTabConfig)
 const { tabContainer, tabButton, active } = classes;
 
 const MyGoalsTab = ({tabName, action, isActive}: MyGoalsTabProps) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     return (
         <button
@@ -27,7 +29,7 @@ const MyGoalsTab = ({tabName, action, isActive}: MyGoalsTabProps) => {
 }
 
 const MyGoalsTabHeaders = ({}) => {
-    const showing = useSelector((state: any) => state.goals.showing);
+    const showing = useAppSelector((state) => state.goals.showing);
 
     // Map showing state to tab names for active state check
     const getTabState = (tabName: string) => {

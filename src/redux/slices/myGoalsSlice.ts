@@ -1,13 +1,20 @@
+import { goalCard } from "@/interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { goalDummyData } from "@/config/sampleConfig/userGoalsConfig";
 
 type myGoalsStates = 'show all' | 'show completed' | 'show ongoing';
 
 interface myGoalsState {
     showing: myGoalsStates,
+    goals: goalCard[]
 };
+
+// Safely handle potentially undefined import
+const safeGoalData = Array.isArray(goalDummyData) ? goalDummyData : [];
 
 const initialState: myGoalsState = {
     showing: 'show all',
+    goals: safeGoalData
 };
 
 const myGoalsSlice = createSlice({
@@ -22,12 +29,17 @@ const myGoalsSlice = createSlice({
         },
         setOngoingGoals: (state) => {
             state.showing = 'show ongoing'
+        },
+        updateGoalStatus: (state, action: PayloadAction<{ goalName: string; isCompleted: boolean }>) => {
+            const { goalName, isCompleted } = action.payload;
+            const goal = state.goals.find(g => g.goalName === goalName);
+            if (goal) {
+                goal.isGoalCompleted = isCompleted;
+                goal.goalStatus = isCompleted ? 'Completed' : 'On-going';
+            }
         }
     }
 });
 
-export const { setShowAllGoals, setCompletedGoals, setOngoingGoals } = myGoalsSlice.actions;
+export const { setShowAllGoals, setCompletedGoals, setOngoingGoals, updateGoalStatus } = myGoalsSlice.actions;
 export default myGoalsSlice.reducer;
-
-
-// 1. If we are changing the state.showing would we need to have it on the PayloadAction?
