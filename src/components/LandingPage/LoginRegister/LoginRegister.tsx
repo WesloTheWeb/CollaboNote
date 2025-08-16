@@ -6,10 +6,11 @@ import LoginInput from './LoginInput';
 import Button from '@/components/Button/Button';
 import { ButtonTypes } from '@/interfaces';
 import Banner from '@/components/Banners/Banners';
+import Toast from '@/components/Notifications/ToastNotifications';
 
 import classes from './LoginRegister.module.scss';
 
-const { loginContainer, alertContainer, alertCard, alertIcon, alertTitle, alertMessage, contactInfo } = classes;
+const { loginContainer } = classes;
 
 const LoginRegister = () => {
     const [showDbError, setShowDbError] = useState(false);
@@ -20,7 +21,7 @@ const LoginRegister = () => {
             const healthCheck = await fetch('/api/health-check');
             
             if (!healthCheck.ok) {
-                // Database is down, show alert
+                // Database is down, show error
                 setShowDbError(true);
                 return;
             }
@@ -48,26 +49,28 @@ const LoginRegister = () => {
             });
         } catch (error) {
             console.error('Guest login error:', error);
-            // If any error (including network), show database error
-            setShowDbError(true);
+            // Only show database error if it's specifically a database connection issue
+            if (error instanceof TypeError && error.message.includes('fetch')) {
+                // Network error - might be database issue, show database error
+                setShowDbError(true);
+            } else {
+                // Other types of errors (like API errors) - don't show database error
+                console.error('Guest login failed:', error);
+                // You could add a separate error state for guest login failures if needed
+            }
         }
     };
 
     return (
         <section className={loginContainer}>
             {showDbError && (
-                <div className={alertContainer}>
-                    <article className={alertCard}>
-                        <div className={alertIcon}>⚠️</div>
-                        <h3 className={alertTitle}>Database Connection Error</h3>
-                        <p className={alertMessage}>
-                            CollaboNote uses a Supabase database, and the free tier often resets after inactivity. 
-                        </p>
-                        <p className={contactInfo}>
-                            Please contact admin to bring the site back online.
-                        </p>
-                    </article>
-                </div>
+                <Toast
+                    type="warning"
+                    header="Database Connection Error"
+                    message="CollaboNote uses a Supabase database, and the free tier often resets after inactivity. Please contact admin to bring the site back online."
+                    duration={10000}
+                    onClose={() => setShowDbError(false)}
+                />
             )}
             <h6>Login or Register</h6>
             <LoginInput 

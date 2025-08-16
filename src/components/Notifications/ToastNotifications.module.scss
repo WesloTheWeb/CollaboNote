@@ -71,6 +71,10 @@
    .toastHeader {
        background-color: #4caf50; /* Match the success green */
        color: white;
+       
+       h3 {
+           color: white;
+       }
    }
    .toastBody {
        background-color: #e8f5e9; /* Light green background */
@@ -82,6 +86,10 @@
    .toastHeader {
        background-color: v.$color-danger-base;
        color: v.$primaryBackgroundColorWhite;
+       
+       h3 {
+           color: rgb(240, 206, 203);
+       }
    }
    .toastBody {
        background-color: lighten(v.$color-danger-base, 40%);
@@ -93,6 +101,10 @@
    .toastHeader {
        background-color: v.$color-red-base;
        color: v.$primaryBackgroundColorWhite;
+       
+       h3 {
+           color: white;
+       }
    }
    .toastBody {
        background-color: lighten(v.$color-red-base, 40%);
@@ -104,6 +116,10 @@
    .toastHeader {
        background-color: v.$color-blue-base;
        color: v.$primaryBackgroundColorWhite;
+       
+       h3 {
+           color: white;
+       }
    }
    .toastBody {
        background-color: lighten(v.$color-blue-base, 40%);

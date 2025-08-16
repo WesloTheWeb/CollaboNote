@@ -63,9 +63,18 @@ const LoginInput = ({ showDbError, setShowDbError }: LoginInputProps) => {
                 window.location.href = result.url || '/';
             }
         } catch (error) {
-            // Network error - might be database issue
+            // Only show database error if it's specifically a database connection issue
+            // For other network errors, show a generic error message
             console.error('Login error:', error);
-            setLoginError('An unexpected error occurred');
+            if (error instanceof TypeError && error.message.includes('fetch')) {
+                // Network error - might be database issue, show database error
+                if (setShowDbError) {
+                    setShowDbError(true);
+                }
+            } else {
+                // Other types of errors
+                setLoginError('An unexpected error occurred');
+            }
             setIsLoading(false);
         }
     };
