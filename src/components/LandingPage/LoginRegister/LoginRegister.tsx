@@ -3,12 +3,13 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import LoginInput from './LoginInput';
-import classes from './LoginRegister.module.scss';
 import Button from '@/components/Button/Button';
 import { ButtonTypes } from '@/interfaces';
 import Banner from '@/components/Banners/Banners';
 
-const { loginContainer } = classes;
+import classes from './LoginRegister.module.scss';
+
+const { loginContainer, alertContainer, alertCard, alertIcon, alertTitle, alertMessage, contactInfo } = classes;
 
 const LoginRegister = () => {
     const [showDbError, setShowDbError] = useState(false);
@@ -17,7 +18,7 @@ const LoginRegister = () => {
         try {
             // Check database status FIRST
             const healthCheck = await fetch('/api/health-check');
-
+            
             if (!healthCheck.ok) {
                 // Database is down, show alert
                 setShowDbError(true);
@@ -55,18 +56,28 @@ const LoginRegister = () => {
     return (
         <section className={loginContainer}>
             {showDbError && (
-                <Banner
-                    type="error"
-                    variant="static"
-                    message="Database connection unavailable. Please contact admin to bring the site back online."
-                />
+                <div className={alertContainer}>
+                    <article className={alertCard}>
+                        <div className={alertIcon}>⚠️</div>
+                        <h3 className={alertTitle}>Database Connection Error</h3>
+                        <p className={alertMessage}>
+                            CollaboNote uses a Supabase database, and the free tier often resets after inactivity. 
+                        </p>
+                        <p className={contactInfo}>
+                            Please contact admin to bring the site back online.
+                        </p>
+                    </article>
+                </div>
             )}
             <h6>Login or Register</h6>
-            <LoginInput />
+            <LoginInput 
+                showDbError={showDbError} 
+                setShowDbError={setShowDbError} 
+            />
             <div style={{ margin: '1rem 0', textAlign: 'center' }}>
                 <span>or</span>
             </div>
-            <Button
+            <Button 
                 buttonType={ButtonTypes.GUESTSIGNIN}
                 fn={handleGuestLogin}
             />

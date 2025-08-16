@@ -12,9 +12,14 @@ type FormValues = {
     password: string;
 };
 
+interface LoginInputProps {
+    showDbError?: boolean;
+    setShowDbError?: (value: boolean) => void;
+};
+
 const { formSection, errorMessage, submitButton } = classes;
 
-const LoginInput = () => {
+const LoginInput = ({ showDbError, setShowDbError }: LoginInputProps) => {
     const formMethods = useForm<FormValues>();
     const [isLoading, setIsLoading] = useState(false);
     const [loginError, setLoginError] = useState('');
@@ -22,22 +27,44 @@ const LoginInput = () => {
     const onSubmit = async (data: FormValues) => {
         setIsLoading(true);
         setLoginError('');
+        
+        // Clear any existing db error when trying again
+        if (setShowDbError) {
+            setShowDbError(false);
+        }
 
         try {
-            // Let NextAuth handle the redirect - this eliminates flicker
+            // Check database status FIRST
+            const healthCheck = await fetch('/api/health-check');
+            
+            if (!healthCheck.ok) {
+                // Database is down, show error
+                if (setShowDbError) {
+                    setShowDbError(true);
+                }
+                setIsLoading(false);
+                return;
+            }
+
+            // Database is up, proceed with login
             const result = await signIn('credentials', {
                 email: data.email,
                 password: data.password,
-                callbackUrl: '/', // Redirect here after successful login
-                redirect: true,   // Let NextAuth handle the redirect
+                callbackUrl: '/',
+                redirect: false,  // Handle errors properly
             });
 
-            // This code won't run if redirect: true, but keep for error handling
             if (result?.error) {
+                // This is a login error (wrong credentials), NOT a database error
                 setLoginError('Invalid email or password');
                 setIsLoading(false);
+            } else if (result?.ok) {
+                // Successful login, manually redirect
+                window.location.href = result.url || '/';
             }
         } catch (error) {
+            // Network error - might be database issue
+            console.error('Login error:', error);
             setLoginError('An unexpected error occurred');
             setIsLoading(false);
         }
