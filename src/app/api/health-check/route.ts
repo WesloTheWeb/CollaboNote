@@ -3,8 +3,7 @@ import db from '@/lib/db';
 
 export async function GET() {
   try {
-    // const isConnected = await db.testConnection();
-    const isConnected = false
+    const isConnected = await db.testConnection();
     
     if (isConnected) {
       return NextResponse.json({ 
