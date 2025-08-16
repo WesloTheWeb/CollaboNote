@@ -25,6 +25,7 @@ const {
 const Registration = () => {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showDbError, setShowDbError] = useState(false);
     const [apiResponse, setApiResponse] = useState<{
         success?: boolean;
         message?: string;
@@ -62,6 +63,19 @@ const Registration = () => {
         try {
             setIsSubmitting(true);
             setApiResponse(null);
+            
+            // Clear any existing db error when trying again
+            setShowDbError(false);
+
+            // Check database status FIRST
+            const healthCheck = await fetch('/api/health-check');
+            
+            if (!healthCheck.ok) {
+                // Database is down, show error
+                setShowDbError(true);
+                setIsSubmitting(false);
+                return;
+            }
 
             const response = await fetch('/api/register', {
                 method: 'POST',
@@ -110,10 +124,17 @@ const Registration = () => {
             }
         } catch (error) {
             console.error('Error during registration:', error);
-            setApiResponse({
-                success: false,
-                message: 'An error occurred. Please try again later.'
-            });
+            // Only show database error if it's specifically a database connection issue
+            if (error instanceof TypeError && error.message.includes('fetch')) {
+                // Network error - might be database issue, show database error
+                setShowDbError(true);
+            } else {
+                // Other types of errors
+                setApiResponse({
+                    success: false,
+                    message: 'An error occurred. Please try again later.'
+                });
+            }
         } finally {
             setIsSubmitting(false);
         }
@@ -131,6 +152,16 @@ const Registration = () => {
 
     return (
         <section className={registrationContainer}>
+            {showDbError && (
+                <Toast
+                    type="warning"
+                    header="Database Connection Error"
+                    message="CollaboNote uses a Supabase database, and the free tier often resets after inactivity. Please contact admin to bring the site back online."
+                    duration={10000}
+                    onClose={() => setShowDbError(false)}
+                />
+            )}
+            
             <h2>Create an Account</h2>
             <p>Join our community of goal-setters and achievers.</p>
 
