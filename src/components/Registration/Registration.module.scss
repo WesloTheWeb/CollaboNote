@@ -55,7 +55,7 @@
 }
 
 .submitButton {
-  background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+  background-color: v.$color-terracotta;
   color: #fff;
   border: none;
   border-radius: v.$button-radius;
@@ -66,7 +66,7 @@
   transition: background-color v.$transition-standard;
 
   &:hover:not(:disabled) {
-    background-color: darken(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 10%);
+    background-color: v.$color-terracotta-dark;
   }
 
   &:disabled {

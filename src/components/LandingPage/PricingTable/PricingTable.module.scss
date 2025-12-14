@@ -31,7 +31,7 @@
     }
 
     &.popularPlan {
-      background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+      background-color: v.$color-terracotta;
       position: relative;
 
       &::after {
@@ -40,7 +40,7 @@
         top: 8px;
         right: 8px;
         background-color: #fff;
-        color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        color: v.$color-terracotta;
         font-size: v.$font-size-xs;
         padding: 2px 6px;
         border-radius: 10px;
@@ -61,8 +61,8 @@
     padding: v.$spacing-md;
     font-size: v.$font-size-xl;
     font-weight: 700;
-    color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
-    background-color: rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.05);
+    color: v.$color-terracotta;
+    background-color: v.$color-terracotta-alpha-05;
 
     &:not(:last-child) {
       border-right: 1px solid v.$color-grey-light;
@@ -141,7 +141,7 @@
 
 .ctaButton {
   width: 90%;
-  background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+  background-color: v.$color-terracotta;
   color: t.$ButtonTextColorWhite;
   border: none;
   border-radius: v.$button-radius;
@@ -152,21 +152,21 @@
   transition: background-color v.$transition-standard;
 
   &:hover {
-    background-color: darken(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 10%);
+    background-color: v.$color-terracotta-dark;
   }
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.4);
+    box-shadow: 0 0 0 2px v.$color-terracotta-alpha-40;
   }
 
   &.secondary {
     background-color: transparent;
-    color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
-    border: 1px solid map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+    color: v.$color-terracotta;
+    border: 1px solid v.$color-terracotta;
 
     &:hover {
-      background-color: rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.1);
+      background-color: v.$color-terracotta-alpha-10;
     }
   }
 }

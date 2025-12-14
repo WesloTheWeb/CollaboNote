@@ -29,7 +29,7 @@
         color: #8b7355;
         
         &:hover {
-            color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+            color: v.$color-terracotta;
         }
     }
     
@@ -53,7 +53,7 @@
     cursor: pointer;
     
     &:focus {
-        outline: 2px solid map-get(map-get(v.$colors, 'primary'), 'coral');
+        outline: 2px solid v.$color-coral;
         outline-offset: 2px;
         border-radius: v.$radius-base;
     }
@@ -63,13 +63,13 @@
     display: flex;
     align-items: center;
     padding: v.$spacing-md;
-    background-color: rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.1);
+    background-color: v.$color-coral-alpha-10;
     border-radius: v.$radius-base;
-    border: 1px solid rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.2);
+    border: 1px solid v.$color-coral-alpha-20;
     transition: background-color v.$transition-standard;
     
     .mobileProfileButton:hover & {
-        background-color: rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.15);
+        background-color: v.$color-coral-alpha-15;
     }
 }
 
@@ -77,7 +77,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, map-get(map-get(v.$colors, 'primary'), 'coral'), map-get(map-get(v.$colors, 'secondary'), 'rose'));
+    background: linear-gradient(135deg, v.$color-coral, v.$color-rose);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -122,7 +122,7 @@
 
 .mobileProfileDropdown {
     margin-top: v.$spacing-md;
-    border-top: 1px solid rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.2);
+    border-top: 1px solid v.$color-coral-alpha-20;
     padding-top: v.$spacing-md;
 }
 
@@ -131,7 +131,7 @@
     align-items: center;
     width: 100%;
     padding: v.$spacing-md;
-    background-color: #E07A5F;
+    background-color: v.$color-terracotta;
     color: white;
     border: none;
     border-radius: v.$radius-sm;
@@ -141,11 +141,11 @@
     transition: background-color v.$transition-standard;
     
     &:hover {
-        background-color: #c66a4f;
+        background-color: v.$color-terracotta-dark;
     }
     
     &:focus {
-        outline: 2px solid #FF9A8B;
+        outline: 2px solid v.$color-coral;
         outline-offset: 2px;
     }
     
@@ -192,15 +192,15 @@
     margin-bottom: v.$spacing-xs;
 
     &:hover {
-        background-color: rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.1);
-        color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        background-color: v.$color-terracotta-alpha-10;
+        color: v.$color-terracotta;
     }
 
     &.active {
-        background-color: rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.15);
-        color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        background-color: v.$color-terracotta-alpha-15;
+        color: v.$color-terracotta;
         font-weight: 600;
-        border-left: 4px solid map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        border-left: 4px solid v.$color-terracotta;
     }
 
     &.locked {

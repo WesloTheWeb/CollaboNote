@@ -4,10 +4,10 @@
 // Left column gradient background
 .leftColumn {
     background: linear-gradient(135deg,
-            map-get(map-get(v.$colors, 'primary'), 'coral') 0%,
-            map-get(map-get(v.$colors, 'primary'), 'amber') 25%,
-            map-get(map-get(v.$colors, 'secondary'), 'terracotta') 75%,
-            map-get(map-get(v.$colors, 'secondary'), 'rose') 100%);
+            v.$color-coral 0%,
+            v.$color-amber 25%,
+            v.$color-terracotta 75%,
+            v.$color-rose 100%);
     background-size: 200% 200%;
     animation: gradientShift 15s ease infinite;
     min-height: 100vh;
@@ -17,7 +17,7 @@
 .rightColumn {
     background:
         url('/assets/backdrop-landing.jpg'),
-        map-get(map-get(v.$colors, 'secondary'), 'sage');
+        v.$color-sage;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -63,8 +63,8 @@
         width: 6px;
         height: 100%;
         background: linear-gradient(to bottom,
-                map-get(map-get(v.$colors, 'primary'), 'coral'),
-                map-get(map-get(v.$colors, 'secondary'), 'terracotta'));
+                v.$color-coral,
+                v.$color-terracotta);
     }
 }
 
@@ -84,7 +84,7 @@
         display: block;
         width: 60px;
         height: 4px;
-        background-color: map-get(map-get(v.$colors, 'primary'), 'amber');
+        background-color: v.$color-amber;
         margin-top: v.$spacing-xs;
     }
 }
@@ -103,7 +103,7 @@
     }
 
     strong {
-        color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        color: v.$color-terracotta;
         font-weight: 600;
     }
 }
@@ -131,101 +131,7 @@
             position: absolute;
             left: 0;
             margin-left: calc(-1 * v.$spacing-md);
-            color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
-            font-size: 1.2em;
-        }
-    }
-}
-
-.ctaButton {
-    display: inline-block;
-    background-color: map-get(map-get(v.$colors, 'primary'), 'coral');
-    color: t.$ButtonTextColorWhite;
-    padding: v.$spacing-md v.$spacing-lg;
-    border-radius: v.$button-radius;
-    font-weight: v.$button-font-weight;
-    text-decoration: none;
-    margin-top: v.$spacing-lg;
-    transition: background-color v.$transition-standard;
-    border: none;
-    cursor: pointer;
-
-    @media #{v.$mq-smallScreen} {
-        width: 100%;
-        text-align: center;
-        padding: v.$spacing-sm v.$spacing-md;
-        margin-top: v.$spacing-md;
-    }
-
-    &:hover {
-        background-color: darken(map-get(map-get(v.$colors, 'primary'), 'coral'), 10%);
-    }
-}
-
-.welcomeTitle {
-    font-size: v.$font-size-2xl;
-    color: t.text-color('header');
-    margin-bottom: v.$spacing-md;
-    font-weight: 700;
-    position: relative;
-
-    @media #{v.$mq-smallScreen} {
-        font-size: calc(v.$font-size-2xl * 0.8);
-    }
-
-    &::after {
-        content: '';
-        display: block;
-        width: 60px;
-        height: 4px;
-        background-color: map-get(map-get(v.$colors, 'primary'), 'amber');
-        margin-top: v.$spacing-xs;
-    }
-}
-
-.introContent {
-    color: t.text-color('body');
-    font-size: v.$font-size-base;
-    line-height: 1.6;
-
-    @media #{v.$mq-smallScreen} {
-        font-size: calc(v.$font-size-base * 0.95);
-    }
-
-    p {
-        margin-bottom: v.$spacing-md;
-    }
-
-    strong {
-        color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
-        font-weight: 600;
-    }
-}
-
-.featuresList {
-    margin-top: v.$spacing-lg;
-    padding-left: v.$spacing-lg;
-
-    @media #{v.$mq-smallScreen} {
-        margin-top: v.$spacing-md;
-        padding-left: v.$spacing-md;
-    }
-
-    li {
-        margin-bottom: v.$spacing-md;
-        position: relative;
-        padding-left: v.$spacing-md;
-
-        @media #{v.$mq-smallScreen} {
-            margin-bottom: v.$spacing-sm;
-        }
-
-        &::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            margin-left: calc(-1 * v.$spacing-md);
-            color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+            color: v.$color-terracotta;
             font-size: 1.2em;
         }
     }
@@ -234,8 +140,8 @@
 .ctaButton {
     display: inline-block;
     background: linear-gradient(135deg,
-            map-get(map-get(v.$colors, 'primary'), 'coral'),
-            map-get(map-get(v.$colors, 'secondary'), 'terracotta'));
+            v.$color-coral,
+            v.$color-terracotta);
     color: t.$ButtonTextColorWhite;
     padding: v.$spacing-md v.$spacing-lg;
     border-radius: v.$button-radius;
@@ -273,8 +179,8 @@
     &:hover {
         transform: translateY(-2px);
         box-shadow:
-            0 8px 25px rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.3),
-            0 4px 12px rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.2);
+            0 8px 25px v.$color-coral-alpha-30,
+            0 4px 12px v.$color-terracotta-alpha-10;
 
         &::before {
             left: 100%;

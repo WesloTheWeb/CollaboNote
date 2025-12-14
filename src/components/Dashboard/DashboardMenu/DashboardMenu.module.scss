@@ -38,15 +38,15 @@
     position: relative;
 
     &:hover {
-        background-color: rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.1);
-        color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        background-color: v.$color-terracotta-alpha-10;
+        color: v.$color-terracotta;
         transform: translateX(4px);
     }
 
     &.active {
-        background-color: rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.15);
-        color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
-        border-right: 3px solid map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+        background-color: v.$color-terracotta-alpha-15;
+        color: v.$color-terracotta;
+        border-right: 3px solid v.$color-terracotta;
         font-weight: 600;
 
         &::before {
@@ -56,7 +56,7 @@
             top: 0;
             bottom: 0;
             width: 4px;
-            background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+            background-color: v.$color-terracotta;
         }
     }
 
@@ -126,16 +126,16 @@
     display: flex;
     align-items: center;
     padding: v.$spacing-md;
-    background-color: rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.1);
+    background-color: v.$color-coral-alpha-10;
     border-radius: v.$radius-base;
-    border: 1px solid rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.2);
+    border: 1px solid v.$color-coral-alpha-20;
 }
 
 .profileAvatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, map-get(map-get(v.$colors, 'primary'), 'coral'), map-get(map-get(v.$colors, 'secondary'), 'rose'));
+    background: linear-gradient(135deg, v.$color-coral, v.$color-rose);
     display: flex;
     align-items: center;
     justify-content: center;

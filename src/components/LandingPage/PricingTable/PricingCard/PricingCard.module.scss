@@ -26,7 +26,7 @@
   height: auto;
   
   &.popular {
-    border: 2px solid map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+    border: 2px solid v.$color-terracotta;
   }
 }
 
@@ -38,7 +38,7 @@
   position: relative;
   
   &.popular {
-    background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+    background-color: v.$color-terracotta;
     
     &::after {
       content: 'Most Popular';
@@ -46,7 +46,7 @@
       top: 8px;
       right: 8px;
       background-color: #fff;
-      color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+      color: v.$color-terracotta;
       font-size: v.$font-size-xs;
       padding: 2px 6px;
       border-radius: 10px;
@@ -65,7 +65,7 @@
 .price {
   font-size: v.$font-size-2xl;
   font-weight: 700;
-  color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+  color: v.$color-terracotta;
   margin: v.$spacing-sm 0;
   text-align: center;
   
@@ -132,7 +132,7 @@
 
 .ctaButton {
   width: 100%;
-  background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+  background-color: v.$color-terracotta;
   color: t.$ButtonTextColorWhite;
   border: none;
   border-radius: v.$button-radius;
@@ -143,21 +143,21 @@
   transition: background-color v.$transition-standard;
   
   &:hover {
-    background-color: darken(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 10%);
+    background-color: v.$color-terracotta-dark;
   }
   
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.4);
+    box-shadow: 0 0 0 2px v.$color-terracotta-alpha-40;
   }
   
   &.secondary {
     background-color: transparent;
-    color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
-    border: 1px solid map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+    color: v.$color-terracotta;
+    border: 1px solid v.$color-terracotta;
     
     &:hover {
-      background-color: rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.1);
+      background-color: v.$color-terracotta-alpha-10;
     }
   }
 }
@@ -171,7 +171,7 @@
     }
     
     .swiper-pagination-bullet-active {
-      background-color: map-get(map-get(v.$colors, 'secondary'), 'terracotta');
+      background-color: v.$color-terracotta;
       opacity: 1;
     }
   }

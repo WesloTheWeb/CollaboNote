@@ -1,4 +1,4 @@
-@use '../../styles/variables.scss' as v;
+@use '../../../../../styles/variables.scss' as v;
 
 .tabContainer {
   display: flex;
@@ -22,13 +22,13 @@
   position: relative;
 
   &:hover:not(.disabled) {
-    color: map-get(map-get(v.$colors, 'secondary'), 'sage');
+    color: v.$color-sage;
     background: rgba(169, 199, 126, 0.1);
   }
 
   &.active {
-    color: map-get(map-get(v.$colors, 'secondary'), 'sage');
-    border-bottom-color: map-get(map-get(v.$colors, 'secondary'), 'sage');
+    color: v.$color-sage;
+    border-bottom-color: v.$color-sage;
     background: rgba(169, 199, 126, 0.12);
   }
 

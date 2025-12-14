@@ -61,8 +61,8 @@
 
     &:focus {
       outline: none;
-      border-color: map-get(map-get(v.$colors, 'primary'), 'coral');
-      box-shadow: 0 0 0 2px rgba(map-get(map-get(v.$colors, 'primary'), 'coral'), 0.2);
+      border-color: v.$color-coral;
+      box-shadow: 0 0 0 2px v.$color-coral-alpha-20;
     }
 
     &[aria-invalid="true"] {
@@ -99,7 +99,7 @@
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(map-get(map-get(v.$colors, 'secondary'), 'terracotta'), 0.4);
+    box-shadow: 0 0 0 2px v.$color-terracotta-alpha-40;
   }
 }
 

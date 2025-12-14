@@ -31,6 +31,28 @@ $colors: (
   @return map.get($colors, 'text', $key);
 }
 
+//#########################################################
+// ? Color Variables with Alpha (for Turbopack compatibility)
+// ? - terracotta: #E07A5F = rgb(224, 122, 95)
+// ? - coral: #FF9A8B = rgb(255, 154, 139)
+//#########################################################
+$color-terracotta: #E07A5F;
+$color-terracotta-alpha-05: rgba(224, 122, 95, 0.05);
+$color-terracotta-alpha-10: rgba(224, 122, 95, 0.1);
+$color-terracotta-alpha-15: rgba(224, 122, 95, 0.15);
+$color-terracotta-alpha-40: rgba(224, 122, 95, 0.4);
+$color-terracotta-dark: #c66a4f;
+
+$color-coral: #FF9A8B;
+$color-coral-alpha-10: rgba(255, 154, 139, 0.1);
+$color-coral-alpha-15: rgba(255, 154, 139, 0.15);
+$color-coral-alpha-20: rgba(255, 154, 139, 0.2);
+$color-coral-alpha-30: rgba(255, 154, 139, 0.3);
+
+$color-amber: #FFBD59;
+$color-rose: #D67AB1;
+$color-sage: #A9C77E;
+
 $primaryBackgroundColorWhite: #f8f8f8;
 
 //#########################################################
