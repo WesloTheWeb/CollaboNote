@@ -17,7 +17,7 @@ export async function GET() {
       }, { status: 503 });
     }
   } catch (error) {
-    console.error('Health check failed:', error);
+    console.error('Health check failed with the following error:', error);
     return NextResponse.json({ 
       status: 'error',
       database: 'error',
