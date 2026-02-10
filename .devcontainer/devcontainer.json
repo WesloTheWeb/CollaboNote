@@ -1,0 +1,59 @@
+{
+  "name": "CollaboNote Dev Environment",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+
+  // Features to install in the container
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+
+  // VS Code settings for the container
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        }
+      },
+      
+      // Extensions that will be installed in the container
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "formulahendry.auto-rename-tag",
+        "dsznajder.es7-react-js-snippets",
+        "supabase.vscode-supabase"
+      ]
+    }
+  },
+
+  // Forward ports for Next.js and Supabase
+  "forwardPorts": [
+    3000,     // Next.js dev server
+    54321,    // Supabase API
+    54323     // Supabase Studio (dashboard)
+  ],
+
+  // Run after container is created
+  "postCreateCommand": "npm install && supabase start",
+
+  // Keep container running
+  "overrideCommand": false,
+
+  // Mount Docker socket for Docker-in-Docker
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ],
+
+  // Run as non-root user
+  "remoteUser": "node"
+}
