@@ -2,41 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import bcrypt from 'bcrypt';
 import db from '../../../lib/db';
-import { randomUUID } from 'crypto';
+import { randomUUID } from 'node:crypto';
 
-// Function to ensure User table exists
-async function ensureUserTableExists() {
-  try {
-    // Check if User table exists
-    const tableExists = await db.query(`
-      SELECT EXISTS (
-        SELECT FROM information_schema.tables 
-        WHERE table_schema = 'public'
-        AND table_name = 'User'
-      );
-    `);
-    
-    if (!tableExists.rows[0].exists) {
-      // Create the User table
-      await db.query(`
-        CREATE TABLE "User" (
-          id TEXT PRIMARY KEY,
-          "firstName" TEXT NOT NULL,
-          "lastName" TEXT NOT NULL,
-          email TEXT NOT NULL UNIQUE,
-          password TEXT NOT NULL,
-          "termsAccepted" BOOLEAN DEFAULT false,
-          "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-          "updatedAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-        );
-      `);
-    }
-    
-    return true;
-  } catch (error) {
-    console.error('Error ensuring User table exists:', error);
-    return false;
-  }
+// Ensure the User table exists via the shared db helper
+function ensureUserTableExists() {
+  return db.ensureTable('User', `
+    CREATE TABLE "User" (
+      id TEXT PRIMARY KEY,
+      "firstName" TEXT NOT NULL,
+      "lastName" TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
+      password TEXT NOT NULL,
+      "termsAccepted" BOOLEAN DEFAULT false,
+      "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      "updatedAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+  `);
 }
 
 // GET handler to test API and database connection

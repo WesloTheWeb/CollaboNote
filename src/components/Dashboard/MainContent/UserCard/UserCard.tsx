@@ -11,7 +11,7 @@ const UserCard = ({ uuid, username, avatar, postDate, achievement, membership, t
             <section className={userCardHeaderDisplay}>
                 <div className={userCardDetailsContainer}>
                     <figure>
-                        <img src={avatar} alt={avatar} width={50} height={50} />
+                        <Image src={avatar} alt={`${username}'s avatar`} width={50} height={50} />
                     </figure>
                     <div className={userCardDetails}>
                         <strong>{username}</strong>

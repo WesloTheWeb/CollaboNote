@@ -13,27 +13,39 @@ if (!connectionString) {
   console.error('DATABASE_URL environment variable is not set');
 }
 
-// Create connection pool with reasonable limits for security
-const pool = new Pool({
-  connectionString,
-  ssl: process.env.NODE_ENV === 'production' 
-    ? { 
-        rejectUnauthorized: false 
-      } 
-    : false,
-  max: 20, // Maximum number of clients in the pool
-  idleTimeoutMillis: 30000, // Close idle clients after 30 seconds
-  connectionTimeoutMillis: 10000, // Increased timeout for Supabase
-});
+// Reuse the pool across dev hot reloads — each reload re-evaluates this module,
+// and a fresh Pool every time exhausts Supabase's free-tier connection limit
+const globalForPg = globalThis as typeof globalThis & { pgPool?: Pool };
 
-// Test the connection
-pool.on('connect', () => {
-  console.log('Connected to PostgreSQL database');
-});
+function createPool(): Pool {
+  const newPool = new Pool({
+    connectionString,
+    ssl: process.env.NODE_ENV === 'production'
+      ? {
+          rejectUnauthorized: false
+        }
+      : false,
+    max: 10, // Keep modest: Supabase free tier allows few concurrent connections
+    idleTimeoutMillis: 30000, // Close idle clients after 30 seconds
+    connectionTimeoutMillis: 10000, // Increased timeout for Supabase
+  });
 
-pool.on('error', (err) => {
-  console.error('PostgreSQL error:', err);
-});
+  newPool.on('connect', () => {
+    console.log('Connected to PostgreSQL database');
+  });
+
+  newPool.on('error', (err) => {
+    console.error('PostgreSQL error:', err);
+  });
+
+  return newPool;
+}
+
+const pool = globalForPg.pgPool ?? createPool();
+
+if (process.env.NODE_ENV !== 'production') {
+  globalForPg.pgPool = pool;
+}
 
 /**
  * Type for query parameters

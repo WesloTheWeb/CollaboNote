@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     const guestEmail = process.env.GUEST_EMAIL || 'guest@collabonote.demo';
     const guestPassword = process.env.GUEST_PASSWORD || 'guest123';
