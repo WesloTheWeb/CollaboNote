@@ -1,7 +1,7 @@
 import { AuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { Pool } from "pg"
 import bcrypt from "bcrypt"
+import db from "./db"
 
 // Extend NextAuth types to include role and tier
 declare module "next-auth" {
@@ -22,11 +22,6 @@ declare module "next-auth" {
   }
 };
 
-// Create connection pool for NextAuth
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
-
 export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
@@ -42,7 +37,7 @@ export const authOptions: AuthOptions = {
 
         try {
           // Query your existing User table with role and tier
-          const result = await pool.query(
+          const result = await db.query(
             'SELECT * FROM "User" WHERE email = $1',
             [credentials.email.toLowerCase().trim()]
           )
@@ -93,9 +88,9 @@ export const authOptions: AuthOptions = {
       // When session is updated (via update() function), refetch user data
       if (trigger === "update" && token.uid) {
         try {
-          const result = await pool.query(
+          const result = await db.query(
             'SELECT "firstName", "lastName", role, "accountTier" FROM "User" WHERE id = $1',
-            [token.uid]
+            [token.uid as string]
           )
           
           if (result.rows.length > 0) {

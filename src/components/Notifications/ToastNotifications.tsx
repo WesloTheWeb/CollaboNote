@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { CircleCheck, CircleAlert, AlertTriangle, Info, X } from 'lucide-react';
 import classes from './ToastNotifications.module.scss';
 
@@ -31,20 +31,18 @@ const Toast = ({
 }: ToastProps) => {
     const [isVisible, setIsVisible] = useState(true);
 
+    const handleClose = useCallback(() => {
+        setIsVisible(false);
+        onClose?.();
+    }, [onClose]);
+
     useEffect(() => {
         if (duration) {
-            const timer = setTimeout(() => {
-                handleClose();
-            }, duration);
+            const timer = setTimeout(handleClose, duration);
 
             return () => clearTimeout(timer);
         }
-    }, [duration]);
-
-    const handleClose = () => {
-        setIsVisible(false);
-        onClose?.();
-    };
+    }, [duration, handleClose]);
 
     const getIcon = () => {
         switch (type) {
